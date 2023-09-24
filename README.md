@@ -66,12 +66,20 @@ So that I can easily access them later.
 
 ## Class Diagram Description
 
-- Ingredient: Represents an ingredient used in recipes. It has attributes ingredientId and name.
-- Recipe: Represents a recipe in the application. It has attributes like recipeId, name, cuisine, type, difficulty, videoURL, and lists of ingredients and instructions. It also has a method viewRecipeDetails().
-- RecipeList: Represents a list of recipes, created by a user. It contains a list of Recipe objects. It provides methods like filterByType(type: String) and filterByDifficulty(difficulty: String) to browse and filter recipes.
-- Instruction: Represents step-by-step instructions for cooking a recipe. It has attributes instructionId, stepNumber, and description.
-- RecipeCollection: Represents a collection of favored recipes for a user. It has attributes like collectionId, userId, and a list of recipe IDs. It provides methods to addToCollection(), removeFromCollection(), and getCollection().
-- Personalized Dashboard: Represents a personalized dashboard for a user. It contains user-specific widgets and themes. It has attributes userId, theme, and a list of Widget objects. It can display the user's dashboard using the displayDashboard() method.
-- User: Represents a user of the application. It has attributes like userId, username, email, and password. Users can register(), login(), and saveRecipe().
+# Interfaces:
+
+- IRecipeDao: Represents a data access object for recipes. It provides methods for finding recipes by ID or name, creating, updating, and deleting recipes.
+- IUserDao: Represents a data access object for users. It provides methods for finding users by ID or email, creating, updating, and deleting users.
+- IRecipeCollectionDao: Represents a data access object for recipe collections. It provides methods for finding collections by ID or user ID, creating user collections, adding and removing recipes from collections, and deleting collections.
+
+# Classes:
+
+- Ingredient: Represents an ingredient with attributes such as ingredientId and name.
+- Recipe: Represents a recipe with attributes like recipeId, name, cuisine, type, difficulty, ingredients (a list of Ingredient objects), and instructions (a list of Instruction objects). It also has a method to view recipe details.
+- RecipeList: Represents a list of recipes (recipes attribute is a list of Recipe objects). It provides methods for filtering recipes by type or difficulty and browsing the recipe list.
+- Instruction: Represents an instruction with attributes like instructionId, stepNumber, description, and videoURL.
+- RecipeCollection: Represents a collection of recipes with attributes such as collectionId, userId, and recipeIds (a list of recipe IDs). It has methods for adding, removing, and retrieving recipes from the collection.
+- PersonalizedDashboard: Represents a personalized dashboard for a user with attributes userId, theme, and widgets (a list of Widget objects). It has a method to display the user's dashboard.
+- User: Represents a user with attributes like userId, username, email, and password. It provides methods for user registration, login, and saving recipes.
 
 
