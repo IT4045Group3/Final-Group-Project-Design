@@ -62,7 +62,7 @@ So that I can easily access them later.
 
 ## Class Diagram
 
-![Class Diagram](https://raw.githubusercontent.com/YifanBian-bianya/private/master/Class%20diagram%20with%20UML%20notation.png)
+![Class Diagram](https://github.com/YifanBian-bianya/private/blob/master/Class%20diagram%20with%20UML%20notation%20(1).png)
 
 ## Class Diagram Description
 
