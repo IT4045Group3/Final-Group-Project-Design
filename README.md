@@ -18,6 +18,11 @@ So that I can access personalized content and save my cooking progress.
 **When**: I log in with my credentials.
 **Then**: I should access my personalized dashboard.
 
+**Given**: I have already registered
+**When**: I try to sign up with the same email
+**Then**: I should receive an error message indicating that the email is already in use.
+
+
 2: Browse Recipes
 As a User, want to browse a variety of recipes
 So that I can discover new dishes to cook.
