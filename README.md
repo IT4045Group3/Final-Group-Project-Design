@@ -6,7 +6,7 @@ Final/Group Project Design
 
 ## Functional Requirements
 
-### Requirement 1: User Registration
+ 1: User Registration
 As a User, I want to create an account
 So that I can access personalized content and save my cooking progress.
 
@@ -18,7 +18,7 @@ So that I can access personalized content and save my cooking progress.
 **When**: I log in with my credentials
 **Then**: I should access my personalized dashboard.
 
-### Requirement 2: Browse Recipes
+2: Browse Recipes
 As a User, want to browse a variety of recipes
 So that I can discover new dishes to cook.
 
@@ -30,7 +30,7 @@ So that I can discover new dishes to cook.
 **When**: I use the search or filter options
 **Then**: I should be able to narrow down my recipe choices by cuisine, type, or difficulty level.
 
-### Requirement 3: View Recipe Details
+ 3: View Recipe Details
 As a User, I want to view detailed information about a recipe
 So that I can decide if I want to try cooking it.
 
@@ -42,7 +42,7 @@ So that I can decide if I want to try cooking it.
 - List of ingredients
 - Step-by-step cooking instructions
 
-### Requirement 4: Save and Favorite Recipes
+ 4: Save and Favorite Recipes
 As a User, I want to save and favorite recipes
 So that I can easily access them later.
 
