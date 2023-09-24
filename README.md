@@ -58,3 +58,11 @@ So that I can easily access them later.
 **Given**:I have saved recipes
 **When**: I go to my profile
 **Then**: I should see a list of my saved recipes and be able to mark them as favorites.
+
+
+## Class Diagram
+
+![Class Diagram](https://raw.githubusercontent.com/YifanBian-bianya/private/master/Class%20diagram%20with%20UML%20notation.png)
+
+
+
