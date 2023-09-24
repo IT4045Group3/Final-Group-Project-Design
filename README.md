@@ -64,5 +64,14 @@ So that I can easily access them later.
 
 ![Class Diagram](https://raw.githubusercontent.com/YifanBian-bianya/private/master/Class%20diagram%20with%20UML%20notation.png)
 
+## Class Diagram Description
+
+- Ingredient: Represents an ingredient used in recipes. It has attributes ingredientId and name.
+- Recipe: Represents a recipe in the application. It has attributes like recipeId, name, cuisine, type, difficulty, videoURL, and lists of ingredients and instructions. It also has a method viewRecipeDetails().
+- RecipeList: Represents a list of recipes, created by a user. It contains a list of Recipe objects. It provides methods like filterByType(type: String) and filterByDifficulty(difficulty: String) to browse and filter recipes.
+- Instruction: Represents step-by-step instructions for cooking a recipe. It has attributes instructionId, stepNumber, and description.
+- RecipeCollection: Represents a collection of favored recipes for a user. It has attributes like collectionId, userId, and a list of recipe IDs. It provides methods to addToCollection(), removeFromCollection(), and getCollection().
+- Personalized Dashboard: Represents a personalized dashboard for a user. It contains user-specific widgets and themes. It has attributes userId, theme, and a list of Widget objects. It can display the user's dashboard using the displayDashboard() method.
+- User: Represents a user of the application. It has attributes like userId, username, email, and password. Users can register(), login(), and saveRecipe().
 
 
