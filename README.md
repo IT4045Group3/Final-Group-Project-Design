@@ -10,12 +10,12 @@ Final/Group Project Design
 As a User, I want to create an account
 So that I can access personalized content and save my cooking progress.
 
-**Given**: I am a new user
-**When**: I visit the app
+**Given**: I am a new user.
+**When**: I visit the app.
 **Then**: I should see an option to sign up with my email and password.
 
-**Given**: I have registered
-**When**: I log in with my credentials 
+**Given**: I have registered.
+**When**: I log in with my credentials.
 **Then**: I should access my personalized dashboard.
 
 2: Browse Recipes
