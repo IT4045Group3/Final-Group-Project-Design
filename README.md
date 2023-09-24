@@ -66,13 +66,13 @@ So that I can easily access them later.
 
 ## Class Diagram Description
 
-# Interfaces:
+#### Interfaces:
 
 - IRecipeDao: Represents a data access object for recipes. It provides methods for finding recipes by ID or name, creating, updating, and deleting recipes.
 - IUserDao: Represents a data access object for users. It provides methods for finding users by ID or email, creating, updating, and deleting users.
 - IRecipeCollectionDao: Represents a data access object for recipe collections. It provides methods for finding collections by ID or user ID, creating user collections, adding and removing recipes from collections, and deleting collections.
 
-# Classes:
+#### Classes:
 
 - Ingredient: Represents an ingredient with attributes such as ingredientId and name.
 - Recipe: Represents a recipe with attributes like recipeId, name, cuisine, type, difficulty, ingredients (a list of Ingredient objects), and instructions (a list of Instruction objects). It also has a method to view recipe details.
