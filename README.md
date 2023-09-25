@@ -136,7 +136,7 @@ So that I can easily access them later.
 
 ## JSON Schema
 
-···Json
+```Json
 { 
    "title" : "cookingRecipe", 
    "type" : "object", 
