@@ -83,3 +83,43 @@ So that I can easily access them later.
 - User: Represents a user with attributes like userId, username, email, and password. It provides methods for user registration, login, and saving recipes.
 
 
+## JSON Schema
+
+{
+  "title" : "cookingRecipe",
+  "type" : "object",
+  "properties" : {
+     "recipeId" : {
+        "description" : "The unique identifier of the recipe.",
+        "type" : "Integer"
+     },
+     "recipeName" : {
+        "type" : "string"
+     },
+     "cookTime" : {
+        "type" : "string"
+     }
+     "tags" : {
+        "description" : "Classification of dishes.",
+        "type" : "array",
+        "intems" : {
+           "type" : "string"
+        },
+        "uniqueItems" : true
+     },
+     "ingredients" : {
+        "type" : "array",
+        "item" : {
+           "type" : "string",
+           "type" : "number"
+        }
+     },
+     "instructions" : {
+        "type" : "array",
+        "items" : {
+           "type" : "string"
+        }
+     }
+  }
+  "required" : ["recipeName", "cookTime", "ingredients", "instrucions"]
+}
