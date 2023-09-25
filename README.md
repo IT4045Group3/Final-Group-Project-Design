@@ -2,6 +2,57 @@
 Final/Group Project Design
 
 
+##Intro
+Introduction
+Group 3 Recipe: Your Ultimate Culinary Companion
+
+Welcome to Group 3 Recipe, your one-stop app for all your culinary adventures! Whether you're a seasoned chef or just starting in the kitchen,   here to elevate your cooking experience. With a vast collection of recipes, personalized recommendations, and a user-friendly interface, you'll embark on a delightful gastronomic journey like never before.
+
+Key Features
+
+User Registration: Create your account and access personalized content, save your favorite recipes, and track your cooking progress.
+
+Browse Recipes: Explore a diverse range of recipes, from quick weeknight dinners to gourmet delights. Discover new dishes to cook and savor.
+
+Personalized Dashboard: Once registered, access your personalized dashboard with tailored recipe recommendations based on your preferences and previous cooking history.
+
+Search and Filter: Easily find recipes that match your dietary preferences, ingredients on hand, or cuisine cravings.
+
+Cooking Progress Tracker: Keep track of your cooking progress for each recipe, making it easy to resume or plan your next culinary adventure.
+
+Community and Sharing: Join a community of fellow food enthusiasts, share your culinary creations, and discover inspiration from others.
+
+Storyboard
+User Registration
+
+Scenario: As a new user, I visit the Recipe  app.
+
+Action: I should see an option to sign up with my email and create a password.
+Scenario: I have registered.
+
+Action: When I log in with my credentials, I should access my personalized dashboard.
+Scenario: I have already registered.
+
+Action: When I try to sign up with the same email, I should receive an error message indicating that the email is already in use.
+Browsing Recipes
+
+Scenario: As a user, I want to browse a variety of recipes.
+
+Action: I can explore a rich collection of recipes organized by categories, cuisines, or dietary preferences.
+Scenario: I'm in the mood for something specific.
+
+Action: I can use the search and filter options to quickly find recipes that match my criteria.
+Scenario: I want to try a new dish.
+
+Action: I can discover new recipes, read reviews from other users, and decide which dish to cook next.
+Project Group IIIis your culinary companion, designed to make your cooking experience enjoyable, convenient, and flavorful. Get ready to embark on a journey of delicious discoveries!
+
+
+
+
+
+
+
 
 
 ## Functional Requirements
