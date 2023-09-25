@@ -179,11 +179,11 @@ So that I can easily access them later.
 
 ## Scrume Roles
 
-UI Specialist : Chang Xu
-Business Logic/Persitence : Saif Bayyari
-DevOps/Product Owner : Yifan Bian
-Scrum Master : Kozimjon Kuchkorov
-GitHub Admin : Haoran Wang
+* UI Specialist : Chang Xu
+* Business Logic/Persitence : Saif Bayyari
+* DevOps/Product Owner : Yifan Bian
+* Scrum Master : Kozimjon Kuchkorov
+* GitHub Admin : Haoran Wang
 
 ## Weekly Group Meeting Link
 
