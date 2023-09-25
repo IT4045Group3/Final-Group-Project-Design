@@ -132,3 +132,7 @@ Business Logic/Persitence : Saif Bayyari
 DevOps/Product Owner : Yifan Bian
 Scrum Master : Kozimjon Kuchkorov
 GitHub Admin : Haoran Wang
+
+## Weekly Group Meeting Link
+
+https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODhlNzgyZTktMzcxZi00NmFlLWFjMjQtZjA2ZDQ2ZGRhM2E5%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%221d9c1ade-710f-4494-86de-fd494f2dab2b%22%7d
