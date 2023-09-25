@@ -123,3 +123,12 @@ So that I can easily access them later.
    } 
    "required" : ["recipeName", "cookTime", "ingredients", "instrucions"] 
 }
+
+
+## Scrume Roles
+
+UI Specialist : Chang Xu
+Business Logic/Persitence : Yifan Bian
+DevOps/Product Owner : Saif Bayyari
+Scrum Master : Kozimjon Kuchkorov
+GitHub Admin : Haoran Wang
