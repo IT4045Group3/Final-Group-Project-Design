@@ -143,7 +143,8 @@ So that I can easily access them later.
    "properties" : { 
       "recipeId" : { 
          "description" : "The unique identifier of the recipe.", 
-         "type" : "Integer" 
+         "type" : "Integer",
+         "uniqueItems" : true
          }, 
       "recipeName" : { 
          "type" : "string" 
@@ -174,6 +175,42 @@ So that I can easily access them later.
       } 
    } 
    "required" : ["recipeName", "cookTime", "ingredients", "instrucions"] 
+}
+```
+```Json
+{
+   "title" : "userInformation",
+   "type" : "object",
+   "properties" : {
+      "userId" : {
+         "description" : "The unique identifier of the user.",
+         "type" : "integer",
+         "uniqueItems" : true
+      },
+      "firstName" : {
+         "type" : "string"
+      },
+      "middleName" : {
+         "type" : "string"
+      },
+      "lastName" : {
+         "type" : "string"
+      },
+      "email" : {
+         "type" : "string",
+         "format" : "email",
+         "uniqueItems" : true
+      },
+      "phoneNumber" : {
+         "type" : "string",
+         "pattern": "^[0-9]{10}$"
+      },
+      "birthday" : {
+         "type" : "string",
+         "format" : "date"
+      }
+   }
+   "required" : ["firstName", "lastName", "email", "phoneNumber", "birthday"]
 }
 ```
 
