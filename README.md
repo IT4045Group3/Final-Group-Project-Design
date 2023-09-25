@@ -2,7 +2,7 @@
 Final/Group Project Design
 
 
-##Intro
+## Intro
 Introduction
 Group 3 Recipe: Your Ultimate Culinary Companion
 
@@ -22,7 +22,7 @@ Cooking Progress Tracker: Keep track of your cooking progress for each recipe, m
 
 Community and Sharing: Join a community of fellow food enthusiasts, share your culinary creations, and discover inspiration from others.
 
-Storyboard
+## Storyboard
 User Registration
 
 Scenario: As a new user, I visit the Recipe  app.
