@@ -128,7 +128,7 @@ So that I can easily access them later.
 ## Scrume Roles
 
 UI Specialist : Chang Xu
-Business Logic/Persitence : Yifan Bian
-DevOps/Product Owner : Saif Bayyari
+Business Logic/Persitence : Saif Bayyari
+DevOps/Product Owner : Yifan Bian
 Scrum Master : Kozimjon Kuchkorov
 GitHub Admin : Haoran Wang
