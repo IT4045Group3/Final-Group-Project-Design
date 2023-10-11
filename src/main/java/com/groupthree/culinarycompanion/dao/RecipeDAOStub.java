@@ -1,10 +1,12 @@
 package com.groupthree.culinarycompanion.dao;
 
 import com.groupthree.culinarycompanion.model.Recipe;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RecipeDAOStub implements IRecipeDAO {
     private List<Recipe> recipeDatabase = new ArrayList<>();
     private int nextRecipeId = 1;

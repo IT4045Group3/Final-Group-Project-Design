@@ -1,8 +1,11 @@
 package com.groupthree.culinarycompanion.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserDAOStub implements IUserDAO {
     private List<User> userDatabase = new ArrayList<>();
     private int nextUserId = 1;

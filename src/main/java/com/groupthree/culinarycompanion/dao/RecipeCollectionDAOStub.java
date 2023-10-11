@@ -1,8 +1,11 @@
 package com.groupthree.culinarycompanion.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RecipeCollectionDAOStub implements IRecipeCollectionDAO {
     private List<RecipeCollection> collectionDatabase = new ArrayList<>();
     private int nextCollectionId = 1;
