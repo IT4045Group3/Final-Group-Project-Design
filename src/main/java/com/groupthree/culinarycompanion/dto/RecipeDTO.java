@@ -1,5 +1,7 @@
 package com.groupthree.culinarycompanion.dto;
 
+import java.util.List;
+
 public class RecipeDTO {
     private int recipeId;
     private String name;
