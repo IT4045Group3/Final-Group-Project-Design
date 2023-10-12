@@ -1,18 +1,18 @@
 package com.groupthree.culinarycompanion.dto;
 
 public class UserDTO {
-    private long userId;
+    private int userId;
     private String username;
     private String email;
 
     // Getters and setters
 
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
