@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion.dao;
 
+import com.groupthree.culinarycompanion.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
