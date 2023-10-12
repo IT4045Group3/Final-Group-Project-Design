@@ -8,5 +8,6 @@ public interface IUserService {
     void deleteUser(int userId);
     UserDTO findUserById(int userId);
     UserDTO findUserByEmail(String email);
+    boolean isValidLogin(String email, String password);
 }
 

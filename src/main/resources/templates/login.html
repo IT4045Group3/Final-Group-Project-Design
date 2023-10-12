@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Log in/Sign up</title>
@@ -28,16 +28,19 @@
 
     <div class="login-section">
         <div class="form-box login">
-            <form action="">
+            <form action="/login" th:action="@{/login}" method="post">
                 <h2>Log In</h2>
+                <div th:if="${error}" class="error">
+                    <p th:text="${error}"></p>
+                </div>
                 <div class="input-box">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
-                    <input type="email" required>
+                    <input type="email" required name = email>
                     <label >Email</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                    <input type="password" required>
+                    <input type="password" required name = password>
                     <label>Password</label>
                 </div>
                 <div class="remember-password">

@@ -3,7 +3,9 @@ package com.groupthree.culinarycompanion.service;
 import com.groupthree.culinarycompanion.dao.IUserDAO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService implements IUserService {
     private IUserDAO userDAO;
 
@@ -39,6 +41,16 @@ public class UserService implements IUserService {
     public UserDTO findUserByEmail(String email) {
         User user = userDAO.findUserByEmail(email);
         return mapModelToDTO(user);
+    }
+
+    public boolean isValidLogin(String email, String password) {
+        User user = userDAO.findUserByEmail(email);
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false; // Login is invalid
     }
 
     private UserDTO mapModelToDTO(User user) {
