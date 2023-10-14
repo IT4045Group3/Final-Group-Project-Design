@@ -3,10 +3,14 @@ package com.groupthree.culinarycompanion.service;
 import com.groupthree.culinarycompanion.dao.IUserDAO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService implements IUserService {
     private IUserDAO userDAO;
 
+    @Autowired
     public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -41,21 +45,46 @@ public class UserService implements IUserService {
         return mapModelToDTO(user);
     }
 
-    private UserDTO mapModelToDTO(User user) {
-        UserDTO dto = new UserDTO();
-        dto.setUserId(user.getUserId());
-        dto.setUsername(user.getUsername());
-        dto.setEmail(user.getEmail());
-        // Map other attributes as needed
-        return dto;
+    public boolean isValidLogin(String email, String password) {
+        User user = userDAO.findUserByEmail(email);
+
+        if (user == null) {
+            return false;
+        }
+        return isPasswordValid(user, password);
     }
 
+    private boolean isPasswordValid(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+
+    private UserDTO mapModelToDTO(User user) {
+        if (user != null) {
+            UserDTO dto = new UserDTO();
+            dto.setUserId(user.getUserId());
+            dto.setUsername(user.getUsername());
+            dto.setEmail(user.getEmail());
+            dto.setPassword(user.getPassword());
+            // Map other attributes as needed
+            return dto;
+        } else {
+            return null;
+        }
+    }
+
+
     private User mapDTOToModel(UserDTO dto) {
-        User user = new User();
-        user.setUserId(dto.getUserId());
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        // Map other attributes as needed
-        return user;
+        if (dto != null) {
+            User user = new User();
+            user.setUserId(dto.getUserId());
+            user.setUsername(dto.getUsername());
+            user.setEmail(dto.getEmail());
+            user.setPassword(dto.getPassword());
+            // Map other attributes as needed
+            return user;
+        } else {
+            return null;
+        }
+
     }
 }

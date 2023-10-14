@@ -4,9 +4,9 @@ public class UserDTO {
     private int userId;
     private String username;
     private String email;
+    private String password;
 
     // Getters and setters
-
 
     public int getUserId() {
         return userId;
@@ -31,4 +31,8 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
 }
