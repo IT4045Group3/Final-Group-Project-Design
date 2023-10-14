@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
+    <link rel="stylesheet" href="../static/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
+<div class="success-message" th:if="${loginSuccessful}" th:text="${loginSuccessful}"></div>
+
+<script src="../static/login.js"></script>
 </body>
 </html>

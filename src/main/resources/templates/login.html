@@ -30,6 +30,7 @@
         <div class="form-box login" id = "login">
             <form action="/login" th:action="@{/login}" method="post" class = "login-form">
                 <h2>Log In</h2>
+                <div class="error-message" th:if="${loginError}" th:text="${loginError}"></div>
                 <div class="input-box">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
                     <input type="email" required name = email>
@@ -55,7 +56,7 @@
             <form action="/register" th:action="@{/register}" method="post" class="register-form">
 
                 <h2>Sign Up</h2>
-
+                <div class="error-message" th:if="${registerError}" th:text="${registerError}"></div>
                 <div class="input-box">
                     <span class="icon"><i class='bx bxs-user'></i></span>
                     <input type="text" required name = username>
@@ -74,7 +75,7 @@
                 <div class="remember-password">
                     <label for=""><input type="checkbox">I agree with this statment</label>
                 </div>
-                <button class="btn">Login In</button>
+                <button class="btn">Sign up</button>
                 <div class="create-account">
                     <p>Already Have An Account? <a href="#" class="login-link">Sign In</a></p>
                 </div>
