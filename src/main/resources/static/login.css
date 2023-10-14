@@ -214,23 +214,23 @@ body{
 }
 
 .error-message {
-    display: none; /* 隐藏错误消息元素初始状态 */
-    background-color: #ff6666; /* 设置背景颜色 */
-    color: #fff; /* 设置文本颜色为白色 */
-    padding: 10px; /* 添加内边距 */
-    border-radius: 5px; /* 添加圆角边框 */
-    margin-top: 10px; /* 设置顶部外边距，以将消息与其他内容分开 */
-    text-align: center; /* 文本居中 */
-    font-weight: bold; /* 加粗字体 */
+    display: none;
+    background-color: #ff6666;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 
-
 .success-message {
-    background-color: #66ff66; /* 设置背景颜色 */
-    color: #000; /* 设置文本颜色为黑色 */
-    padding: 10px; /* 添加内边距 */
-    border-radius: 5px; /* 添加圆角边框 */
-    margin-top: 10px; /* 设置顶部外边距，以将消息与其他内容分开 */
-    text-align: center; /* 文本居中 */
-    font-weight: bold; /* 加粗字体 */
+    display: none;
+    background-color: #66ff66;
+    color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
 }

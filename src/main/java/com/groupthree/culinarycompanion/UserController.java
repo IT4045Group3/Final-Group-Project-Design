@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegisterForm() {
-        return "login"; // 返回login.html视图
+        return "login";
     }
 
     @PostMapping("/login")
@@ -53,6 +53,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String processRegistration(Model model, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
+
         if (userService.findUserByEmail(email) != null) {
             model.addAttribute("registrationFailure", true);
             model.addAttribute("registerError", "Email already in use");
@@ -63,11 +64,12 @@ public class UserController {
         userDTO.setUsername(username);
         userDTO.setEmail(email);
         userDTO.setPassword(password);
+        model.addAttribute("registerSuccessful", "Register successful");
         model.addAttribute("registrationFailure", false);
 
         userService.createUser(userDTO);
 
-        return "redirect:/login";
+        return "login";
     }
 
 

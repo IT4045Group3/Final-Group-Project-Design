@@ -7,24 +7,3 @@ registerlink.addEventListener('click',()=>{
 loginlink.addEventListener('click',()=>{
     loginsec.classList.remove('active')
 })
-
-
-const errorMessage = document.querySelector('.error-message');
-
-if (errorMessage.textContent.trim() !== '') {
-    errorMessage.style.display = 'block';
-
-    setTimeout(() => {
-        errorMessage.style.display = 'none';
-    }, 5000);
-}
-
-const errorMessage = document.querySelector('.success-message');
-
-if (errorMessage.textContent.trim() !== '') {
-    errorMessage.style.display = 'block';
-
-    setTimeout(() => {
-        errorMessage.style.display = 'none';
-    }, 5000);
-}
