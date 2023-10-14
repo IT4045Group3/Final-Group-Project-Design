@@ -2,15 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
-    <link rel="stylesheet" href="../static/login.css">
+    <title>Culinary Companion</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/home.css">
 </head>
 <body>
+<header class="header">
+    <nav class="nav-bar">
+        <a href="home.html" class="logo"><i class='bx bx-dish'></i></a>
+        <a href="home.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Help</a>
+    </nav>
+    <form action="" class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button><i class='bx bx-search-alt-2'></i></button>
+    </form>
+    <a href="login.html" class="account"><i class='bx bx-user'></i></a>
+</header>
 
-<div class="success-message" th:if="${loginSuccessful}" th:text="${loginSuccessful}"></div>
-
-<script src="../static/login.js"></script>
-<script src="../static/attribute.js"></script>
 </body>
 </html>
