@@ -1,3 +1,5 @@
+const errorMessage = document.querySelector('.error-message');
+
 function showMessageAndHide(element) {
     if (element.textContent.trim() !== '') {
         element.style.display = 'block';
@@ -8,8 +10,5 @@ function showMessageAndHide(element) {
         }, 5000);
     }
 }
-const successMessage = document.querySelector('.success-message');
-showMessageAndHide(successMessage);
 
-const errorMessage = document.querySelector('.error-message');
 showMessageAndHide(errorMessage);

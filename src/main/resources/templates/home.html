@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/home.css">
 </head>
 <body>
+<div class="success-message" th:if="${session.loginSuccessful}" th:text="${session.loginSuccessful}"></div>
 <header class="header">
     <nav class="nav-bar">
         <a href="home.html" class="logo"><i class='bx bx-dish'></i></a>
@@ -23,5 +24,8 @@
     <a href="login.html" class="account"><i class='bx bx-user'></i></a>
 </header>
 
+<script src="../static/login.js"></script>
+<script src="../static/error-message.js"></script>
+<script src="../static/success-message.js"></script>
 </body>
 </html>

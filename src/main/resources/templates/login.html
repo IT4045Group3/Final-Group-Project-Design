@@ -32,7 +32,7 @@
             <form action="/login" th:action="@{/login}" method="post" class = "login-form">
                 <h2>Log In</h2>
                 <div class="error-message" th:if="${loginError}" th:text="${loginError}"></div>
-                <div class="success-message" th:if="${registerSuccessful}" th:text="${registerSuccessful}"></div>
+                <div class="success-message" th:if="${session.registerSuccessful}" th:text="${session.registerSuccessful}"></div>
                 <div class="input-box">
                     <span class="icon"><i class='bx bxs-envelope'></i></span>
                     <input type="email" required name = email>
@@ -88,6 +88,7 @@
 
 <!-- Sign Up Form -->
 <script src="../static/login.js"></script>
-<script src="../static/attribute.js"></script>
+<script src="../static/error-message.js"></script>
+<script src="../static/success-message.js"></script>
 </body>
 </html>

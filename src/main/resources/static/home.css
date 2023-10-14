@@ -98,3 +98,14 @@ body{
     color: #000000;
     font-size: 30px;
 }
+.success-message {
+    display: none;
+    background-color: #66ff66;
+    color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 9999;
+}
