@@ -6,8 +6,7 @@ function showMessageAndHide(element) {
 
         setTimeout(() => {
             element.style.display = 'none';
-            element.textContent = null;
-        }, 5000);
+        }, 2000);
     }
 }
 

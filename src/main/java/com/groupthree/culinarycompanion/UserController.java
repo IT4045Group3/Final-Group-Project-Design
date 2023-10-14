@@ -31,13 +31,29 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
-        return "login";
-    }
+    public String showLoginForm() {return "login";}
 
     @GetMapping("/register")
     public String showRegisterForm() {
         return "login";
+    }
+
+    @GetMapping("/userProfile")
+    public String userProfile(Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUserName") != null) {
+            return "userProfile";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @GetMapping("/logOut")
+    public String logout(HttpSession session) {
+
+        session.removeAttribute("loggedInUserName");
+        session.removeAttribute("loginSuccessful");
+
+        return ("redirect:/login");
     }
 
     @PostMapping("/login")
@@ -45,6 +61,18 @@ public class UserController {
 
         if (userService.isValidLogin(email, password)) {
             session.setAttribute("loginSuccessful", "Successful login as " + userService.findUserByEmail(email).getUsername().trim());
+            session.setAttribute("loggedInUserName", userService.findUserByEmail(email).getUsername());
+
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            session.removeAttribute("loginSuccessful");
+                        }
+                    },
+                    1000
+            );
+
             return "redirect:/home";
         } else {
             model.addAttribute("loginError", "Invalid email or password");
@@ -70,8 +98,17 @@ public class UserController {
 
         userService.createUser(userDTO);
 
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        session.removeAttribute("registerSuccessful");
+                    }
+                },
+                1000
+        );
+
         return "redirect:/login";
     }
-
 
 }
