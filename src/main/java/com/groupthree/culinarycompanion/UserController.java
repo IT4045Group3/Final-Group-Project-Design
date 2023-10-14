@@ -43,11 +43,10 @@ public class UserController {
     public String processLogin(Model model, @RequestParam("email") String email, @RequestParam("password") String password) {
 
         if (userService.isValidLogin(email, password)) {
-
+            model.addAttribute("loginSuccessful","Successful login as " + userService.findUserByEmail(email).getUsername().trim());
             return "home";
         } else {
-
-            model.addAttribute("error", "Invalid email or password");
+            model.addAttribute("loginError", "Invalid email or password");
             return "login";
         }
     }
@@ -56,7 +55,7 @@ public class UserController {
     public String processRegistration(Model model, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
         if (userService.findUserByEmail(email) != null) {
             model.addAttribute("registrationFailure", true);
-            model.addAttribute("error", "Email already in use");
+            model.addAttribute("registerError", "Email already in use");
             return "login";
         }
 
