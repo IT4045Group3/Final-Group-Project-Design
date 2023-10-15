@@ -16,7 +16,7 @@ public class UserDAOStub implements IUserDAO {
     private int nextUserId = 1;
 
     /**
-     * Finds a user by their unique identifier.
+     * Finds user by their unique identifier.
      *
      * @param userId The unique identifier of the user.
      * @return The user with the specified ID.
