@@ -11,6 +11,6 @@
 <h1>Welcome to Your Personal Page</h1>
 <p th:text="'Hello, ' + ${session.loggedInUserName}"></p>
 
-<a th:href="logOut">Logout</a>
+<a th:href="@{'logOut?page=' + session.activePage}">Logout</a>
 </body>
 </html>
