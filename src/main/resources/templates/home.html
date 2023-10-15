@@ -11,11 +11,13 @@
 <div class="success-message" th:if="${session.loginSuccessful}" th:text="${session.loginSuccessful}"></div>
 <header class="header">
     <nav class="nav-bar">
-        <a href="home" class="logo"><i class='bx bx-dish'></i></a>
-        <a href="home">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Help</a>
+
+        <a href="home?page=home" class="logo"><i class='bx bx-dish'></i></a>
+        <a href="home?page=home">Home</a>
+
+        <a href="about?page=about">About</a>
+        <a href="contact?page=contact">Contact</a>
+        <a href="help?page=help">Help</a>
     </nav>
     <form action="" class="search-bar">
         <input type="text" placeholder="Search...">
