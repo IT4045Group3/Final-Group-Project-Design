@@ -108,7 +108,7 @@ So that I can easily access them later.
 
 **Given**:I have saved recipes
 **When**: I go to my profile
-**Then**: I should see a list of my saved recipes and be able to mark them as favorites.
+**Then**: I should see a list of my saved recipes and be able to mark them as favorites
 
 
 ## Class Diagram
