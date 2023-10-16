@@ -6,7 +6,6 @@ public class RecipeCollection {
     private int collectionId;
     private int userId;
     private List<Integer> recipeIds;
-    // Getters and setters
 
     public int getCollectionId() {
         return collectionId;

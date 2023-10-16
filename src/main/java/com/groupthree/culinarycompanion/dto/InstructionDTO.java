@@ -5,7 +5,6 @@ public class InstructionDTO {
     private int stepNumber;
     private String description;
     private String videoURL;
-    // Getters and setters
 
     public int getInstructionId() {
         return instructionId;
