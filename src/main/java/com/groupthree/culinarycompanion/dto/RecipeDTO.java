@@ -10,6 +10,7 @@ public class RecipeDTO {
     private String difficulty;
     private List<IngredientDTO> ingredients;
     private List<InstructionDTO> instructions;
+    private List<PhotoDTO> photos;
     // Getters and setters
 
     public int getRecipeId() {
@@ -66,6 +67,14 @@ public class RecipeDTO {
 
     public void setInstructions(List<InstructionDTO> instructions) {
         this.instructions = instructions;
+    }
+
+    public List<PhotoDTO> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<PhotoDTO> photos) {
+        this.photos = photos;
     }
 }
 
