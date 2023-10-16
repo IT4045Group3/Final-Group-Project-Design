@@ -2,8 +2,14 @@ package com.groupthree.culinarycompanion.model;
 
 import java.util.List;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 public class Recipe {
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private int recipeId;
     private String name;
 
@@ -16,6 +22,8 @@ public class Recipe {
     private List<Ingredient> ingredients;
 
     private List<Instruction> instructions;
+
+    private List<Photo> photos;
 
     public int getRecipeId() {
         return recipeId;
@@ -71,5 +79,13 @@ public class Recipe {
 
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 }
