@@ -6,9 +6,6 @@ public class Instruction {
     private String description;
     private String videoURL;
 
-    // Getters and setters
-
-
     public int getInstructionId() {
         return instructionId;
     }

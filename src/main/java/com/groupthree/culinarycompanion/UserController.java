@@ -38,6 +38,15 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/about")
+    public String aboutPage() { return "about"; }
+
+    @GetMapping("/contact")
+    public String contactPage() { return "contact"; }
+
+    @GetMapping("/help")
+    public String helpPage() { return "help"; }
+
     @GetMapping("/userProfile")
     public String userProfile(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUserName") != null) {

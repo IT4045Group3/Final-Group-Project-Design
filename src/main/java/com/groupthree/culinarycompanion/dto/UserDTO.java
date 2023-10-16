@@ -6,8 +6,6 @@ public class UserDTO {
     private String email;
     private String password;
 
-    // Getters and setters
-
     public int getUserId() {
         return userId;
     }

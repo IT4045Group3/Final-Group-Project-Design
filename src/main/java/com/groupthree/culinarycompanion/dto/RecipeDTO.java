@@ -10,7 +10,6 @@ public class RecipeDTO {
     private String difficulty;
     private List<IngredientDTO> ingredients;
     private List<InstructionDTO> instructions;
-    // Getters and setters
 
     public int getRecipeId() {
         return recipeId;
