@@ -38,6 +38,9 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/about")
+    public String aboutPage() { return "about"; }
+
     @GetMapping("/userProfile")
     public String userProfile(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUserName") != null) {
