@@ -40,7 +40,7 @@ body{
     width: 58%;
     height: 100%;
     color: white;
-    background: url("background.jpg") no-repeat;
+    background: url("../image/background.jpg") no-repeat;
     background-position: bottom;
     padding: 80px;
     display: flex;

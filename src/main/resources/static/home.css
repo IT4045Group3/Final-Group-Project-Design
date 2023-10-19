@@ -4,11 +4,16 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "poppins",sans-serif;
+    text-decoration: none;
+    list-style-type: none;
+    border: none;
+    vertical-align: middle;
 }
 
 body{
     height: 100vh;
     width: 100%;
+    text-align: center;
 }
 
 .header{
@@ -17,7 +22,7 @@ body{
     left: 0;
     width: 100%;
     padding: 25px 13%;
-    background: transparent;
+    background: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,14 +31,14 @@ body{
 
 .nav-bar a{
     position: relative;
-    font-size: 16px;
+    font-size: 25px;
     color: #000000;
     margin-right: 30px;
     text-decoration: none;
 }
 
 .nav-bar .logo{
-    font-size: 20px;
+    font-size: 35px;
 }
 
 .nav-bar a::after{
@@ -108,4 +113,104 @@ body{
     text-align: center;
     font-weight: bold;
     z-index: 9999;
+}
+
+.banner{
+    margin-top: 100px;
+    width: 80%;
+    height: 400px;
+    background: url("../image/ad1.jpg") center no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.category{
+    width: 80%;
+    height: 220px;
+    padding-bottom: 1px;
+    border: 1px solid #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wrap{
+    width: 1240px;
+    margin: 0 auto;
+}
+
+.cat-box{
+    width: 310px;
+    height: 187px;
+    padding-top: 45px;
+    float: left;
+}
+
+.cat-box img{
+    width: 100px;
+}
+
+.cat-name{
+    color: #333;
+    font-size: 20px;
+}
+
+.container{
+    width: 100%;
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.recipe-box{
+    width: 80%;
+    background-color: #f4f4f4;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.recipe{
+    width: 303px;
+    height: 375px;
+    float: left;
+    margin: 10px auto;
+    background-color: #fff;
+}
+
+.recipe img{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.recipe a{
+    margin-top: 10px;
+    font-size: 25px;
+    color: #000;
+}
+
+.footer{
+    width: 80%;
+    background-color: #F3F9FF;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-content{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.footer p{
+    font-size: 15px;
+    color: #000;
+}
+
+.footer a{
+    margin-top: 10px;
+    font-size: 15px;
+    color: #000;
 }
