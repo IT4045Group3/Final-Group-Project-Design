@@ -3,6 +3,7 @@ package com.groupthree.culinarycompanion.service;
 import com.groupthree.culinarycompanion.dao.IRecipeDAO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
+import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
 import com.groupthree.culinarycompanion.model.Recipe;
 import org.springframework.stereotype.Service;
@@ -49,11 +50,6 @@ public class RecipeService implements IRecipeService {
     }
 
     @Override
-    public List<String> getAllCuisineCategories() {
-        return recipeDAO.findAllCuisineCategories();
-    }
-
-    @Override
     public List<RecipeDTO> getAllRecipes() {
         return recipeDAO.findAllRecipes();
     }
@@ -75,6 +71,7 @@ public class RecipeService implements IRecipeService {
             photoDTOs.add(photoDTO);
         }
         dto.setPhotos(photoDTOs);
+
         return dto;
     }
 
@@ -85,6 +82,17 @@ public class RecipeService implements IRecipeService {
         recipe.setCuisine(dto.getCuisine());
         recipe.setType(dto.getType());
         recipe.setDifficulty(dto.getDifficulty());
+
+        List<Photo> photos = new ArrayList<>();
+        for (PhotoDTO photoDTO : dto.getPhotos()) {
+            Photo photo = new Photo();
+            photo.setPhotoId(photoDTO.getPhotoId());
+            photo.setPhotoName(photoDTO.getPhotoName());
+            photo.setPhotoPath(photoDTO.getPhotoPath());
+            photos.add(photo);
+        }
+        recipe.setPhotos(photos);
+
         return recipe;
     }
 }

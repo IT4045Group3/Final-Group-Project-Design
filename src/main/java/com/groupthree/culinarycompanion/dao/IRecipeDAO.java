@@ -11,7 +11,6 @@ public interface IRecipeDAO {
     void createRecipe(Recipe recipe);
     void updateRecipe(Recipe recipe);
     void deleteRecipe(int recipeId);
-    List<String> findAllCuisineCategories();
     List<RecipeDTO> findAllRecipes();
 }
 

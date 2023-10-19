@@ -1,7 +1,11 @@
 package com.groupthree.culinarycompanion;
 
+import com.groupthree.culinarycompanion.dto.PhotoDTO;
+import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.service.IUserService;
+import com.groupthree.culinarycompanion.model.CuisineCategory;
+import com.groupthree.culinarycompanion.model.Photo;
+import com.groupthree.culinarycompanion.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,15 +13,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
 
     private final IUserService userService;
+    private final IRecipeService recipeService;
+    private final ICuisineCategoryService cuisineCategoryService;
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService) {
         this.userService = userService;
+        this.recipeService = recipeService;
+        this.cuisineCategoryService = cuisineCategoryService;
     }
 
     @GetMapping("/login")
@@ -31,6 +43,7 @@ public class UserController {
     @GetMapping("/userProfile")
     public String userProfile(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUserName") != null) {
+            model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
             return "userProfile";
         } else {
             return "redirect:/login";
@@ -99,6 +112,41 @@ public class UserController {
         );
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/addRecipe")
+    public String addRecipe(HttpSession session,
+                            @RequestParam("nameRecipe") String name,
+                            @RequestParam("cuisine") int cuisineId,
+                            @RequestParam("type") String type,
+                            @RequestParam("difficulty") String difficulty,
+                            @RequestParam("recipeFile") MultipartFile file) {
+
+        String imagePath = userService.saveImage(file);
+
+        RecipeDTO newRecipe = new RecipeDTO();
+        newRecipe.setName(name);
+
+        CuisineCategory cuisineCategory = cuisineCategoryService.getCuisineById(cuisineId);
+        newRecipe.setCuisine(cuisineCategory);
+
+        newRecipe.setType(type);
+        newRecipe.setDifficulty(difficulty);
+
+        List<PhotoDTO> photos = new ArrayList<>();
+        PhotoDTO photoDTO = new PhotoDTO();
+        photoDTO.setPhotoName(name);
+        photoDTO.setPhotoPath(imagePath);
+
+        photos.add(photoDTO);
+        newRecipe.setPhotos(photos);
+
+        recipeService.createRecipe(newRecipe);
+
+        session.setAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        session.setAttribute("recipes", recipeService.getAllRecipes());
+
+        return "redirect:/userProfile";
     }
 
 }

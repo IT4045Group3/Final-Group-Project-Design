@@ -5,6 +5,11 @@ import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -52,6 +57,27 @@ public class UserService implements IUserService {
             return false;
         }
         return isPasswordValid(user, password);
+    }
+
+    @Override
+    public String saveImage(MultipartFile file) {
+        try {
+            String rootPath = System.getProperty("user.dir");
+
+            String originalFileName = file.getOriginalFilename();
+
+            String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+
+            String filePath = rootPath + "/src/main/resources/static/image/" + originalFileName;
+            File dest = new File(filePath);
+
+            file.transferTo(dest);
+
+            return originalFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private boolean isPasswordValid(User user, String password) {

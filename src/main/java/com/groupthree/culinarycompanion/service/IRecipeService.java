@@ -10,7 +10,6 @@ public interface IRecipeService {
     void deleteRecipe(int recipeId);
     RecipeDTO findRecipeById(int recipeId);
     RecipeDTO findRecipeByName(String name);
-    List<String> getAllCuisineCategories();
     List<RecipeDTO> getAllRecipes();
 }
 

@@ -35,40 +35,23 @@
 
 <!-- Category -->
 <div class="category">
-    <div class="wrap">
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/American.png" alt="American">
-                <p class="cat-name">American</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Indian.png" alt="Indian">
-                <p class="cat-name">Indian</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Chinese.png" alt="Chinese">
-                <p class="cat-name">Chinese</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Japanese.png" alt="Japanese">
-                <p class="cat-name">Japanese</p>
+    <div class="wrap" style="display: flex; justify-content: center;">
+        <div class="cat-box" th:each="category : ${session.cuisineCategories}" style="margin: 0 10px;">
+            <a href="#" style="text-align: center;">
+                <img th:src="'../static/image/' + ${category.name} + '.png'" th:alt="${category.name}">
+                <p class="cat-name" th:text="${category.name}"></p>
             </a>
         </div>
     </div>
 </div>
 
+
 <div class="container">
     <div class="recipe-box">
-        <div class="recipe" th:each="recipe : ${recipes}">
+        <div class="recipe" th:each="recipe : ${session.recipes}">
             <img th:src="@{'../static/image/' + ${recipe.photos[0].photoPath}}" alt="Recipe Image">
             <h5 th:text="${recipe.name}"></h5>
-            <p th:text="'Cuisine: ' + ${recipe.cuisine}"></p>
+            <p th:text="'Cuisine: ' + ${recipe.cuisine.getName()}"></p>
             <p th:text="'Type: ' + ${recipe.type}"></p>
             <a th:href="@{'/recipe-details/' + ${recipe.recipeId}}" >View Recipe</a>
         </div>

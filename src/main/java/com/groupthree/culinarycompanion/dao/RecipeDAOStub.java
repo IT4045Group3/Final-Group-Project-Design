@@ -2,6 +2,7 @@ package com.groupthree.culinarycompanion.dao;
 
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
+import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
 import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.service.RecipeService;
@@ -70,21 +71,6 @@ public class RecipeDAOStub implements IRecipeDAO {
             recipeDatabase.remove(recipeToRemove);
         }
     }
-
-    @Override
-    public List<String> findAllCuisineCategories() {
-        List<String> cuisineCategories = new ArrayList<>();
-
-        for (Recipe recipe : recipeDatabase) {
-            String cuisine = recipe.getCuisine();
-            if (!cuisineCategories.contains(cuisine)) {
-                cuisineCategories.add(cuisine);
-            }
-        }
-
-        return cuisineCategories;
-    }
-
     @Override
     public List<RecipeDTO> findAllRecipes() {
         List<RecipeDTO> recipeDTOs = new ArrayList<>();
@@ -101,7 +87,12 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe1 = new Recipe();
         recipe1.setRecipeId(nextRecipeId++);
         recipe1.setName("Taco");
-        recipe1.setCuisine("Mexican");
+
+        CuisineCategory cuisineCategory1 = new CuisineCategory();
+        cuisineCategory1.setId(1);
+        cuisineCategory1.setName("Mexican");
+        recipe1.setCuisine(cuisineCategory1);
+
         recipe1.setType("Main Dish");
 
         List<Photo> photos1 = new ArrayList<>();
@@ -124,7 +115,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe2 = new Recipe();
         recipe2.setRecipeId(nextRecipeId++);
         recipe2.setName("Spaghetti Carbonara");
-        recipe2.setCuisine("Italian");
+        CuisineCategory cuisineCategory2 = new CuisineCategory();
+        cuisineCategory2.setId(1);
+        cuisineCategory2.setName("Italian");
+        recipe2.setCuisine(cuisineCategory2);
         recipe2.setType("Main Dish");
 
         List<Photo> photos2 = new ArrayList<>();
@@ -147,7 +141,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe3 = new Recipe();
         recipe3.setRecipeId(nextRecipeId++);
         recipe3.setName("Jiaozi");
-        recipe3.setCuisine("Chinese");
+        CuisineCategory cuisineCategory3 = new CuisineCategory();
+        cuisineCategory3.setId(1);
+        cuisineCategory3.setName("Chinese");
+        recipe3.setCuisine(cuisineCategory3);
         recipe3.setType("Main Dish");
 
         List<Photo> photos3 = new ArrayList<>();
@@ -170,7 +167,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe4 = new Recipe();
         recipe4.setRecipeId(nextRecipeId++);
         recipe4.setName("Sushi");
-        recipe4.setCuisine("Japanese");
+        CuisineCategory cuisineCategory4 = new CuisineCategory();
+        cuisineCategory4.setId(1);
+        cuisineCategory4.setName("Japanese");
+        recipe4.setCuisine(cuisineCategory4);
         recipe4.setType("Appetizer");
 
         List<Photo> photos4 = new ArrayList<>();
@@ -193,7 +193,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe5 = new Recipe();
         recipe5.setRecipeId(nextRecipeId++);
         recipe5.setName("Burger");
-        recipe5.setCuisine("American");
+        CuisineCategory cuisineCategory5 = new CuisineCategory();
+        cuisineCategory5.setId(1);
+        cuisineCategory5.setName("Chinese");
+        recipe5.setCuisine(cuisineCategory5);
         recipe5.setType("Main Dish");
 
         List<Photo> photos5 = new ArrayList<>();
@@ -216,7 +219,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe6 = new Recipe();
         recipe6.setRecipeId(nextRecipeId++);
         recipe6.setName("Chicken Curry");
-        recipe6.setCuisine("Indian");
+        CuisineCategory cuisineCategory6 = new CuisineCategory();
+        cuisineCategory6.setId(1);
+        cuisineCategory6.setName("Indian");
+        recipe6.setCuisine(cuisineCategory6);
         recipe6.setType("Main Dish");
 
         List<Photo> photos6 = new ArrayList<>();
