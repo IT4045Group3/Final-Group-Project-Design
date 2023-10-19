@@ -119,7 +119,7 @@ body{
     margin-top: 100px;
     width: 80%;
     height: 400px;
-    background: url("../image/ad1.jpg") center no-repeat;
+    background: url("image/ad1.jpg") center no-repeat;
     margin-left: auto;
     margin-right: auto;
 }
