@@ -166,6 +166,76 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe3.setPhotos(photos3);
 
         recipeDatabase.add(recipe3);
+
+        Recipe recipe4 = new Recipe();
+        recipe4.setRecipeId(nextRecipeId++);
+        recipe4.setName("Sushi");
+        recipe4.setCuisine("Japanese");
+        recipe4.setType("Appetizer");
+
+        List<Photo> photos4 = new ArrayList<>();
+        Photo photo7 = new Photo();
+        photo7.setPhotoId(1);
+        photo7.setPhotoName("Sushi Photo 1");
+        photo7.setPhotoPath("sushi-photo-1.jpg");
+        photos4.add(photo7);
+
+        Photo photo8 = new Photo();
+        photo8.setPhotoId(2);
+        photo8.setPhotoName("Sushi Photo 2");
+        photo8.setPhotoPath("sushi-photo-2.jpg");
+        photos4.add(photo8);
+
+        recipe4.setPhotos(photos4);
+
+        recipeDatabase.add(recipe4);
+
+        Recipe recipe5 = new Recipe();
+        recipe5.setRecipeId(nextRecipeId++);
+        recipe5.setName("Burger");
+        recipe5.setCuisine("American");
+        recipe5.setType("Main Dish");
+
+        List<Photo> photos5 = new ArrayList<>();
+        Photo photo9 = new Photo();
+        photo9.setPhotoId(1);
+        photo9.setPhotoName("Burger Photo 1");
+        photo9.setPhotoPath("burger-photo-1.jpg");
+        photos5.add(photo9);
+
+        Photo photo10 = new Photo();
+        photo10.setPhotoId(2);
+        photo10.setPhotoName("Burger Photo 2");
+        photo10.setPhotoPath("burger-photo-2.jpg");
+        photos5.add(photo10);
+
+        recipe5.setPhotos(photos5);
+
+        recipeDatabase.add(recipe5);
+
+        Recipe recipe6 = new Recipe();
+        recipe6.setRecipeId(nextRecipeId++);
+        recipe6.setName("Chicken Curry");
+        recipe6.setCuisine("Indian");
+        recipe6.setType("Main Dish");
+
+        List<Photo> photos6 = new ArrayList<>();
+        Photo photo11 = new Photo();
+        photo11.setPhotoId(1);
+        photo11.setPhotoName("Chicken Curry Photo 1");
+        photo11.setPhotoPath("chicken-curry-photo-1.jpg");
+        photos6.add(photo11);
+
+        Photo photo12 = new Photo();
+        photo12.setPhotoId(2);
+        photo12.setPhotoName("Chicken Curry Photo 2");
+        photo12.setPhotoPath("chicken-curry-photo-2.jpg");
+        photos6.add(photo12);
+
+        recipe6.setPhotos(photos6);
+
+        recipeDatabase.add(recipe6);
+
     }
 
 

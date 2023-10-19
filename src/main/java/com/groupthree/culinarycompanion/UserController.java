@@ -20,16 +20,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String homePage() {
-        return "home";
-    }
-
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
-
     @GetMapping("/login")
     public String showLoginForm() {return "login";}
 

@@ -65,33 +65,12 @@
 
 <div class="container">
     <div class="recipe-box">
-        <div class="recipe">
-            <img src="../static/image/example-photo.jpg" alt="">
-            <a href="#">Recipe1</a>
-        </div>
-        <div class="recipe" >
-            <img src="" alt="">
-            <a href="#">Recipe2</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe3</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe4</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe5</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe6</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe7</a>
+        <div class="recipe" th:each="recipe : ${recipes}">
+            <img th:src="@{'../static/image/' + ${recipe.photos[0].photoPath}}" alt="Recipe Image">
+            <h5 th:text="${recipe.name}"></h5>
+            <p th:text="'Cuisine: ' + ${recipe.cuisine}"></p>
+            <p th:text="'Type: ' + ${recipe.type}"></p>
+            <a th:href="@{'/recipe-details/' + ${recipe.recipeId}}" >View Recipe</a>
         </div>
     </div>
 </div>

@@ -175,7 +175,7 @@ body{
 
 .recipe{
     width: 303px;
-    height: 375px;
+    padding-bottom: 10px;
     float: left;
     margin: 10px auto;
     background-color: #fff;
@@ -189,9 +189,14 @@ body{
 }
 
 .recipe a{
-    margin-top: 10px;
-    font-size: 25px;
-    color: #000;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
 }
 
 .footer{
