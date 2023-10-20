@@ -13,6 +13,7 @@ public interface IRecipeService {
     RecipeDTO findRecipeByName(String name);
     List<RecipeDTO> getAllRecipes();
     List<RecipeDTO> findRecipesByNameContaining(String keyword);
+    List<RecipeDTO> getRecipesByCategory(int categoryId);
     RecipeDTO mapModelToDTO(Recipe recipe);
     Recipe mapDTOToModel(RecipeDTO dto);
 }

@@ -89,6 +89,18 @@ public class RecipeDAOStub implements IRecipeDAO {
         return searchResults;
     }
 
+    @Override
+    public List<Recipe> getRecipesByCategory(int categoryId) {
+        List<Recipe> recipesByCategory = new ArrayList<>();
+        for (Recipe recipe : recipeDatabase) {
+            if (recipe.getCuisine().getId() == categoryId) {
+                recipesByCategory.add(recipe);
+            }
+        }
+        return recipesByCategory;
+    }
+
+
     @PostConstruct
     public void initDefaultRecipes() {
 
@@ -97,7 +109,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe1.setName("Pakora");
 
         CuisineCategory cuisineCategory1 = new CuisineCategory();
-        cuisineCategory1.setId(1);
+        cuisineCategory1.setId(3);
         cuisineCategory1.setName("Indian");
         recipe1.setCuisine(cuisineCategory1);
 
@@ -120,7 +132,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe2.setName("Spaghetti Carbonara");
 
         CuisineCategory cuisineCategory2 = new CuisineCategory();
-        cuisineCategory2.setId(1);
+        cuisineCategory2.setId(3);
         cuisineCategory2.setName("Italian");
         recipe2.setCuisine(cuisineCategory2);
 
@@ -165,7 +177,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe4.setName("Sushi");
 
         CuisineCategory cuisineCategory4 = new CuisineCategory();
-        cuisineCategory4.setId(1);
+        cuisineCategory4.setId(4);
         cuisineCategory4.setName("Japanese");
         recipe4.setCuisine(cuisineCategory4);
         recipe4.setType("Appetizer");
@@ -186,7 +198,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe5.setName("Burger");
 
         CuisineCategory cuisineCategory5 = new CuisineCategory();
-        cuisineCategory5.setId(1);
+        cuisineCategory5.setId(2);
         cuisineCategory5.setName("American");
         recipe5.setCuisine(cuisineCategory5);
         recipe5.setType("Main Dish");
@@ -206,7 +218,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         recipe6.setRecipeId(nextRecipeId++);
         recipe6.setName("Chicken Curry");
         CuisineCategory cuisineCategory6 = new CuisineCategory();
-        cuisineCategory6.setId(1);
+        cuisineCategory6.setId(3);
         cuisineCategory6.setName("Indian");
         recipe6.setCuisine(cuisineCategory6);
         recipe6.setType("Main Dish");

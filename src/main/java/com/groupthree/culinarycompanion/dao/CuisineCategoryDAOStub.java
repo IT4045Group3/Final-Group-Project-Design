@@ -48,6 +48,7 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         }
         return null;
     }
+
     @PostConstruct
     public void initDefaultCuisineCategory() {
         CuisineCategory category1 = new CuisineCategory();
