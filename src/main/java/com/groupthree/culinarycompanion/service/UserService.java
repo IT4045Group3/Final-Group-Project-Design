@@ -4,7 +4,13 @@ import com.groupthree.culinarycompanion.dao.IUserDAO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -14,6 +20,9 @@ public class UserService implements IUserService {
     public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+    @Autowired
+    private Environment environment;
 
     @Override
     public void createUser(UserDTO userDTO) {
@@ -54,18 +63,35 @@ public class UserService implements IUserService {
         return isPasswordValid(user, password);
     }
 
-    private boolean isPasswordValid(User user, String password) {
-        return user.getPassword().equals(password);
+    @Override
+    public String saveImage(MultipartFile file) {
+        try {
+            String rootPath = System.getProperty("user.dir");
+
+            String originalFileName = file.getOriginalFilename();
+
+            String uniqueFileName = UUID.randomUUID() + "_" + originalFileName;
+
+            String filePath = rootPath + "/upload/" + uniqueFileName;
+            File dest = new File(filePath);
+
+            file.transferTo(dest);
+
+            return "/upload/" + uniqueFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    private UserDTO mapModelToDTO(User user) {
+    @Override
+    public UserDTO mapModelToDTO(User user) {
         if (user != null) {
             UserDTO dto = new UserDTO();
             dto.setUserId(user.getUserId());
             dto.setUsername(user.getUsername());
             dto.setEmail(user.getEmail());
             dto.setPassword(user.getPassword());
-            // Map other attributes as needed
             return dto;
         } else {
             return null;
@@ -73,18 +99,23 @@ public class UserService implements IUserService {
     }
 
 
-    private User mapDTOToModel(UserDTO dto) {
+    @Override
+    public User mapDTOToModel(UserDTO dto) {
         if (dto != null) {
             User user = new User();
             user.setUserId(dto.getUserId());
             user.setUsername(dto.getUsername());
             user.setEmail(dto.getEmail());
             user.setPassword(dto.getPassword());
-            // Map other attributes as needed
             return user;
         } else {
             return null;
         }
 
     }
+
+    private boolean isPasswordValid(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dto.UserDTO;
+import com.groupthree.culinarycompanion.model.User;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IUserService {
     void createUser(UserDTO userDTO);
@@ -9,5 +11,8 @@ public interface IUserService {
     UserDTO findUserById(int userId);
     UserDTO findUserByEmail(String email);
     boolean isValidLogin(String email, String password);
+    String saveImage(MultipartFile file);
+    User mapDTOToModel(UserDTO dto);
+    UserDTO mapModelToDTO(User user);
 }
 

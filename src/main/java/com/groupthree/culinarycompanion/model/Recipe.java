@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 public class Recipe {
@@ -12,8 +14,8 @@ public class Recipe {
     @GeneratedValue(strategy = IDENTITY)
     private int recipeId;
     private String name;
-
-    private String cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
+    @ManyToOne
+    private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
 
     private String type;
 
@@ -41,11 +43,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public String getCuisine() {
+    public CuisineCategory getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(String cuisine) {
+    public void setCuisine(CuisineCategory cuisine) {
         this.cuisine = cuisine;
     }
 

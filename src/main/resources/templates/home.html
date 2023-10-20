@@ -35,63 +35,26 @@
 
 <!-- Category -->
 <div class="category">
-    <div class="wrap">
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/American.png" alt="American">
-                <p class="cat-name">American</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Indian.png" alt="Indian">
-                <p class="cat-name">Indian</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Chinese.png" alt="Chinese">
-                <p class="cat-name">Chinese</p>
-            </a>
-        </div>
-        <div class="cat-box">
-            <a href="#">
-                <img src="../static/image/Japanese.png" alt="Japanese">
-                <p class="cat-name">Japanese</p>
+    <div class="wrap" style="display: flex; justify-content: center;">
+        <div class="cat-box" th:each="category : ${cuisineCategories}" style="margin: 0 10px;">
+            <a href="#" style="text-align: center;">
+                <img th:src="${category.getPhotos().get(0).getPhotoPath()}" th:alt="${category.getName()}">
+                <p class="cat-name" th:text="${category.getName()}"></p>
             </a>
         </div>
     </div>
 </div>
 
+
 <div class="container">
+
     <div class="recipe-box">
-        <div class="recipe">
-            <img src="../static/image/example-photo.jpg" alt="">
-            <a href="#">Recipe1</a>
-        </div>
-        <div class="recipe" >
-            <img src="" alt="">
-            <a href="#">Recipe2</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe3</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe4</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe5</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe6</a>
-        </div>
-        <div class="recipe">
-            <img src="" alt="">
-            <a href="#">Recipe7</a>
+        <div class="recipe" th:each="recipe : ${recipes}">
+            <img th:src="${recipe.getPhotos().get(0).getPhotoPath()}" alt="Recipe Image">
+            <h5 th:text="${recipe.getName()}"></h5>
+            <p th:text="'Cuisine: ' + ${recipe.getCuisine().getName()}"></p>
+            <p th:text="'Type: ' + ${recipe.getType()}"></p>
+            <a th:href="@{'/recipe-details/' + ${recipe.getRecipeId()}}" >View Recipe</a>
         </div>
     </div>
 </div>

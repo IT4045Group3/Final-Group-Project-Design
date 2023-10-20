@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion.dao;
 
+import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
 
 public interface IUserDAO {
@@ -8,4 +9,5 @@ public interface IUserDAO {
     void createUser(User user);
     void updateUser(User user);
     void deleteUser(int userId);
+
 }

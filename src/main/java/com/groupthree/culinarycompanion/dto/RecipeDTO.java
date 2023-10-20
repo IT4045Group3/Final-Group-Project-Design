@@ -1,11 +1,13 @@
 package com.groupthree.culinarycompanion.dto;
 
+import com.groupthree.culinarycompanion.model.CuisineCategory;
+
 import java.util.List;
 
 public class RecipeDTO {
     private int recipeId;
     private String name;
-    private String cuisine;
+    private CuisineCategory cuisine;
     private String type;
     private String difficulty;
     private List<IngredientDTO> ingredients;
@@ -29,11 +31,11 @@ public class RecipeDTO {
         this.name = name;
     }
 
-    public String getCuisine() {
+    public CuisineCategory getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(String cuisine) {
+    public void setCuisine(CuisineCategory cuisine) {
         this.cuisine = cuisine;
     }
 
