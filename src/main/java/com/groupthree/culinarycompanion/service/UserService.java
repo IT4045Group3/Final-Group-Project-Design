@@ -4,6 +4,7 @@ import com.groupthree.culinarycompanion.dao.IUserDAO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,9 @@ public class UserService implements IUserService {
     public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+    @Autowired
+    private Environment environment;
 
     @Override
     public void createUser(UserDTO userDTO) {
@@ -62,13 +66,16 @@ public class UserService implements IUserService {
     @Override
     public String saveImage(MultipartFile file) {
         try {
+            String relativeDirectory = environment.getProperty("custom.upload.directory");
+
             String rootPath = System.getProperty("user.dir");
 
             String originalFileName = file.getOriginalFilename();
 
-            String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+            String uniqueFileName = UUID.randomUUID() + "_" + originalFileName;
 
-            String filePath = rootPath + "/src/main/resources/static/image/" + originalFileName;
+            String filePath = rootPath + "/" + relativeDirectory + uniqueFileName;
+
             File dest = new File(filePath);
 
             file.transferTo(dest);
