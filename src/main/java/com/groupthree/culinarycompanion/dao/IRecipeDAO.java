@@ -12,5 +12,7 @@ public interface IRecipeDAO {
     void updateRecipe(Recipe recipe);
     void deleteRecipe(int recipeId);
     List<Recipe> findAllRecipes();
+    List<Recipe> findByNameContaining(String keyword);
+    List<Recipe> getRecipesByCategory(int categoryId);
 }
 

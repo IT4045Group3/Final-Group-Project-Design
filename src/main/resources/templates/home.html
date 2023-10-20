@@ -11,22 +11,43 @@
 <div class="success-message" th:if="${session.loginSuccessful}" th:text="${session.loginSuccessful}"></div>
 <header class="header">
     <nav class="nav-bar">
-        <a href="home" class="logo"><i class='bx bx-dish'></i></a>
-        <a href="home">Home</a>
+        <a href="/home" class="logo"><i class='bx bx-dish'></i></a>
+        <a href="/home">Home</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
         <a href="#">Help</a>
     </nav>
-    <form action="" class="search-bar">
-        <input type="text" placeholder="Search...">
+    <form action="/search" class="search-bar" method="get" id="search-input">
+        <input type="text" placeholder="Search..." name="keyword">
         <button><i class='bx bx-search-alt-2'></i></button>
     </form>
-    <a href="userProfile" class="account"><i class='bx bx-user'></i></a>
+    <a href="/userProfile" class="account"><i class='bx bx-user'></i></a>
 
 <script src="../static/login.js"></script>
 <script src="../static/error-message.js"></script>
 <script src="../static/success-message.js"></script>
+<script src="../static/search.js"></script>
 </header>
+
+<div class="search-results" id="search-results">
+    <div th:if="${searchResults != null}">
+        <h2>Search Results</h2>
+        <ul>
+            <li th:each="recipe : ${searchResults}">
+                <div class="search-result">
+                    <img th:src="${recipe.getPhotos().get(0).getPhotoPath()}" alt="Recipe Image">
+                    <div class="result-details">
+                        <h5 th:text="${recipe.getName()}"></h5>
+                        <p th:text="'Cuisine: ' + ${recipe.getCuisine().getName()}"></p>
+                        <p th:text="'Type: ' + ${recipe.getType()}"></p>
+                        <a th:href="@{'/recipe-details/' + ${recipe.getRecipeId()}}" >View Recipe</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
 
 <!-- Scroll Screen -->
 <div class="banner">
@@ -37,7 +58,7 @@
 <div class="category">
     <div class="wrap" style="display: flex; justify-content: center;">
         <div class="cat-box" th:each="category : ${cuisineCategories}" style="margin: 0 10px;">
-            <a href="#" style="text-align: center;">
+            <a href="#" style="text-align: center;" th:href="@{'/recipes-by-category/' + ${category.getId()}}">
                 <img th:src="${category.getPhotos().get(0).getPhotoPath()}" th:alt="${category.getName()}">
                 <p class="cat-name" th:text="${category.getName()}"></p>
             </a>
