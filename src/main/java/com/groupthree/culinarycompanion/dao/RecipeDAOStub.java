@@ -86,11 +86,11 @@ public class RecipeDAOStub implements IRecipeDAO {
 
         Recipe recipe1 = new Recipe();
         recipe1.setRecipeId(nextRecipeId++);
-        recipe1.setName("Taco");
+        recipe1.setName("Pakora");
 
         CuisineCategory cuisineCategory1 = new CuisineCategory();
         cuisineCategory1.setId(1);
-        cuisineCategory1.setName("Mexican");
+        cuisineCategory1.setName("Indian");
         recipe1.setCuisine(cuisineCategory1);
 
         recipe1.setType("Main Dish");
@@ -98,27 +98,24 @@ public class RecipeDAOStub implements IRecipeDAO {
         List<Photo> photos1 = new ArrayList<>();
         Photo photo1 = new Photo();
         photo1.setPhotoId(1);
-        photo1.setPhotoName("Taco Photo 1");
-        photo1.setPhotoPath("taco-photo-1.jpg");
+        photo1.setPhotoName("Pakora Photo 1");
+        photo1.setPhotoPath("pakora-photo-1.jpg");
         photos1.add(photo1);
-
-        Photo photo2 = new Photo();
-        photo2.setPhotoId(2);
-        photo2.setPhotoName("Taco Photo 2");
-        photo2.setPhotoPath("taco-photo-2.jpg");
-        photos1.add(photo2);
 
         recipe1.setPhotos(photos1);
 
         recipeDatabase.add(recipe1);
 
+
         Recipe recipe2 = new Recipe();
         recipe2.setRecipeId(nextRecipeId++);
         recipe2.setName("Spaghetti Carbonara");
+
         CuisineCategory cuisineCategory2 = new CuisineCategory();
         cuisineCategory2.setId(1);
         cuisineCategory2.setName("Italian");
         recipe2.setCuisine(cuisineCategory2);
+
         recipe2.setType("Main Dish");
 
         List<Photo> photos2 = new ArrayList<>();
@@ -128,23 +125,20 @@ public class RecipeDAOStub implements IRecipeDAO {
         photo3.setPhotoPath("spaghetti-carbonara-photo-1.jpg");
         photos2.add(photo3);
 
-        Photo photo4 = new Photo();
-        photo4.setPhotoId(2);
-        photo4.setPhotoName("Spaghetti Carbonara Photo 2");
-        photo4.setPhotoPath("spaghetti-carbonara-photo-2.jpg");
-        photos2.add(photo4);
-
         recipe2.setPhotos(photos2);
 
         recipeDatabase.add(recipe2);
 
+
         Recipe recipe3 = new Recipe();
         recipe3.setRecipeId(nextRecipeId++);
         recipe3.setName("Jiaozi");
+
         CuisineCategory cuisineCategory3 = new CuisineCategory();
         cuisineCategory3.setId(1);
         cuisineCategory3.setName("Chinese");
         recipe3.setCuisine(cuisineCategory3);
+
         recipe3.setType("Main Dish");
 
         List<Photo> photos3 = new ArrayList<>();
@@ -154,12 +148,6 @@ public class RecipeDAOStub implements IRecipeDAO {
         photo5.setPhotoPath("jiaozi-photo-1.jpg");
         photos3.add(photo5);
 
-        Photo photo6 = new Photo();
-        photo6.setPhotoId(2);
-        photo6.setPhotoName("Jiaozi Photo 2");
-        photo6.setPhotoPath("jiaozi-photo-2.jpg");
-        photos3.add(photo6);
-
         recipe3.setPhotos(photos3);
 
         recipeDatabase.add(recipe3);
@@ -167,6 +155,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe4 = new Recipe();
         recipe4.setRecipeId(nextRecipeId++);
         recipe4.setName("Sushi");
+
         CuisineCategory cuisineCategory4 = new CuisineCategory();
         cuisineCategory4.setId(1);
         cuisineCategory4.setName("Japanese");
@@ -180,12 +169,6 @@ public class RecipeDAOStub implements IRecipeDAO {
         photo7.setPhotoPath("sushi-photo-1.jpg");
         photos4.add(photo7);
 
-        Photo photo8 = new Photo();
-        photo8.setPhotoId(2);
-        photo8.setPhotoName("Sushi Photo 2");
-        photo8.setPhotoPath("sushi-photo-2.jpg");
-        photos4.add(photo8);
-
         recipe4.setPhotos(photos4);
 
         recipeDatabase.add(recipe4);
@@ -193,9 +176,10 @@ public class RecipeDAOStub implements IRecipeDAO {
         Recipe recipe5 = new Recipe();
         recipe5.setRecipeId(nextRecipeId++);
         recipe5.setName("Burger");
+
         CuisineCategory cuisineCategory5 = new CuisineCategory();
         cuisineCategory5.setId(1);
-        cuisineCategory5.setName("Chinese");
+        cuisineCategory5.setName("American");
         recipe5.setCuisine(cuisineCategory5);
         recipe5.setType("Main Dish");
 
@@ -205,12 +189,6 @@ public class RecipeDAOStub implements IRecipeDAO {
         photo9.setPhotoName("Burger Photo 1");
         photo9.setPhotoPath("burger-photo-1.jpg");
         photos5.add(photo9);
-
-        Photo photo10 = new Photo();
-        photo10.setPhotoId(2);
-        photo10.setPhotoName("Burger Photo 2");
-        photo10.setPhotoPath("burger-photo-2.jpg");
-        photos5.add(photo10);
 
         recipe5.setPhotos(photos5);
 
@@ -232,17 +210,9 @@ public class RecipeDAOStub implements IRecipeDAO {
         photo11.setPhotoPath("chicken-curry-photo-1.jpg");
         photos6.add(photo11);
 
-        Photo photo12 = new Photo();
-        photo12.setPhotoId(2);
-        photo12.setPhotoName("Chicken Curry Photo 2");
-        photo12.setPhotoPath("chicken-curry-photo-2.jpg");
-        photos6.add(photo12);
-
         recipe6.setPhotos(photos6);
 
         recipeDatabase.add(recipe6);
 
     }
-
-
 }

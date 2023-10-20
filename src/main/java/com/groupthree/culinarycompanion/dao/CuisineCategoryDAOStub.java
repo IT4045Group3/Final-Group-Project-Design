@@ -55,6 +55,14 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         category2.setId(nextCategoryId++);
         category2.setName("American");
 
+        CuisineCategory category3 = new CuisineCategory();
+        category3.setId(nextCategoryId++);
+        category3.setName("Indian");
+
+        CuisineCategory category4 = new CuisineCategory();
+        category4.setId(nextCategoryId++);
+        category4.setName("Japanese");
+
 
 
         List<Photo> photos1 = new ArrayList<>();
@@ -73,10 +81,28 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         photos2.add(photo2);
         category2.setPhotos(photos2);
 
+        List<Photo> photos3 = new ArrayList<>();
+        Photo photo3 = new Photo();
+        photo3.setPhotoId(1);
+        photo3.setPhotoName("Indian");
+        photo3.setPhotoPath("Indian.png");
+        photos3.add(photo3);
+        category3.setPhotos(photos3);
+
+        List<Photo> photos4 = new ArrayList<>();
+        Photo photo4 = new Photo();
+        photo4.setPhotoId(1);
+        photo4.setPhotoName("Japanese");
+        photo4.setPhotoPath("Japanese.png");
+        photos4.add(photo4);
+        category4.setPhotos(photos4);
+
 
 
         cuisineCategories.add(category1);
         cuisineCategories.add(category2);
+        cuisineCategories.add(category3);
+        cuisineCategories.add(category4);
 
     }
 
