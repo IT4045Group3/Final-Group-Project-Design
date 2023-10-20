@@ -62,6 +62,19 @@ public class RecipeService implements IRecipeService {
         return recipeDTOs;
     }
 
+    @Override
+    public List<RecipeDTO> findRecipesByNameContaining(String keyword) {
+        List<Recipe> recipes = recipeDAO.findByNameContaining(keyword);
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            RecipeDTO dto = mapModelToDTO(recipe);
+            recipeDTOs.add(dto);
+        }
+
+        return recipeDTOs;
+    }
+
 
     @Override
     public RecipeDTO mapModelToDTO(Recipe recipe) {

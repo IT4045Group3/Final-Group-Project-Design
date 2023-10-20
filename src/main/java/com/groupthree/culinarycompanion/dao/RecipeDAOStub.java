@@ -78,6 +78,17 @@ public class RecipeDAOStub implements IRecipeDAO {
         return recipeDatabase;
     }
 
+    @Override
+    public List<Recipe> findByNameContaining(String keyword) {
+        List<Recipe> searchResults = new ArrayList<>();
+        for (Recipe recipe : recipeDatabase) {
+            if (recipe.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                searchResults.add(recipe);
+            }
+        }
+        return searchResults;
+    }
+
     @PostConstruct
     public void initDefaultRecipes() {
 
