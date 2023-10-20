@@ -66,39 +66,32 @@ public class UserService implements IUserService {
     @Override
     public String saveImage(MultipartFile file) {
         try {
-            String relativeDirectory = environment.getProperty("custom.upload.directory");
-
             String rootPath = System.getProperty("user.dir");
 
             String originalFileName = file.getOriginalFilename();
 
             String uniqueFileName = UUID.randomUUID() + "_" + originalFileName;
 
-            String filePath = rootPath + "/" + relativeDirectory + uniqueFileName;
-
+            String filePath = rootPath + "/upload/" + uniqueFileName;
             File dest = new File(filePath);
 
             file.transferTo(dest);
 
-            return originalFileName;
+            return "/upload/" + uniqueFileName;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private boolean isPasswordValid(User user, String password) {
-        return user.getPassword().equals(password);
-    }
-
-    private UserDTO mapModelToDTO(User user) {
+    @Override
+    public UserDTO mapModelToDTO(User user) {
         if (user != null) {
             UserDTO dto = new UserDTO();
             dto.setUserId(user.getUserId());
             dto.setUsername(user.getUsername());
             dto.setEmail(user.getEmail());
             dto.setPassword(user.getPassword());
-            // Map other attributes as needed
             return dto;
         } else {
             return null;
@@ -106,18 +99,23 @@ public class UserService implements IUserService {
     }
 
 
-    private User mapDTOToModel(UserDTO dto) {
+    @Override
+    public User mapDTOToModel(UserDTO dto) {
         if (dto != null) {
             User user = new User();
             user.setUserId(dto.getUserId());
             user.setUsername(dto.getUsername());
             user.setEmail(dto.getEmail());
             user.setPassword(dto.getPassword());
-            // Map other attributes as needed
             return user;
         } else {
             return null;
         }
 
     }
+
+    private boolean isPasswordValid(User user, String password) {
+        return user.getPassword().equals(password);
+    }
+
 }

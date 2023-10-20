@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion.dao;
 
+import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.User;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;

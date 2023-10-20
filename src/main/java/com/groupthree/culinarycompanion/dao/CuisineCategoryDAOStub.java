@@ -1,7 +1,11 @@
 package com.groupthree.culinarycompanion.dao;
 
+import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
+import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
+import com.groupthree.culinarycompanion.service.ICuisineCategoryService;
+import com.groupthree.culinarycompanion.service.IRecipeService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +48,6 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         }
         return null;
     }
-
     @PostConstruct
     public void initDefaultCuisineCategory() {
         CuisineCategory category1 = new CuisineCategory();
@@ -69,7 +72,7 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         Photo photo1 = new Photo();
         photo1.setPhotoId(1);
         photo1.setPhotoName("Chinese");
-        photo1.setPhotoPath("Chinese.png");
+        photo1.setPhotoPath("/upload/Chinese.png");
         photos1.add(photo1);
         category1.setPhotos(photos1);
 
@@ -77,7 +80,7 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         Photo photo2 = new Photo();
         photo2.setPhotoId(1);
         photo2.setPhotoName("American");
-        photo2.setPhotoPath("American.png");
+        photo2.setPhotoPath("/upload/American.png");
         photos2.add(photo2);
         category2.setPhotos(photos2);
 
@@ -85,7 +88,7 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         Photo photo3 = new Photo();
         photo3.setPhotoId(1);
         photo3.setPhotoName("Indian");
-        photo3.setPhotoPath("Indian.png");
+        photo3.setPhotoPath("/upload/Indian.png");
         photos3.add(photo3);
         category3.setPhotos(photos3);
 
@@ -93,7 +96,7 @@ public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
         Photo photo4 = new Photo();
         photo4.setPhotoId(1);
         photo4.setPhotoName("Japanese");
-        photo4.setPhotoPath("Japanese.png");
+        photo4.setPhotoPath("/upload/Japanese.png");
         photos4.add(photo4);
         category4.setPhotos(photos4);
 

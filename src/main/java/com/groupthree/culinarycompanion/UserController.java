@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion;
 
+import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
@@ -10,11 +11,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,12 +118,11 @@ public class UserController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(HttpSession session,
-                            @RequestParam("nameRecipe") String name,
+    public String addRecipe(@RequestParam("nameRecipe") String name,
                             @RequestParam("cuisine") int cuisineId,
                             @RequestParam("type") String type,
                             @RequestParam("difficulty") String difficulty,
-                            @RequestParam("recipeFile") MultipartFile file) {
+                            @RequestParam("recipeFile") MultipartFile file) throws FileNotFoundException {
 
         String imagePath = userService.saveImage(file);
 
@@ -143,10 +145,30 @@ public class UserController {
 
         recipeService.createRecipe(newRecipe);
 
-        session.setAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
-        session.setAttribute("recipes", recipeService.getAllRecipes());
+        return "redirect:/home";
+    }
 
-        return "redirect:/userProfile";
+    @PostMapping("/addCuisineCategory")
+    public String addCuisineCategory(@RequestParam("name") String name,
+                                     @RequestParam("cuisineFile") MultipartFile imageFile) {
+
+
+        String imagePath = userService.saveImage(imageFile);
+
+        CuisineCategoryDTO newCategory = new CuisineCategoryDTO();
+        newCategory.setName(name);
+
+        List<PhotoDTO> photos = new ArrayList<>();
+        PhotoDTO photoDTO = new PhotoDTO();
+        photoDTO.setPhotoName(name);
+        photoDTO.setPhotoPath(imagePath);
+
+        photos.add(photoDTO);
+        newCategory.setPhotos(photos);
+
+        cuisineCategoryService.addCuisineCategory(newCategory);
+
+        return "redirect:/home";
     }
 
 }

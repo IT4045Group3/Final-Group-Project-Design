@@ -51,10 +51,20 @@ public class RecipeService implements IRecipeService {
 
     @Override
     public List<RecipeDTO> getAllRecipes() {
-        return recipeDAO.findAllRecipes();
+        List<Recipe> recipes = recipeDAO.findAllRecipes();
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            RecipeDTO dto = mapModelToDTO(recipe);
+            recipeDTOs.add(dto);
+        }
+
+        return recipeDTOs;
     }
 
-    public static RecipeDTO mapModelToDTO(Recipe recipe) {
+
+    @Override
+    public RecipeDTO mapModelToDTO(Recipe recipe) {
         RecipeDTO dto = new RecipeDTO();
         dto.setRecipeId(recipe.getRecipeId());
         dto.setName(recipe.getName());
@@ -75,7 +85,8 @@ public class RecipeService implements IRecipeService {
         return dto;
     }
 
-    public static Recipe mapDTOToModel(RecipeDTO dto) {
+    @Override
+    public Recipe mapDTOToModel(RecipeDTO dto) {
         Recipe recipe = new Recipe();
         recipe.setRecipeId(dto.getRecipeId());
         recipe.setName(dto.getName());

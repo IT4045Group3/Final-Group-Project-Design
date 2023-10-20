@@ -27,18 +27,19 @@
     <label for="difficulty">Difficulty:</label>
     <input type="text" id="difficulty" name="difficulty" required><br>
 
-    <label for="image">UpdateImage:</label>
-    <input type="file" id="image" name="recipeFile" required><br>
+    <label for="imageRecipe">UpdateImage:</label>
+    <input type="file" id="imageRecipe" name="recipeFile" required><br>
 
     <input type="submit" value="Add Recipe">
 </form>
 
 <h1>Add Cuisine Category</h1>
-<form action="/addCuisineCategory" method="post">
+<form action="/addCuisineCategory" method="post" enctype="multipart/form-data">
     <label for="nameCuisine">Category Name:</label>
     <input type="text" id="nameCuisine" name="name" required><br>
 
-
+    <label for="imageCuisine">UpdateImage:</label>
+    <input type="file" id="imageCuisine" name="cuisineFile" required><br>
 
     <input type="submit" value="Add Category">
 </form>

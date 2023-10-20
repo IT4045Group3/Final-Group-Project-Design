@@ -18,16 +18,16 @@ public class HomeController {
     private CuisineCategoryService cuisineCategoryService;
 
     @GetMapping("/")
-    public String homePage(Model model, HttpSession session) {
-        session.setAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
-        session.setAttribute("recipes", recipeService.getAllRecipes());
+    public String homePage(Model model) {
+        model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        model.addAttribute("recipes", recipeService.getAllRecipes());
         return "home";
     }
 
     @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
-        session.setAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
-        session.setAttribute("recipes", recipeService.getAllRecipes());
+    public String home(Model model) {
+        model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        model.addAttribute("recipes", recipeService.getAllRecipes());
         return "home";
     }
 

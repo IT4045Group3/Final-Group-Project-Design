@@ -5,8 +5,10 @@ import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
 import com.groupthree.culinarycompanion.model.Recipe;
+import com.groupthree.culinarycompanion.service.IRecipeService;
 import com.groupthree.culinarycompanion.service.RecipeService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -72,13 +74,8 @@ public class RecipeDAOStub implements IRecipeDAO {
         }
     }
     @Override
-    public List<RecipeDTO> findAllRecipes() {
-        List<RecipeDTO> recipeDTOs = new ArrayList<>();
-        for (Recipe recipe : recipeDatabase) {
-            RecipeDTO recipeDTO = RecipeService.mapModelToDTO(recipe);
-            recipeDTOs.add(recipeDTO);
-        }
-        return recipeDTOs;
+    public List<Recipe> findAllRecipes() {
+        return recipeDatabase;
     }
 
     @PostConstruct
@@ -99,7 +96,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo1 = new Photo();
         photo1.setPhotoId(1);
         photo1.setPhotoName("Pakora Photo 1");
-        photo1.setPhotoPath("pakora-photo-1.jpg");
+        photo1.setPhotoPath("/upload/pakora-photo-1.jpg");
         photos1.add(photo1);
 
         recipe1.setPhotos(photos1);
@@ -122,7 +119,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo3 = new Photo();
         photo3.setPhotoId(1);
         photo3.setPhotoName("Spaghetti Carbonara Photo 1");
-        photo3.setPhotoPath("spaghetti-carbonara-photo-1.jpg");
+        photo3.setPhotoPath("/upload/spaghetti-carbonara-photo-1.jpg");
         photos2.add(photo3);
 
         recipe2.setPhotos(photos2);
@@ -145,7 +142,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo5 = new Photo();
         photo5.setPhotoId(1);
         photo5.setPhotoName("Jiaozi Photo 1");
-        photo5.setPhotoPath("jiaozi-photo-1.jpg");
+        photo5.setPhotoPath("/upload/jiaozi-photo-1.jpg");
         photos3.add(photo5);
 
         recipe3.setPhotos(photos3);
@@ -166,7 +163,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo7 = new Photo();
         photo7.setPhotoId(1);
         photo7.setPhotoName("Sushi Photo 1");
-        photo7.setPhotoPath("sushi-photo-1.jpg");
+        photo7.setPhotoPath("/upload/sushi-photo-1.jpg");
         photos4.add(photo7);
 
         recipe4.setPhotos(photos4);
@@ -187,7 +184,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo9 = new Photo();
         photo9.setPhotoId(1);
         photo9.setPhotoName("Burger Photo 1");
-        photo9.setPhotoPath("burger-photo-1.jpg");
+        photo9.setPhotoPath("/upload/burger-photo-1.jpg");
         photos5.add(photo9);
 
         recipe5.setPhotos(photos5);
@@ -207,7 +204,7 @@ public class RecipeDAOStub implements IRecipeDAO {
         Photo photo11 = new Photo();
         photo11.setPhotoId(1);
         photo11.setPhotoName("Chicken Curry Photo 1");
-        photo11.setPhotoPath("chicken-curry-photo-1.jpg");
+        photo11.setPhotoPath("/upload/chicken-curry-photo-1.jpg");
         photos6.add(photo11);
 
         recipe6.setPhotos(photos6);
