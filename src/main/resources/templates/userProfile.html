@@ -3,47 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Personal Page</title>
-    <link rel="stylesheet" href="../static/userProfile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-<h1>Welcome to Your Personal Page</h1>
-<p th:text="'Hello, ' + ${session.loggedInUserName}"></p>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center">Welcome to Your Personal Page</h1>
+    <p class="text-center" th:text="'Hello, ' + ${session.loggedInUserName}"></p>
 
-<h1>Add Recipe</h1>
-<form action="/addRecipe" method="post" enctype="multipart/form-data">
-    <label for="nameRecipe">Recipe Name:</label>
-    <input type="text" id="nameRecipe" name="nameRecipe" required><br>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Add Recipe</h2>
+            <form action="/addRecipe" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nameRecipe">Recipe Name:</label>
+                    <input type="text" id="nameRecipe" name="nameRecipe" class="form-control" required>
+                </div>
 
-    <label for="cuisine">Cuisine Category:</label>
-    <select id="cuisine" name="cuisine" required>
-        <option th:each="category : ${cuisineCategories}" th:value="${category.getId()}" th:text="${category.getName()}">Mexican Cuisine</option>
-    </select><br>
+                <div class="form-group">
+                    <label for="cuisine">Cuisine Category:</label>
+                    <select id="cuisine" name="cuisine" class="form-control" required>
+                        <option th:each="category : ${cuisineCategories}" th:value="${category.getId()}" th:text="${category.getName()}">Mexican Cuisine</option>
+                    </select>
+                </div>
 
-    <label for="type">Type:</label>
-    <input type="text" id="type" name="type" required><br>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <input type="text" id="type" name="type" class="form-control" required>
+                </div>
 
-    <label for="difficulty">Difficulty:</label>
-    <input type="text" id="difficulty" name="difficulty" required><br>
+                <div class="form-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <input type="text" id="difficulty" name="difficulty" class="form-control" required>
+                </div>
 
-    <label for="imageRecipe">UpdateImage:</label>
-    <input type="file" id="imageRecipe" name="recipeFile" required><br>
+                <div class="form-group">
+                    <label for="imageRecipe">Update Image:</label>
+                    <input type="file" id="imageRecipe" name="recipeFile" class="form-control-file" required>
+                </div>
 
-    <input type="submit" value="Add Recipe">
-</form>
+                <button type="submit" class="btn btn-primary">Add Recipe</button>
+            </form>
+        </div>
 
-<h1>Add Cuisine Category</h1>
-<form action="/addCuisineCategory" method="post" enctype="multipart/form-data">
-    <label for="nameCuisine">Category Name:</label>
-    <input type="text" id="nameCuisine" name="name" required><br>
+        <div class="col-md-6">
+            <h2>Add Cuisine Category</h2>
+            <form action="/addCuisineCategory" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nameCuisine">Category Name:</label>
+                    <input type="text" id="nameCuisine" name="name" class="form-control" required>
+                </div>
 
-    <label for="imageCuisine">UpdateImage:</label>
-    <input type="file" id="imageCuisine" name="cuisineFile" required><br>
+                <div class="form-group">
+                    <label for="imageCuisine">Update Image:</label>
+                    <input type="file" id="imageCuisine" name="cuisineFile" class="form-control-file" required>
+                </div>
 
-    <input type="submit" value="Add Category">
-</form>
+                <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<a th:href="logOut">Logout</a>
+<div class="container mt-4">
+    <a th:href="logOut" class="btn btn-danger btn-block">Logout</a>
+</div>
+
 </body>
 </html>
