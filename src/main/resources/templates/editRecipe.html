@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+</head>
+<body>
+<h1>Edit Recipe</h1>
+<form th:action="@{'/updateRecipe/' + ${recipe.recipeId}}" method="post">
+    <div class="form-group">
+        <label for="nameRecipe">Recipe Name:</label>
+        <input type="text" id="nameRecipe" name="name" th:value="${recipe.name}" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="newInstruction">New Instruction:</label>
+        <input type="text" id="newInstruction" name="newInstruction" class="form-control">
+        <button type="button" onclick="addInstruction()">Add Instruction</button>
+    </div>
+    <div id="instructions-container">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</body>
+</html>

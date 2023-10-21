@@ -1,11 +1,14 @@
 package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dao.IRecipeDAO;
+import com.groupthree.culinarycompanion.dao.IUserDAO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
+import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
 import com.groupthree.culinarycompanion.model.Recipe;
+import com.groupthree.culinarycompanion.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,22 +17,25 @@ import java.util.List;
 @Service
 public class RecipeService implements IRecipeService {
     private IRecipeDAO recipeDAO;
+    private IUserDAO userDAO;
 
-    public RecipeService(IRecipeDAO recipeDAO) {
+    public RecipeService(IRecipeDAO recipeDAO, IUserDAO userDAO) {
         this.recipeDAO = recipeDAO;
+        this.userDAO = userDAO;
     }
 
     @Override
-    public void createRecipe(RecipeDTO recipeDTO) {
+    public RecipeDTO createRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = mapDTOToModel(recipeDTO);
-        recipeDAO.createRecipe(recipe);
+        return mapModelToDTO(recipeDAO.createRecipe(recipe));
     }
 
     @Override
-    public void updateRecipe(int recipeId, RecipeDTO recipeDTO) {
+    public RecipeDTO updateRecipe(int recipeId, RecipeDTO recipeDTO) {
         Recipe recipe = mapDTOToModel(recipeDTO);
         recipe.setRecipeId(recipeId);
         recipeDAO.updateRecipe(recipe);
+        return mapModelToDTO(recipeDAO.updateRecipe(recipe));
     }
 
     @Override
@@ -88,6 +94,18 @@ public class RecipeService implements IRecipeService {
         return recipeDTOs;
     }
 
+    @Override
+    public List<RecipeDTO> getRecipesByUserId(int userId) {
+        List<Recipe> recipes = userDAO.getRecipesByUserId(userId);
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            RecipeDTO dto = mapModelToDTO(recipe);
+            recipeDTOs.add(dto);
+        }
+        return recipeDTOs;
+    }
+
 
     @Override
     public RecipeDTO mapModelToDTO(Recipe recipe) {
@@ -107,6 +125,17 @@ public class RecipeService implements IRecipeService {
             photoDTOs.add(photoDTO);
         }
         dto.setPhotos(photoDTOs);
+
+        User user = recipe.getUser();
+        if (user != null) {
+
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUserId(user.getUserId());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setUsername(user.getUsername());
+            dto.setUser(userDTO);
+        }
+
 
         return dto;
     }
@@ -129,6 +158,12 @@ public class RecipeService implements IRecipeService {
             photos.add(photo);
         }
         recipe.setPhotos(photos);
+
+        User user = new User();
+        user.setUserId(dto.getUser().getUserId());
+        user.setUsername(dto.getUser().getUsername());
+        user.setEmail(dto.getUser().getEmail());
+        recipe.setUser(user);
 
         return recipe;
     }

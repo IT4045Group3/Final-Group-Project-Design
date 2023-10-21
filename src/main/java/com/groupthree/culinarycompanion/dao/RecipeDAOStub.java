@@ -40,25 +40,73 @@ public class RecipeDAOStub implements IRecipeDAO {
     }
 
     @Override
-    public void createRecipe(Recipe recipe) {
+    public Recipe createRecipe(Recipe recipe) {
         recipe.setRecipeId(nextRecipeId);
         nextRecipeId++;
         recipeDatabase.add(recipe);
+        return recipe;
     }
 
     @Override
-    public void updateRecipe(Recipe recipe) {
-        int index = -1;
-        for (int i = 0; i < recipeDatabase.size(); i++) {
-            if (recipeDatabase.get(i).getRecipeId() == recipe.getRecipeId()) {
-                index = i;
-                break;
+    public Recipe updateRecipe(Recipe updatedRecipe) {
+        // Find the existing recipe in the database
+        Recipe existingRecipe = findRecipeById(updatedRecipe.getRecipeId());
+
+        if (existingRecipe != null) {
+            // Check and update each field if it has changed
+
+            // Check and update the name
+            if (updatedRecipe.getName() != null) {
+                existingRecipe.setName(updatedRecipe.getName());
+            }
+
+            // Check and update the cuisine
+            if (updatedRecipe.getCuisine() != null) {
+                existingRecipe.setCuisine(updatedRecipe.getCuisine());
+            }
+
+            // Check and update the type
+            if (updatedRecipe.getType() != null) {
+                existingRecipe.setType(updatedRecipe.getType());
+            }
+
+            // Check and update the difficulty
+            if (updatedRecipe.getDifficulty() != null) {
+                existingRecipe.setDifficulty(updatedRecipe.getDifficulty());
+            }
+
+            // Check and update ingredients if it's not an empty list
+            if (updatedRecipe.getIngredients() != null && !updatedRecipe.getIngredients().isEmpty()) {
+                existingRecipe.setIngredients(updatedRecipe.getIngredients());
+            }
+
+            // Check and update instructions if it's not an empty list
+            if (updatedRecipe.getInstructions() != null && !updatedRecipe.getInstructions().isEmpty()) {
+                existingRecipe.setInstructions(updatedRecipe.getInstructions());
+            }
+
+            // Check and update photos if it's not an empty list
+            if (updatedRecipe.getPhotos() != null && !updatedRecipe.getPhotos().isEmpty()) {
+                existingRecipe.setPhotos(updatedRecipe.getPhotos());
+            }
+
+            // Update the user if it has changed
+            if (updatedRecipe.getUser() != null) {
+                existingRecipe.setUser(updatedRecipe.getUser());
+            }
+
+            // Replace the existing recipe with the updated one
+            for (int i = 0; i < recipeDatabase.size(); i++) {
+                if (recipeDatabase.get(i).getRecipeId() == existingRecipe.getRecipeId()) {
+                    recipeDatabase.set(i, existingRecipe);
+                    break;
+                }
             }
         }
-        if (index != -1) {
-            recipeDatabase.set(index, recipe);
-        }
+        return existingRecipe;
     }
+
+
 
     @Override
     public void deleteRecipe(int recipeId) {

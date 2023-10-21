@@ -46,7 +46,15 @@ public class UserController {
     @GetMapping("/userProfile")
     public String userProfile(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUserName") != null) {
+
             model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+
+            int loggedInUserName = (int) session.getAttribute("loggedInUserId");
+
+            List<RecipeDTO> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
+
+            model.addAttribute("myRecipes", myRecipes);
+
             return "userProfile";
         } else {
             return "redirect:/login";
@@ -58,6 +66,7 @@ public class UserController {
 
         session.removeAttribute("loggedInUserName");
         session.removeAttribute("loginSuccessful");
+        session.removeAttribute("loggedInUserId");
 
         return ("redirect:/login");
     }
@@ -68,6 +77,7 @@ public class UserController {
         if (userService.isValidLogin(email, password)) {
             session.setAttribute("loginSuccessful", "Successful login as " + userService.findUserByEmail(email).getUsername().trim());
             session.setAttribute("loggedInUserName", userService.findUserByEmail(email).getUsername());
+            session.setAttribute("loggedInUserId", userService.findUserByEmail(email).getUserId());
 
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
@@ -122,9 +132,13 @@ public class UserController {
                             @RequestParam("cuisine") int cuisineId,
                             @RequestParam("type") String type,
                             @RequestParam("difficulty") String difficulty,
-                            @RequestParam("recipeFile") MultipartFile file) throws FileNotFoundException {
+                            @RequestParam("recipeFile") MultipartFile file,
+                            HttpSession session) throws FileNotFoundException {
 
         String imagePath = userService.saveImage(file);
+
+        int loggedInUserId = (int) session.getAttribute("loggedInUserId");
+        UserDTO currentUser = userService.findUserById(loggedInUserId);
 
         RecipeDTO newRecipe = new RecipeDTO();
         newRecipe.setName(name);
@@ -142,11 +156,14 @@ public class UserController {
 
         photos.add(photoDTO);
         newRecipe.setPhotos(photos);
+        newRecipe.setUser(currentUser);
 
-        recipeService.createRecipe(newRecipe);
+        currentUser.getRecipes().add(recipeService.createRecipe(newRecipe));
+        userService.updateUser(currentUser.getUserId(),currentUser);
 
         return "redirect:/home";
     }
+
 
     @PostMapping("/addCuisineCategory")
     public String addCuisineCategory(@RequestParam("name") String name,

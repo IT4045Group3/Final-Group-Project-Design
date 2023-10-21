@@ -67,11 +67,38 @@
             </form>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h2>My Recipes</h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Recipe Name</th>
+                    <th>Cuisine</th>
+                    <th>Type</th>
+                    <th>Difficulty</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="recipe : ${myRecipes}">
+                    <td th:text="${recipe.name}"></td>
+                    <td th:text="${recipe.cuisine.name}"></td>
+                    <td th:text="${recipe.type}"></td>
+                    <td th:text="${recipe.difficulty}"></td>
+                    <td>
+                        <a th:href="@{'/editRecipe/' + ${recipe.recipeId}}" class="btn btn-warning">Edit</a>
+                        <a th:href="@{'/deleteRecipe/' + ${recipe.recipeId}}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="container mt-4">
     <a th:href="logOut" class="btn btn-danger btn-block">Logout</a>
 </div>
-
 </body>
 </html>

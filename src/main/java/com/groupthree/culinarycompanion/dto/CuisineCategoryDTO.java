@@ -2,10 +2,11 @@ package com.groupthree.culinarycompanion.dto;
 
 import com.groupthree.culinarycompanion.model.Photo;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 import java.util.List;
 
-public class CuisineCategoryDTO {
+public @Data class CuisineCategoryDTO {
 
     private int id;
     private String name;

@@ -5,62 +5,52 @@ import java.util.List;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 public class Recipe {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int recipeId;
+    @Getter
     private String name;
+    @Getter
     @ManyToOne
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
 
+    @Getter
     private String type;
 
+    @Getter
     private String difficulty;
 
     private List<Ingredient> ingredients;
 
     private List<Instruction> instructions;
 
+    @Getter
     private List<Photo> photos;
 
-    public int getRecipeId() {
-        return recipeId;
-    }
+    @ManyToOne
+    private User user;
 
     public void setRecipeId(int recipeId) {
         this.recipeId = recipeId;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public CuisineCategory getCuisine() {
-        return cuisine;
-    }
-
     public void setCuisine(CuisineCategory cuisine) {
         this.cuisine = cuisine;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
     }
 
     public void setDifficulty(String difficulty) {
@@ -83,11 +73,19 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
-
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
