@@ -87,7 +87,7 @@
                     <td th:text="${recipe.type}"></td>
                     <td th:text="${recipe.difficulty}"></td>
                     <td>
-                        <a th:href="@{'/editRecipe/' + ${recipe.recipeId}}" class="btn btn-warning">Edit</a>
+                        <a th:href="@{'/updateRecipe/' + ${recipe.recipeId}}" class="btn btn-warning">Edit</a>
                         <a th:href="@{'/deleteRecipe/' + ${recipe.recipeId}}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
@@ -98,7 +98,8 @@
 </div>
 
 <div class="container mt-4">
-    <a th:href="logOut" class="btn btn-danger btn-block">Logout</a>
+    <a th:href="home" class="btn btn-danger btn-block">Home page</a>
+    <a th:href="logOut" class="btn btn-danger btn-block">Log out</a>
 </div>
 </body>
 </html>

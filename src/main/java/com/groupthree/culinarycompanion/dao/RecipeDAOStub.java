@@ -19,6 +19,12 @@ public class RecipeDAOStub implements IRecipeDAO {
     private List<Recipe> recipeDatabase = new ArrayList<>();
     private int nextRecipeId = 1;
 
+    private ICuisineCategoryDAO cuisineCategoryDao;
+
+    public RecipeDAOStub(ICuisineCategoryDAO cuisineCategoryDao) {
+        this.cuisineCategoryDao = cuisineCategoryDao;
+    }
+
     @Override
     public Recipe findRecipeById(int recipeId) {
         for (Recipe recipe : recipeDatabase) {
@@ -62,7 +68,8 @@ public class RecipeDAOStub implements IRecipeDAO {
 
             // Check and update the cuisine
             if (updatedRecipe.getCuisine() != null) {
-                existingRecipe.setCuisine(updatedRecipe.getCuisine());
+                CuisineCategory cuisineCategory = cuisineCategoryDao.findCuisineById(updatedRecipe.getCuisine().getId());
+                existingRecipe.setCuisine(cuisineCategory);
             }
 
             // Check and update the type
@@ -119,6 +126,8 @@ public class RecipeDAOStub implements IRecipeDAO {
         }
         if (recipeToRemove != null) {
             recipeDatabase.remove(recipeToRemove);
+            nextRecipeId--;
+
         }
     }
     @Override

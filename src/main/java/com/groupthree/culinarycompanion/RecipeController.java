@@ -2,6 +2,7 @@ package com.groupthree.culinarycompanion;
 
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
+import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.service.ICuisineCategoryService;
 import com.groupthree.culinarycompanion.service.IRecipeService;
 import com.groupthree.culinarycompanion.service.IUserService;
@@ -28,9 +29,11 @@ public class RecipeController {
         this.cuisineCategoryService = cuisineCategoryService;
     }
 
-    @GetMapping("/editRecipe/{recipeId}")
+    @GetMapping("/updateRecipe/{recipeId}")
     public String editRecipe(@PathVariable int recipeId, Model model) {
         RecipeDTO recipe = recipeService.findRecipeById(recipeId);
+        model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        model.addAttribute("recipes", recipeService.getAllRecipes());
         model.addAttribute("recipe", recipe);
         return "editRecipe";
     }
@@ -40,7 +43,6 @@ public class RecipeController {
 
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
         UserDTO currentUser = userService.findUserById(loggedInUserId);
-
         currentUser.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
         currentUser.getRecipes().add(recipeService.updateRecipe(recipeId, updatedRecipe));
         userService.updateUser(currentUser.getUserId(),currentUser);
@@ -49,8 +51,15 @@ public class RecipeController {
     }
 
     @GetMapping("/deleteRecipe/{recipeId}")
-    public String deleteRecipe(@PathVariable int recipeId) {
+    public String deleteRecipe(HttpSession session, @PathVariable int recipeId) {
+
+        int loggedInUserId = (int) session.getAttribute("loggedInUserId");
+        UserDTO currentUser = userService.findUserById(loggedInUserId);
+        currentUser.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
         recipeService.deleteRecipe(recipeId);
+        userService.updateUser(currentUser.getUserId(),currentUser);
+
         return "redirect:/userProfile";
     }
+
 }
