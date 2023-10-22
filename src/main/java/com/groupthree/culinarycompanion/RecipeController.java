@@ -125,7 +125,13 @@ public class RecipeController {
         return "redirect:/updateRecipe/" + recipeId;
     }
 
+    @GetMapping("/recipe-details/{recipeId}")
+    public String viewRecipeDetails(@PathVariable int recipeId, Model model) {
 
+        RecipeDTO recipe = recipeService.findRecipeById(recipeId);
 
+        model.addAttribute("recipeDetail", recipe);
 
+        return "recipe-details";
+    }
 }

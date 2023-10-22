@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Recipe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-primary mt-5">
+        <h1>View Recipe</h1>
+    </div>
+
+    <div class="mt-4">
+        <h2 th:text="'Name: ' + ${recipeDetail.getName()}" class="mb-3"></h2>
+        <p th:text="'Type: ' + ${recipeDetail.getType()}" class="mb-3"></p>
+        <p th:text="'Difficulty: ' + ${recipeDetail.getDifficulty()}" class="mb-3"></p>
+        <p th:text="'Cuisine: ' + ${recipeDetail.getCuisine().getName()}" class="mb-3"></p>
+
+        <h3 class="mt-4">Instructions</h3>
+        <table class="table">
+            <tbody th:each="instruction : ${recipeDetail.getInstructions()}">
+            <tr>
+                <th th:text="'Step Number'" scope="row"></th>
+                <td th:text="${instruction.getStepNumber()}"></td>
+            </tr>
+            <tr>
+                <th th:text="'Description'" scope="row"></th>
+                <td th:text="${instruction.getDescription()}"></td>
+            </tr>
+            <tr>
+                <th th:text="'Video URL'" scope="row"></th>
+                <td th:text="${instruction.getVideoURL()}"></td>
+            </tr>
+            <tr>
+                <th>Photos</th>
+                <td>
+                    <ul class="list-inline">
+                        <li class="list-inline-item" th:each="photo : ${instruction.getPhotos()}">
+                            <img th:src="${photo.getPhotoPath()}" alt="Instruction Photo" style="max-width: 200px;">
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
