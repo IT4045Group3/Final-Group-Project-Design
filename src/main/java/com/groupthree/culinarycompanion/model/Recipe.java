@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +30,10 @@ public class Recipe {
 
     private List<Ingredient> ingredients;
 
-    private List<Instruction> instructions;
+    private List<Instruction> instructions = new ArrayList<>();
 
     @Getter
-    private List<Photo> photos;
+    private List<Photo> photos = new ArrayList<>();
 
     @ManyToOne
     private User user;

@@ -1,6 +1,6 @@
 package com.groupthree.culinarycompanion.dao;
 
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
+import com.groupthree.culinarycompanion.model.Instruction;
 import com.groupthree.culinarycompanion.model.Recipe;
 
 import java.util.List;
@@ -14,5 +14,10 @@ public interface IRecipeDAO {
     List<Recipe> findAllRecipes();
     List<Recipe> findByNameContaining(String keyword);
     List<Recipe> getRecipesByCategory(int categoryId);
+    Instruction addInstructionToRecipe(int recipeId, Instruction instruction);
+    void deletePhotoToInstruction(int recipeId, int instructionId, int photoId);
+    void removeInstructionFromRecipe(int recipeId, int instructionId);
+    void updateInstructionToRecipe(int recipeId, int instructionId, Instruction updatedInstruction);
+    void addPhotoInInstruction(int recipeId, int instructionId, String imagePath);
 }
 

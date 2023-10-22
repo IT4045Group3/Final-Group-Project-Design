@@ -1,14 +1,10 @@
 package com.groupthree.culinarycompanion.dao;
 
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
+import com.groupthree.culinarycompanion.model.Instruction;
 import com.groupthree.culinarycompanion.model.Photo;
 import com.groupthree.culinarycompanion.model.Recipe;
-import com.groupthree.culinarycompanion.service.IRecipeService;
-import com.groupthree.culinarycompanion.service.RecipeService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,6 +14,8 @@ import java.util.List;
 public class RecipeDAOStub implements IRecipeDAO {
     private List<Recipe> recipeDatabase = new ArrayList<>();
     private int nextRecipeId = 1;
+    private int nextInstructionId = 1;
+    private int nextPhotoId = 1;
 
     private ICuisineCategoryDAO cuisineCategoryDao;
 
@@ -160,6 +158,95 @@ public class RecipeDAOStub implements IRecipeDAO {
             }
         }
         return recipesByCategory;
+    }
+
+    @Override
+    public Instruction addInstructionToRecipe(int recipeId, Instruction instruction) {
+        Recipe recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<Instruction> instructions = recipe.getInstructions();
+            instruction.setInstructionId(nextInstructionId);
+            nextInstructionId++;
+            instructions.add(instruction);
+            recipe.setInstructions(instructions);
+        }
+        return instruction;
+
+    }
+
+    @Override
+    public void addPhotoInInstruction(int recipeId, int instructionId, String imagePath) {
+        Recipe recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<Instruction> instructions = recipe.getInstructions();
+            for (Instruction instruction : instructions) {
+                if (instruction.getInstructionId() == instructionId) {
+                    Photo newPhoto = new Photo();
+                    newPhoto.setPhotoId(nextPhotoId);
+                    nextPhotoId++;
+                    newPhoto.setPhotoName("New Photo");
+                    newPhoto.setPhotoPath(imagePath);
+
+                    List<Photo> photos = instruction.getPhotos();
+                    photos.add(newPhoto);
+
+                    instruction.setPhotos(photos);
+                }
+            }
+
+            recipe.setInstructions(instructions);
+        }
+    }
+
+
+    @Override
+    public void removeInstructionFromRecipe(int recipeId, int instructionId) {
+        Recipe recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<Instruction> instructions = recipe.getInstructions();
+            instructions.removeIf(instruction -> instruction.getInstructionId() == instructionId);
+            recipe.setInstructions(instructions);
+        }
+    }
+
+    @Override
+    public void updateInstructionToRecipe(int recipeId, int instructionId, Instruction updatedInstruction) {
+        Recipe recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<Instruction> instructions = recipe.getInstructions();
+            for (Instruction instruction : instructions) {
+                if (instruction.getInstructionId() == instructionId) {
+
+                    if (!instruction.getDescription().equals(updatedInstruction.getDescription())) {
+                        instruction.setDescription(updatedInstruction.getDescription());
+                    }
+                    if (!instruction.getVideoURL().equals(updatedInstruction.getVideoURL())) {
+                        instruction.setVideoURL(updatedInstruction.getVideoURL());
+                    }
+                    if (instruction.getStepNumber() != updatedInstruction.getStepNumber()) {
+                        instruction.setStepNumber(updatedInstruction.getStepNumber());
+                    }
+
+                    recipe.setInstructions(instructions);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deletePhotoToInstruction(int recipeId, int instructionId, int photoId) {
+        Recipe recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<Instruction> instructions = recipe.getInstructions();
+            for (Instruction instruction : instructions) {
+                if (instruction.getInstructionId() == instructionId) {
+                    List<Photo> photos = instruction.getPhotos();
+                    photos.removeIf(photo -> photo.getPhotoId() == photoId);
+                    instruction.setPhotos(photos);
+                }
+            }
+            recipe.setInstructions(instructions);
+        }
     }
 
 
