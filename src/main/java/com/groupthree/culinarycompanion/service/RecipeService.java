@@ -2,13 +2,11 @@ package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dao.IRecipeDAO;
 import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.Photo;
-import com.groupthree.culinarycompanion.model.Recipe;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -104,6 +102,55 @@ public class RecipeService implements IRecipeService {
             recipeDTOs.add(dto);
         }
         return recipeDTOs;
+    }
+
+    @Override
+    public RecipeDTO addInstructionToRecipe(int recipeId, InstructionDTO newInstruction) {
+        RecipeDTO recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            recipe.getInstructions().add(newInstruction);
+        }
+        return recipe;
+    }
+
+    @Override
+    public RecipeDTO updateInstructionInRecipe(int recipeId, int instructionId, InstructionDTO updatedInstruction) {
+        RecipeDTO recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<InstructionDTO> instructions = recipe.getInstructions();
+            for (InstructionDTO instruction : instructions) {
+                if (instruction.getInstructionId() == instructionId) {
+
+                    if (!instruction.getDescription().equals(updatedInstruction.getDescription())) {
+                        instruction.setDescription(updatedInstruction.getDescription());
+                    }
+                    if (!instruction.getVideoURL().equals(updatedInstruction.getVideoURL())) {
+                        instruction.setVideoURL(updatedInstruction.getVideoURL());
+                    }
+                    if (instruction.getStepNumber() != updatedInstruction.getStepNumber()) {
+                        instruction.setStepNumber(updatedInstruction.getStepNumber());
+                    }
+                    if (!instruction.getPhotos().equals(updatedInstruction.getPhotos())) {
+                        instruction.setPhotos(updatedInstruction.getPhotos());
+                    }
+
+                    recipe.setInstructions(instructions);
+                    return recipe;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public RecipeDTO removeInstructionFromRecipe(int recipeId, int instructionId) {
+        RecipeDTO recipe = findRecipeById(recipeId);
+        if (recipe != null) {
+            List<InstructionDTO> instructions = recipe.getInstructions();
+            instructions.removeIf(instruction -> instruction.getInstructionId() == instructionId);
+        }
+        return recipe;
     }
 
 

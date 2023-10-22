@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion;
 
+import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
@@ -62,6 +63,19 @@ public class RecipeController {
             RecipeDTO existingRecipe = recipeService.findRecipeById(recipeId);
             updatedRecipe.setPhotos(existingRecipe.getPhotos());
         }
+
+        List<InstructionDTO> instructions = updatedRecipe.getInstructions();
+
+        if (instructions != null) {
+            for (InstructionDTO instruction : instructions) {
+                if (instruction.getInstructionId() == 0) {
+                    recipeService.addInstructionToRecipe(recipeId, instruction);
+                } else {
+                    recipeService.updateInstructionInRecipe(recipeId, instruction.getInstructionId(), instruction);
+                }
+            }
+        }
+
 
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
         UserDTO currentUser = userService.findUserById(loggedInUserId);
