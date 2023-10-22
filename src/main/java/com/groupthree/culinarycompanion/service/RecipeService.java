@@ -2,13 +2,11 @@ package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dao.IRecipeDAO;
 import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.Photo;
-import com.groupthree.culinarycompanion.model.Recipe;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,6 +45,18 @@ public class RecipeService implements IRecipeService {
     public RecipeDTO findRecipeById(int recipeId) {
         Recipe recipe = recipeDAO.findRecipeById(recipeId);
         return mapModelToDTO(recipe);
+    }
+
+    @Override
+    public List<RecipeDTO> getRecipesByUserId(int userId) {
+        List<Recipe> recipes = userDAO.getRecipesByUserId(userId);
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            RecipeDTO dto = mapModelToDTO(recipe);
+            recipeDTOs.add(dto);
+        }
+        return recipeDTOs;
     }
 
     @Override
@@ -95,19 +105,6 @@ public class RecipeService implements IRecipeService {
     }
 
     @Override
-    public List<RecipeDTO> getRecipesByUserId(int userId) {
-        List<Recipe> recipes = userDAO.getRecipesByUserId(userId);
-        List<RecipeDTO> recipeDTOs = new ArrayList<>();
-
-        for (Recipe recipe : recipes) {
-            RecipeDTO dto = mapModelToDTO(recipe);
-            recipeDTOs.add(dto);
-        }
-        return recipeDTOs;
-    }
-
-
-    @Override
     public RecipeDTO mapModelToDTO(Recipe recipe) {
         RecipeDTO dto = new RecipeDTO();
         dto.setRecipeId(recipe.getRecipeId());
@@ -115,6 +112,29 @@ public class RecipeService implements IRecipeService {
         dto.setCuisine(recipe.getCuisine());
         dto.setType(recipe.getType());
         dto.setDifficulty(recipe.getDifficulty());
+
+        List<InstructionDTO> instructionDTOs = new ArrayList<>();
+        for (Instruction instruction : recipe.getInstructions()) {
+            InstructionDTO instructionDTO = new InstructionDTO();
+            instructionDTO.setInstructionId(instruction.getInstructionId());
+            instructionDTO.setStepNumber(instruction.getStepNumber());
+            instructionDTO.setDescription(instruction.getDescription());
+            instructionDTO.setVideoURL(instruction.getVideoURL());
+
+            List<PhotoDTO> photoDTOs = new ArrayList<>();
+            for (Photo photo : instruction.getPhotos()) {
+                PhotoDTO photoDTO = new PhotoDTO();
+                photoDTO.setPhotoId(photo.getPhotoId());
+                photoDTO.setPhotoName(photo.getPhotoName());
+                photoDTO.setPhotoPath(photo.getPhotoPath());
+                photoDTOs.add(photoDTO);
+            }
+            instructionDTO.setPhotos(photoDTOs);
+
+            instructionDTOs.add(instructionDTO);
+
+        }
+        dto.setInstructions(instructionDTOs);
 
         List<PhotoDTO> photoDTOs = new ArrayList<>();
         for (Photo photo : recipe.getPhotos()) {
@@ -135,8 +155,6 @@ public class RecipeService implements IRecipeService {
             userDTO.setUsername(user.getUsername());
             dto.setUser(userDTO);
         }
-
-
         return dto;
     }
 
@@ -148,6 +166,28 @@ public class RecipeService implements IRecipeService {
         recipe.setCuisine(dto.getCuisine());
         recipe.setType(dto.getType());
         recipe.setDifficulty(dto.getDifficulty());
+
+        List<Instruction> instructions = new ArrayList<>();
+        for (InstructionDTO instructionDTO : dto.getInstructions()) {
+            Instruction instruction = new Instruction();
+            instruction.setInstructionId(instructionDTO.getInstructionId());
+            instruction.setStepNumber(instructionDTO.getStepNumber());
+            instruction.setDescription(instructionDTO.getDescription());
+            instruction.setVideoURL(instructionDTO.getVideoURL());
+
+            List<Photo> photos = new ArrayList<>();
+            for (PhotoDTO photoDTO : instructionDTO.getPhotos()) {
+                Photo photo = new Photo();
+                photo.setPhotoId(photoDTO.getPhotoId());
+                photo.setPhotoName(photoDTO.getPhotoName());
+                photo.setPhotoPath(photoDTO.getPhotoPath());
+                photos.add(photo);
+            }
+            instruction.setPhotos(photos);
+
+            instructions.add(instruction);
+        }
+        recipe.setInstructions(instructions);
 
         List<Photo> photos = new ArrayList<>();
         for (PhotoDTO photoDTO : dto.getPhotos()) {

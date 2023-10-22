@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Edit Recipe</h1>
+    <h1 class="mt-5">Edit Recipe</h1>
     <form th:action="@{'/updateRecipe/' + ${recipe.recipeId}}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nameRecipe">Recipe Name:</label>
@@ -38,6 +38,72 @@
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
+
+    <div class="form-group">
+        <h2 class="mt-4">Add Instruction</h2>
+        <form th:action="@{'/addInstruction/' + ${recipe.recipeId}}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="instructionDescriptionAdd">Description:</label>
+                <input type="text" id="instructionDescriptionAdd" name="description" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="instructionVideoURLAdd">Video URL:</label>
+                <input type="text" id="instructionVideoURLAdd" name="videoURL" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="instructionStepNumberAdd">Step Number:</label>
+                <input type="number" id="instructionStepNumberAdd" name="stepNumber" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="instructionImageAdd">Image:</label>
+                <input type="file" id="instructionImageAdd" name="instructionImage">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Instruction</button>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <h2 class="mt-4">Instructions</h2>
+        <ul>
+            <li th:each="instruction : ${recipe.getInstructions()}">
+                <form th:action="@{'/updateInstruction/' + ${recipe.recipeId} + '/' + ${instruction.instructionId}}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="instructionStepNumberUpdate">Step Number:</label>
+                        <input type="number" id="instructionStepNumberUpdate" name="stepNumber" th:value="${instruction.stepNumber}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="instructionDescriptionUpdate">Description:</label>
+                        <input type="text" id="instructionDescriptionUpdate" name="description" th:value="${instruction.description}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="instructionVideoURLUpdate">Video URL:</label>
+                        <input type="text" id="instructionVideoURLUpdate" name="videoURL" th:value="${instruction.videoURL}" class="form-control">
+                    </div>
+                    <div th:each="photo : ${instruction.getPhotos()}">
+                        <div class="form-group">
+                            <img th:src="@{${photo.getPhotoPath()}}" alt="Instruction Image" style="max-width: 200px;">
+                        </div>
+                        <div class="form-group">
+                            <a th:href="@{'/deletePhoto/' + ${recipe.recipeId} + '/' + ${instruction.instructionId} + '/' + ${photo.photoId}}" class="btn btn-danger">Delete Photo</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Instruction</button>
+                </form><br/>
+                <form th:action="@{'/addPhoto/' + ${recipe.recipeId} + '/' + ${instruction.instructionId}}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="instructionPhotoAdd">Add Image:</label>
+                        <input type="file" id="instructionPhotoAdd" name="instructionImageEditAdd" class="form-control">
+                        <button type="submit" class="btn btn-primary">Add Photo</button>
+                    </div>
+                </form>
+                <a th:href="@{'/deleteInstruction/' + ${recipe.recipeId} + '/' + ${instruction.instructionId}}" class="btn btn-danger">Delete Instruction</a>
+                <hr><br/>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container mt-4">
+    <a th:href="@{/home}" class="btn btn-primary btn-block">Home page</a>
 </div>
 </body>
 </html>

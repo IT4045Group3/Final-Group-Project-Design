@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion.service;
 
+import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.model.Recipe;
 
@@ -10,11 +11,11 @@ public interface IRecipeService {
     RecipeDTO updateRecipe(int recipeId, RecipeDTO recipeDTO);
     void deleteRecipe(int recipeId);
     RecipeDTO findRecipeById(int recipeId);
+    List<RecipeDTO> getRecipesByUserId(int userId);
     RecipeDTO findRecipeByName(String name);
     List<RecipeDTO> getAllRecipes();
     List<RecipeDTO> findRecipesByNameContaining(String keyword);
     List<RecipeDTO> getRecipesByCategory(int categoryId);
-    List<RecipeDTO> getRecipesByUserId(int userId);
     RecipeDTO mapModelToDTO(Recipe recipe);
     Recipe mapDTOToModel(RecipeDTO dto);
 }

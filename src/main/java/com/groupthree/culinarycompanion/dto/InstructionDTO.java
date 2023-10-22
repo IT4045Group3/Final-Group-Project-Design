@@ -2,6 +2,7 @@ package com.groupthree.culinarycompanion.dto;
 
 import com.groupthree.culinarycompanion.model.Photo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InstructionDTO {
@@ -9,7 +10,7 @@ public class InstructionDTO {
     private int stepNumber;
     private String description;
     private String videoURL;
-    private List<Photo> photos;
+    private List<PhotoDTO> photos = new ArrayList<>();
     // Getters and setters
 
     public int getInstructionId() {
@@ -44,11 +45,11 @@ public class InstructionDTO {
         this.videoURL = videoURL;
     }
 
-    public List<Photo> getPhotos() {
+    public List<PhotoDTO> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(List<PhotoDTO> photos) {
         this.photos = photos;
     }
 }
