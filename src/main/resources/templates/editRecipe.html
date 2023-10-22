@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <h1>Edit Recipe</h1>
+    <form th:action="@{'/updateRecipe/' + ${recipe.recipeId}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nameRecipe">Recipe Name:</label>
+            <input type="text" id="nameRecipe" name="name" th:value="${recipe.name}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="cuisine">Cuisine Category:</label>
+            <select id="cuisine" name="cuisine.id" class="form-control">
+                <option th:each="category : ${cuisineCategories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" th:value="${recipe.type}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="difficulty">Difficulty:</label>
+            <input type="text" id="difficulty" name="difficulty" th:value="${recipe.difficulty}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="imageRecipe">Update Image:</label>
+            <input type="file" id="imageRecipe" name="photo" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+</body>
+</html>

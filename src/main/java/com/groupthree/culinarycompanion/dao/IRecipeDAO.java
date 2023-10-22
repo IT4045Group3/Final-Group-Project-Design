@@ -8,8 +8,8 @@ import java.util.List;
 public interface IRecipeDAO {
     Recipe findRecipeById(int recipeId);
     Recipe findRecipeByName(String name);
-    void createRecipe(Recipe recipe);
-    void updateRecipe(Recipe recipe);
+    Recipe createRecipe(Recipe recipe);
+    Recipe updateRecipe(Recipe recipe);
     void deleteRecipe(int recipeId);
     List<Recipe> findAllRecipes();
     List<Recipe> findByNameContaining(String keyword);

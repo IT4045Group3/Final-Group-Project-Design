@@ -13,7 +13,7 @@ public class CuisineCategory {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "cuisine")
     private List<Photo> photos;
 
     public int getId() {

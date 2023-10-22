@@ -1,6 +1,7 @@
 package com.groupthree.culinarycompanion.dao;
 
 import com.groupthree.culinarycompanion.dto.UserDTO;
+import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.model.User;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
@@ -66,6 +67,20 @@ public class UserDAOStub implements IUserDAO {
         if (userToRemove != null) {
             userDatabase.remove(userToRemove);
         }
+    }
+
+    @Override
+    public List<Recipe> getRecipesByUserId(int userId) {
+        List<Recipe> userRecipes = new ArrayList<>();
+
+        for (User user : userDatabase) {
+            if (user.getUserId() == userId) {
+                userRecipes = user.getRecipes();
+                break;
+            }
+        }
+
+        return userRecipes;
     }
 
     @PostConstruct

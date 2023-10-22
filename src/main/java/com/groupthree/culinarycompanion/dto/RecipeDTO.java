@@ -1,18 +1,22 @@
 package com.groupthree.culinarycompanion.dto;
 
 import com.groupthree.culinarycompanion.model.CuisineCategory;
+import com.groupthree.culinarycompanion.model.User;
+import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeDTO {
+public @Data class RecipeDTO {
     private int recipeId;
     private String name;
     private CuisineCategory cuisine;
     private String type;
     private String difficulty;
-    private List<IngredientDTO> ingredients;
-    private List<InstructionDTO> instructions;
-    private List<PhotoDTO> photos;
+    private List<IngredientDTO> ingredients = new ArrayList<>();
+    private List<InstructionDTO> instructions = new ArrayList<>();
+    private List<PhotoDTO> photos = new ArrayList<>();
+    private UserDTO user = new UserDTO();
     // Getters and setters
 
     public int getRecipeId() {
@@ -77,6 +81,14 @@ public class RecipeDTO {
 
     public void setPhotos(List<PhotoDTO> photos) {
         this.photos = photos;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 }
 

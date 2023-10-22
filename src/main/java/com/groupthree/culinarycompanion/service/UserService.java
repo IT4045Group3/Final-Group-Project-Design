@@ -1,7 +1,11 @@
 package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.dto.PhotoDTO;
+import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
+import com.groupthree.culinarycompanion.model.Photo;
+import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -10,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -92,11 +98,36 @@ public class UserService implements IUserService {
             dto.setUsername(user.getUsername());
             dto.setEmail(user.getEmail());
             dto.setPassword(user.getPassword());
+
+            List<RecipeDTO> recipeDTOs = new ArrayList<>();
+            for (Recipe recipe : user.getRecipes()) {
+                RecipeDTO recipeDTO = new RecipeDTO();
+                recipeDTO.setRecipeId(recipe.getRecipeId());
+                recipeDTO.setName(recipe.getName());
+                recipeDTO.setCuisine(recipe.getCuisine());
+                recipeDTO.setType(recipe.getType());
+                recipeDTO.setDifficulty(recipe.getDifficulty());
+
+                List<PhotoDTO> photoDTOs = new ArrayList<>();
+                for (Photo photo : recipe.getPhotos()) {
+                    PhotoDTO photoDTO = new PhotoDTO();
+                    photoDTO.setPhotoId(photo.getPhotoId());
+                    photoDTO.setPhotoName(photo.getPhotoName());
+                    photoDTO.setPhotoPath(photo.getPhotoPath());
+                    photoDTOs.add(photoDTO);
+                }
+                recipeDTO.setPhotos(photoDTOs);
+                recipeDTOs.add(recipeDTO);
+            }
+
+            dto.setRecipes(recipeDTOs);
+
             return dto;
         } else {
             return null;
         }
     }
+
 
 
     @Override
@@ -107,12 +138,37 @@ public class UserService implements IUserService {
             user.setUsername(dto.getUsername());
             user.setEmail(dto.getEmail());
             user.setPassword(dto.getPassword());
+
+            List<Recipe> recipes = new ArrayList<>();
+            for (RecipeDTO recipeDTO : dto.getRecipes()) {
+                Recipe recipe = new Recipe();
+                recipe.setRecipeId(recipeDTO.getRecipeId());
+                recipe.setName(recipeDTO.getName());
+                recipe.setCuisine(recipeDTO.getCuisine());
+                recipe.setType(recipeDTO.getType());
+                recipe.setDifficulty(recipeDTO.getDifficulty());
+
+                List<Photo> photos = new ArrayList<>();
+                for (PhotoDTO photoDTO : recipeDTO.getPhotos()) {
+                    Photo photo = new Photo();
+                    photo.setPhotoId(photoDTO.getPhotoId());
+                    photo.setPhotoName(photoDTO.getPhotoName());
+                    photo.setPhotoPath(photoDTO.getPhotoPath());
+                    photos.add(photo);
+                }
+                recipe.setPhotos(photos);
+
+                recipes.add(recipe);
+            }
+
+            user.setRecipes(recipes);
+
             return user;
         } else {
             return null;
         }
-
     }
+
 
     private boolean isPasswordValid(User user, String password) {
         return user.getPassword().equals(password);
