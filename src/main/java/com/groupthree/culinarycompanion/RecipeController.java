@@ -1,5 +1,6 @@
 package com.groupthree.culinarycompanion;
 
+import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.service.RecipeService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class RecipeController {
@@ -39,13 +45,29 @@ public class RecipeController {
     }
 
     @PostMapping("/updateRecipe/{recipeId}")
-    public String updateRecipe(HttpSession session, @PathVariable int recipeId, RecipeDTO updatedRecipe) {
+    public String updateRecipe(HttpSession session, @PathVariable int recipeId, @RequestParam("photo") MultipartFile photo, RecipeDTO updatedRecipe) {
+
+        if (photo != null && !photo.isEmpty()) {
+
+            String imagePath = userService.saveImage(photo);
+            List<PhotoDTO> photos = new ArrayList<>();
+            PhotoDTO photoDTO = new PhotoDTO();
+            photoDTO.setPhotoName(updatedRecipe.getName());
+            photoDTO.setPhotoPath(imagePath);
+            photos.add(photoDTO);
+            updatedRecipe.setPhotos(photos);
+
+        }
+        else {
+            RecipeDTO existingRecipe = recipeService.findRecipeById(recipeId);
+            updatedRecipe.setPhotos(existingRecipe.getPhotos());
+        }
 
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
         UserDTO currentUser = userService.findUserById(loggedInUserId);
         currentUser.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
         currentUser.getRecipes().add(recipeService.updateRecipe(recipeId, updatedRecipe));
-        userService.updateUser(currentUser.getUserId(),currentUser);
+        userService.updateUser(currentUser.getUserId(), currentUser);
 
         return "redirect:/userProfile";
     }

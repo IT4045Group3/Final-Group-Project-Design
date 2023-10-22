@@ -21,12 +21,12 @@
             <form action="/addRecipe" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nameRecipe">Recipe Name:</label>
-                    <input type="text" id="nameRecipe" name="nameRecipe" class="form-control" required>
+                    <input type="text" id="nameRecipe" name="name" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="cuisine">Cuisine Category:</label>
-                    <select id="cuisine" name="cuisine" class="form-control" required>
+                    <select id="cuisine" name="cuisine.id" class="form-control" required>
                         <option th:each="category : ${cuisineCategories}" th:value="${category.getId()}" th:text="${category.getName()}">Mexican Cuisine</option>
                     </select>
                 </div>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="container mt-4">
-    <a th:href="home" class="btn btn-danger btn-block">Home page</a>
+    <a th:href="home" class="btn btn-primary btn-block">Home page</a>
     <a th:href="logOut" class="btn btn-danger btn-block">Log out</a>
 </div>
 </body>

@@ -49,6 +49,11 @@ public class RecipeDAOStub implements IRecipeDAO {
     public Recipe createRecipe(Recipe recipe) {
         recipe.setRecipeId(nextRecipeId);
         nextRecipeId++;
+
+        if (recipe.getCuisine() != null) {
+            CuisineCategory cuisineCategory = cuisineCategoryDao.findCuisineById(recipe.getCuisine().getId());
+            recipe.setCuisine(cuisineCategory);
+        }
         recipeDatabase.add(recipe);
         return recipe;
     }

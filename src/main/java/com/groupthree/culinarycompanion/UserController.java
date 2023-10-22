@@ -128,11 +128,7 @@ public class UserController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(@RequestParam("nameRecipe") String name,
-                            @RequestParam("cuisine") int cuisineId,
-                            @RequestParam("type") String type,
-                            @RequestParam("difficulty") String difficulty,
-                            @RequestParam("recipeFile") MultipartFile file,
+    public String addRecipe(RecipeDTO newRecipe, @RequestParam("recipeFile") MultipartFile file,
                             HttpSession session) throws FileNotFoundException {
 
         String imagePath = userService.saveImage(file);
@@ -140,18 +136,9 @@ public class UserController {
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
         UserDTO currentUser = userService.findUserById(loggedInUserId);
 
-        RecipeDTO newRecipe = new RecipeDTO();
-        newRecipe.setName(name);
-
-        CuisineCategory cuisineCategory = cuisineCategoryService.getCuisineById(cuisineId);
-        newRecipe.setCuisine(cuisineCategory);
-
-        newRecipe.setType(type);
-        newRecipe.setDifficulty(difficulty);
-
         List<PhotoDTO> photos = new ArrayList<>();
         PhotoDTO photoDTO = new PhotoDTO();
-        photoDTO.setPhotoName(name);
+        photoDTO.setPhotoName(newRecipe.getName());
         photoDTO.setPhotoPath(imagePath);
 
         photos.add(photoDTO);
