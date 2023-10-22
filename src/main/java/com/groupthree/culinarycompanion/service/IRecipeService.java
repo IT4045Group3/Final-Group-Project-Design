@@ -11,14 +11,11 @@ public interface IRecipeService {
     RecipeDTO updateRecipe(int recipeId, RecipeDTO recipeDTO);
     void deleteRecipe(int recipeId);
     RecipeDTO findRecipeById(int recipeId);
+    List<RecipeDTO> getRecipesByUserId(int userId);
     RecipeDTO findRecipeByName(String name);
     List<RecipeDTO> getAllRecipes();
     List<RecipeDTO> findRecipesByNameContaining(String keyword);
     List<RecipeDTO> getRecipesByCategory(int categoryId);
-    List<RecipeDTO> getRecipesByUserId(int userId);
-    RecipeDTO addInstructionToRecipe(int recipeId, InstructionDTO newInstruction);
-    public RecipeDTO updateInstructionInRecipe(int recipeId, int instructionId, InstructionDTO updatedInstruction);
-    public RecipeDTO removeInstructionFromRecipe(int recipeId, int instructionId);
     RecipeDTO mapModelToDTO(Recipe recipe);
     Recipe mapDTOToModel(RecipeDTO dto);
 }
