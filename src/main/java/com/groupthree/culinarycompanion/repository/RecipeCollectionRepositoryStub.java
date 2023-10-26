@@ -1,4 +1,4 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.model.RecipeCollection;
 import org.springframework.stereotype.Repository;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RecipeCollectionDAOStub implements IRecipeCollectionDAO {
+public class RecipeCollectionRepositoryStub implements RecipeCollectionRepository {
     private List<RecipeCollection> collectionDatabase = new ArrayList<>();
     private int nextCollectionId = 1;
 

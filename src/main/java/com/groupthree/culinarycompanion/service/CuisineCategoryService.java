@@ -1,13 +1,10 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dao.CuisineCategoryDAOStub;
-import com.groupthree.culinarycompanion.dao.ICuisineCategoryDAO;
-import com.groupthree.culinarycompanion.dao.IRecipeDAO;
+import com.groupthree.culinarycompanion.repository.CuisineCategoryRepository;
 import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +14,9 @@ import java.util.List;
 public class CuisineCategoryService implements ICuisineCategoryService{
 
 
-    private ICuisineCategoryDAO cuisineCategoryDao;
+    private CuisineCategoryRepository cuisineCategoryDao;
 
-    public CuisineCategoryService(ICuisineCategoryDAO cuisineCategoryDao) {
+    public CuisineCategoryService(CuisineCategoryRepository cuisineCategoryDao) {
         this.cuisineCategoryDao = cuisineCategoryDao;
     }
 

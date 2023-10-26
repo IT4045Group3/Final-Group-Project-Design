@@ -1,15 +1,12 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dao.IRecipeDAO;
-import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.repository.RecipeRepository;
 import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.model.Instruction;
 import com.groupthree.culinarycompanion.model.Photo;
-import com.groupthree.culinarycompanion.model.Recipe;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +14,10 @@ import java.util.List;
 @Service
 public class InstructionService implements IInstructionService{
 
-    private IRecipeDAO recipeDAO;
+    private RecipeRepository recipeDAO;
     private IRecipeService recipeService;
 
-    public InstructionService(IRecipeDAO recipeDAO, IRecipeService recipeService) {
+    public InstructionService(RecipeRepository recipeDAO, IRecipeService recipeService) {
         this.recipeDAO = recipeDAO;
         this.recipeService = recipeService;
     }

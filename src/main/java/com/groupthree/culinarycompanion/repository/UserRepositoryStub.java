@@ -1,6 +1,5 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
-import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.model.User;
 import jakarta.annotation.PostConstruct;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserDAOStub implements IUserDAO {
+public class UserRepositoryStub implements UserRepository {
     private List<User> userDatabase = new ArrayList<>();
     private int nextUserId = 1;
 

@@ -1,7 +1,7 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dao.IRecipeDAO;
-import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.repository.RecipeRepository;
+import com.groupthree.culinarycompanion.repository.UserRepository;
 import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @Service
 public class RecipeService implements IRecipeService {
-    private IRecipeDAO recipeDAO;
-    private IUserDAO userDAO;
+    private RecipeRepository recipeDAO;
+    private UserRepository userDAO;
 
-    public RecipeService(IRecipeDAO recipeDAO, IUserDAO userDAO) {
+    public RecipeService(RecipeRepository recipeDAO, UserRepository userDAO) {
         this.recipeDAO = recipeDAO;
         this.userDAO = userDAO;
     }

@@ -1,15 +1,15 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dao.IRecipeCollectionDAO;
+import com.groupthree.culinarycompanion.repository.RecipeCollectionRepository;
 import com.groupthree.culinarycompanion.dto.RecipeCollectionDTO;
 import com.groupthree.culinarycompanion.model.RecipeCollection;
 
 import java.util.List;
 
 public class RecipeCollectionService implements IRecipeCollectionService {
-    private IRecipeCollectionDAO collectionDAO;
+    private RecipeCollectionRepository collectionDAO;
 
-    public RecipeCollectionService(IRecipeCollectionDAO collectionDAO) {
+    public RecipeCollectionService(RecipeCollectionRepository collectionDAO) {
         this.collectionDAO = collectionDAO;
     }
 

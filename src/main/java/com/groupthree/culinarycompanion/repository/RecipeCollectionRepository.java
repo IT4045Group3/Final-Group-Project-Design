@@ -1,10 +1,10 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.model.RecipeCollection;
 
 import java.util.List;
 
-public interface IRecipeCollectionDAO {
+public interface RecipeCollectionRepository {
     RecipeCollection findCollectionById(int collectionId);
     List<RecipeCollection> findCollectionsByUserId(int userId);
     void createCollection(RecipeCollection collection);

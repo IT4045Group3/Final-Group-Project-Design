@@ -1,6 +1,6 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dao.IUserDAO;
+import com.groupthree.culinarycompanion.repository.UserRepository;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
@@ -20,10 +20,10 @@ import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
-    private IUserDAO userDAO;
+    private UserRepository userDAO;
 
     @Autowired
-    public UserService(IUserDAO userDAO) {
+    public UserService(UserRepository userDAO) {
         this.userDAO = userDAO;
     }
 

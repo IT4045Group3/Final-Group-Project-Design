@@ -1,4 +1,4 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Instruction;
@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RecipeDAOStub implements IRecipeDAO {
+public class RecipeRepositoryStub implements RecipeRepository {
     private List<Recipe> recipeDatabase = new ArrayList<>();
     private int nextRecipeId = 1;
     private int nextInstructionId = 1;
     private int nextPhotoId = 1;
 
-    private ICuisineCategoryDAO cuisineCategoryDao;
+    private CuisineCategoryRepository cuisineCategoryDao;
 
-    public RecipeDAOStub(ICuisineCategoryDAO cuisineCategoryDao) {
+    public RecipeRepositoryStub(CuisineCategoryRepository cuisineCategoryDao) {
         this.cuisineCategoryDao = cuisineCategoryDao;
     }
 

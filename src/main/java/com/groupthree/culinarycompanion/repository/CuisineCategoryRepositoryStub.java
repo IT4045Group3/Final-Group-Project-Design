@@ -1,20 +1,15 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
-import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
 import com.groupthree.culinarycompanion.model.Photo;
-import com.groupthree.culinarycompanion.service.ICuisineCategoryService;
-import com.groupthree.culinarycompanion.service.IRecipeService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
-public class CuisineCategoryDAOStub implements ICuisineCategoryDAO {
+public class CuisineCategoryRepositoryStub implements CuisineCategoryRepository {
     private List<CuisineCategory> cuisineCategories = new ArrayList<>();
     private int nextCategoryId = 1;
 

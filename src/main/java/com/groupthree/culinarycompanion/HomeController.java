@@ -1,13 +1,10 @@
 package com.groupthree.culinarycompanion;
 
 
-import com.groupthree.culinarycompanion.dao.RecipeDAOStub;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.Recipe;
 import com.groupthree.culinarycompanion.service.CuisineCategoryService;
 import com.groupthree.culinarycompanion.service.RecipeService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

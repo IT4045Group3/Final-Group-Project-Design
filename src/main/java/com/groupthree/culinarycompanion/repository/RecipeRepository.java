@@ -1,11 +1,11 @@
-package com.groupthree.culinarycompanion.dao;
+package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.model.Instruction;
 import com.groupthree.culinarycompanion.model.Recipe;
 
 import java.util.List;
 
-public interface IRecipeDAO {
+public interface RecipeRepository {
     Recipe findRecipeById(int recipeId);
     Recipe findRecipeByName(String name);
     Recipe createRecipe(Recipe recipe);
