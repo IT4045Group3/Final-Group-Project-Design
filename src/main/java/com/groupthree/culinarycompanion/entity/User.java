@@ -1,5 +1,6 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -10,17 +11,14 @@ import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Entity
 public class User {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int userId;
-    @Getter
     private String username;
-    @Getter
     private String email;
-    @Getter
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Recipe> recipes = new ArrayList<>();

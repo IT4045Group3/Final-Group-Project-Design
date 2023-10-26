@@ -1,7 +1,7 @@
 package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
 
 import java.util.List;
 

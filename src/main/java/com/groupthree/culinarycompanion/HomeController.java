@@ -2,7 +2,7 @@ package com.groupthree.culinarycompanion;
 
 
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
 import com.groupthree.culinarycompanion.service.CuisineCategoryService;
 import com.groupthree.culinarycompanion.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;

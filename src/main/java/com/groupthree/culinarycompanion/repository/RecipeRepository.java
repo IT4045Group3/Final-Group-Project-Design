@@ -1,7 +1,7 @@
 package com.groupthree.culinarycompanion.repository;
 
-import com.groupthree.culinarycompanion.model.Instruction;
-import com.groupthree.culinarycompanion.model.Recipe;
+import com.groupthree.culinarycompanion.entity.Instruction;
+import com.groupthree.culinarycompanion.entity.Recipe;
 
 import java.util.List;
 

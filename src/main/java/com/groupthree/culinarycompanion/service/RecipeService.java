@@ -6,7 +6,7 @@ import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.*;
+import com.groupthree.culinarycompanion.entity.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

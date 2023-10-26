@@ -1,7 +1,5 @@
 package com.groupthree.culinarycompanion.dto;
 
-import com.groupthree.culinarycompanion.model.Photo;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.List;

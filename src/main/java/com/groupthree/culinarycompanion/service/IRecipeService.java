@@ -1,8 +1,7 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dto.InstructionDTO;
 import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.model.Recipe;
+import com.groupthree.culinarycompanion.entity.Recipe;
 
 import java.util.List;
 

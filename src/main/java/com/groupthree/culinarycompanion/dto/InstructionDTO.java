@@ -1,7 +1,5 @@
 package com.groupthree.culinarycompanion.dto;
 
-import com.groupthree.culinarycompanion.model.Photo;
-
 import java.util.ArrayList;
 import java.util.List;
 

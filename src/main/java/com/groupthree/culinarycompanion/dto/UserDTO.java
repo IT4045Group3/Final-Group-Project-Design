@@ -1,6 +1,5 @@
 package com.groupthree.culinarycompanion.dto;
 
-import com.groupthree.culinarycompanion.model.Recipe;
 import lombok.Data;
 
 import java.util.ArrayList;

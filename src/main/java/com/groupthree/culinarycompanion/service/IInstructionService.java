@@ -1,11 +1,7 @@
 package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.dto.InstructionDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.model.Instruction;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import com.groupthree.culinarycompanion.entity.Instruction;
 
 public interface IInstructionService {
     InstructionDTO addInstructionToRecipe(int recipeId, InstructionDTO newInstruction);

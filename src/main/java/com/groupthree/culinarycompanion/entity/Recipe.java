@@ -1,15 +1,14 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Entity
 public class Recipe {
 
     @Getter
@@ -19,7 +18,8 @@ public class Recipe {
     @Getter
     private String name;
     @Getter
-    @ManyToOne
+
+    @OneToOne
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
 
     @Getter
@@ -28,11 +28,14 @@ public class Recipe {
     @Getter
     private String difficulty;
 
+    @OneToMany(mappedBy = "recipe")
     private List<Ingredient> ingredients;
 
+    @OneToMany(mappedBy = "recipe")
     private List<Instruction> instructions = new ArrayList<>();
 
     @Getter
+    @OneToMany(mappedBy = "recipe")
     private List<Photo> photos = new ArrayList<>();
 
     @ManyToOne

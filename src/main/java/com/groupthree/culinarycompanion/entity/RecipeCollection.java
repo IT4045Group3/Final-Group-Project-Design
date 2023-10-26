@@ -1,8 +1,10 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -13,7 +15,8 @@ public class RecipeCollection {
     @GeneratedValue(strategy = IDENTITY)
     private int collectionId;
     private int userId;
-    private List<Integer> recipeIds;
+    @ElementCollection
+    private List<Integer> recipeIds = new ArrayList<>();
     // Getters and setters
 
     public int getCollectionId() {

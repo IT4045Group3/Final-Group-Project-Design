@@ -1,4 +1,4 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
 import jakarta.persistence.*;
 
@@ -13,7 +13,7 @@ public class CuisineCategory {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "cuisine")
+    @OneToMany(mappedBy = "cuisineCategory")
     private List<Photo> photos;
 
     public int getId() {

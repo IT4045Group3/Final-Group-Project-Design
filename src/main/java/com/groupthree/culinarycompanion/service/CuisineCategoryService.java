@@ -3,8 +3,8 @@ package com.groupthree.culinarycompanion.service;
 import com.groupthree.culinarycompanion.repository.CuisineCategoryRepository;
 import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
 import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.Photo;
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
+import com.groupthree.culinarycompanion.entity.Photo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

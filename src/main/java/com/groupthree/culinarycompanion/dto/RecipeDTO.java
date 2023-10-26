@@ -1,7 +1,6 @@
 package com.groupthree.culinarycompanion.dto;
 
-import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
 import lombok.Data;
 
 import java.util.ArrayList;

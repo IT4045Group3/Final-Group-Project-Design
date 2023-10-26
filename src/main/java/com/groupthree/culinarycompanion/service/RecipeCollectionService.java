@@ -2,7 +2,7 @@ package com.groupthree.culinarycompanion.service;
 
 import com.groupthree.culinarycompanion.repository.RecipeCollectionRepository;
 import com.groupthree.culinarycompanion.dto.RecipeCollectionDTO;
-import com.groupthree.culinarycompanion.model.RecipeCollection;
+import com.groupthree.culinarycompanion.entity.RecipeCollection;
 
 import java.util.List;
 

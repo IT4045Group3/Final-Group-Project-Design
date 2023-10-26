@@ -1,7 +1,7 @@
 package com.groupthree.culinarycompanion.repository;
 
-import com.groupthree.culinarycompanion.model.Recipe;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.entity.Recipe;
+import com.groupthree.culinarycompanion.entity.User;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 

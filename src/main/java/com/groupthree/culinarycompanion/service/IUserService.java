@@ -1,11 +1,8 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.entity.User;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 public interface IUserService {
     void createUser(UserDTO userDTO);
