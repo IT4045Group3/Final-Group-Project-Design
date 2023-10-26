@@ -1,9 +1,9 @@
 package com.groupthree.culinarycompanion;
 
-import com.groupthree.culinarycompanion.dto.CuisineCategoryDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.dto.UserDTO;
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
+import com.groupthree.culinarycompanion.entity.Photo;
+import com.groupthree.culinarycompanion.entity.Recipe;
+import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +45,9 @@ public class UserController {
         if (session.getAttribute("loggedInUserName") != null) {
 
             model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
-
             int loggedInUserName = (int) session.getAttribute("loggedInUserId");
-
-            List<RecipeDTO> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
-
+            List<Recipe> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
             model.addAttribute("myRecipes", myRecipes);
-
             return "userProfile";
         } else {
             return "redirect:/login";
@@ -94,7 +90,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(Model model, HttpSession session, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public String processRegistration(Model model, HttpSession session, @RequestParam("email") String email, User user) {
 
         if (userService.findUserByEmail(email) != null) {
             model.addAttribute("registrationFailure", true);
@@ -102,14 +98,9 @@ public class UserController {
             return "login";
         }
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(username);
-        userDTO.setEmail(email);
-        userDTO.setPassword(password);
         session.setAttribute("registerSuccessful", "Register successful");
         model.addAttribute("registrationFailure", false);
-
-        userService.createUser(userDTO);
+        userService.createUser(user);
 
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
@@ -125,49 +116,28 @@ public class UserController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(RecipeDTO newRecipe, @RequestParam("recipeFile") MultipartFile file,
+    public String addRecipe(Recipe newRecipe, @RequestParam("recipeFile") MultipartFile addedPhoto,
                             HttpSession session) throws FileNotFoundException {
 
-        String imagePath = userService.saveImage(file);
-
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
-        UserDTO currentUser = userService.findUserById(loggedInUserId);
-
-        List<PhotoDTO> photos = new ArrayList<>();
-        PhotoDTO photoDTO = new PhotoDTO();
-        photoDTO.setPhotoName(newRecipe.getName());
-        photoDTO.setPhotoPath(imagePath);
-
-        photos.add(photoDTO);
-        newRecipe.setPhotos(photos);
+        User currentUser = userService.findUserById(loggedInUserId);
         newRecipe.setUser(currentUser);
+        Recipe addedRecipe = recipeService.createRecipe(newRecipe);
 
-        currentUser.getRecipes().add(recipeService.createRecipe(newRecipe));
-        userService.updateUser(currentUser.getUserId(),currentUser);
-
+        String imagePath = userService.saveImage(addedPhoto);
+        recipeService.addPhotoInRecipe(addedRecipe.getRecipeId(),imagePath,addedPhoto.getName());
         return "redirect:/home";
     }
 
 
     @PostMapping("/addCuisineCategory")
-    public String addCuisineCategory(@RequestParam("name") String name,
-                                     @RequestParam("cuisineFile") MultipartFile imageFile) {
+    public String addCuisineCategory(@RequestParam("cuisineFile") MultipartFile addedPhoto,
+                                     CuisineCategory newCategory) {
 
+        CuisineCategory addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
 
-        String imagePath = userService.saveImage(imageFile);
-
-        CuisineCategoryDTO newCategory = new CuisineCategoryDTO();
-        newCategory.setName(name);
-
-        List<PhotoDTO> photos = new ArrayList<>();
-        PhotoDTO photoDTO = new PhotoDTO();
-        photoDTO.setPhotoName(name);
-        photoDTO.setPhotoPath(imagePath);
-
-        photos.add(photoDTO);
-        newCategory.setPhotos(photos);
-
-        cuisineCategoryService.addCuisineCategory(newCategory);
+        String imagePath = userService.saveImage(addedPhoto);
+        cuisineCategoryService.addPhotoInCategory(addedCategory.getId(),imagePath,addedPhoto.getName());
 
         return "redirect:/home";
     }
