@@ -2,9 +2,11 @@ package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.entity.Instruction;
 import com.groupthree.culinarycompanion.entity.Recipe;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface RecipeRepository {
     Recipe findRecipeById(int recipeId);
     Recipe findRecipeByName(String name);

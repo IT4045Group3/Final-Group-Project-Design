@@ -47,7 +47,7 @@ public class RecipeCollectionService implements IRecipeCollectionService {
         RecipeCollectionDTO dto = new RecipeCollectionDTO();
         dto.setCollectionId(collection.getCollectionId());
         dto.setUserId(collection.getUserId());
-        dto.setRecipeIds(collection.getRecipeIds());
+        dto.setRecipes(collection.getRecipes());
         return dto;
     }
 
@@ -55,7 +55,7 @@ public class RecipeCollectionService implements IRecipeCollectionService {
         RecipeCollection collection = new RecipeCollection();
         collection.setCollectionId(dto.getCollectionId());
         collection.setUserId(dto.getUserId());
-        collection.setRecipeIds(dto.getRecipeIds());
+        collection.setRecipes(dto.getRecipes());
         return collection;
     }
 }

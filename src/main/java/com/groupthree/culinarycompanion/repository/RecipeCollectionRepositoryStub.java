@@ -1,6 +1,8 @@
 package com.groupthree.culinarycompanion.repository;
 
+import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.RecipeCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.List;
 public class RecipeCollectionRepositoryStub implements RecipeCollectionRepository {
     private List<RecipeCollection> collectionDatabase = new ArrayList<>();
     private int nextCollectionId = 1;
+
+    @Autowired
+    RecipeRepositoryStub recipeRepositoryStub;
 
     @Override
     public RecipeCollection findCollectionById(int collectionId) {
@@ -43,7 +48,8 @@ public class RecipeCollectionRepositoryStub implements RecipeCollectionRepositor
     public void addRecipeToCollection(int collectionId, int recipeId) {
         RecipeCollection collection = findCollectionById(collectionId);
         if (collection != null) {
-            collection.getRecipeIds().add(recipeId);
+            Recipe recipeToAdd = recipeRepositoryStub.findRecipeById(recipeId);
+            collection.getRecipes().add(recipeToAdd);
         }
     }
 
@@ -51,7 +57,7 @@ public class RecipeCollectionRepositoryStub implements RecipeCollectionRepositor
     public void removeRecipeFromCollection(int collectionId, int recipeId) {
         RecipeCollection collection = findCollectionById(collectionId);
         if (collection != null) {
-            collection.getRecipeIds().remove(Integer.valueOf(recipeId));
+            collection.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
         }
     }
 

@@ -16,7 +16,6 @@ public @Data class RecipeDTO {
     private List<InstructionDTO> instructions = new ArrayList<>();
     private List<PhotoDTO> photos = new ArrayList<>();
     private UserDTO user = new UserDTO();
-    // Getters and setters
 
     public int getRecipeId() {
         return recipeId;

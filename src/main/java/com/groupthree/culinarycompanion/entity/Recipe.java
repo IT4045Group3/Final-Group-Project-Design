@@ -20,7 +20,7 @@ public class Recipe {
     private String type;
     private String difficulty;
     @OneToMany(mappedBy = "recipe")
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
     @OneToMany(mappedBy = "recipe")
     private List<Instruction> instructions = new ArrayList<>();
     @OneToMany(mappedBy = "recipe")

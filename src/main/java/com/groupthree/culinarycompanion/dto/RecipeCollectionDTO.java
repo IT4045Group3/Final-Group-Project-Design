@@ -1,12 +1,14 @@
 package com.groupthree.culinarycompanion.dto;
 
+import com.groupthree.culinarycompanion.entity.Recipe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeCollectionDTO {
     private int collectionId;
     private int userId;
-    private List<Integer> recipeIds;
-    // Getters and setters
+    private List<Recipe> recipes = new ArrayList<>();
 
     public int getCollectionId() {
         return collectionId;
@@ -24,11 +26,11 @@ public class RecipeCollectionDTO {
         this.userId = userId;
     }
 
-    public List<Integer> getRecipeIds() {
-        return recipeIds;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipeIds(List<Integer> recipeIds) {
-        this.recipeIds = recipeIds;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }

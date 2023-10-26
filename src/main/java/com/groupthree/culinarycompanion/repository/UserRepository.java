@@ -2,9 +2,11 @@ package com.groupthree.culinarycompanion.repository;
 
 import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserRepository {
     User findUserById(int userId);
     User findUserByEmail(String email);
