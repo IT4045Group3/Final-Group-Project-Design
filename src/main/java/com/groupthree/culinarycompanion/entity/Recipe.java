@@ -11,50 +11,59 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 public class Recipe {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int recipeId;
-    @Getter
     private String name;
-    @Getter
-
     @OneToOne
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
-
-    @Getter
     private String type;
-
-    @Getter
     private String difficulty;
-
     @OneToMany(mappedBy = "recipe")
     private List<Ingredient> ingredients;
-
     @OneToMany(mappedBy = "recipe")
     private List<Instruction> instructions = new ArrayList<>();
-
-    @Getter
     @OneToMany(mappedBy = "recipe")
     private List<Photo> photos = new ArrayList<>();
-
     @ManyToOne
     private User user;
+    @ManyToOne
+    private RecipeCollection recipeCollection;
+
+    public int getRecipeId() {
+        return recipeId;
+    }
 
     public void setRecipeId(int recipeId) {
         this.recipeId = recipeId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public CuisineCategory getCuisine() {
+        return cuisine;
+    }
+
     public void setCuisine(CuisineCategory cuisine) {
         this.cuisine = cuisine;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
     }
 
     public void setDifficulty(String difficulty) {
@@ -77,12 +86,12 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
+    public List<Photo> getPhotos() {
+        return photos;
     }
 
-    public int getRecipeId() {
-        return recipeId;
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 
     public User getUser() {
@@ -91,5 +100,13 @@ public class Recipe {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public RecipeCollection getRecipeCollection() {
+        return recipeCollection;
+    }
+
+    public void setRecipeCollection(RecipeCollection recipeCollection) {
+        this.recipeCollection = recipeCollection;
     }
 }

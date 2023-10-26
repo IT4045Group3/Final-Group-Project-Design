@@ -16,13 +16,10 @@ public class Instruction {
     private int stepNumber;
     private String description;
     private String videoURL;
-    @Getter
     @OneToMany(mappedBy = "instruction")
     private List<Photo> photos;
     @ManyToOne
     private Recipe recipe;
-
-    // Getters and setters
 
     public int getInstructionId() {
         return instructionId;
@@ -56,8 +53,20 @@ public class Instruction {
         this.videoURL = videoURL;
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
 

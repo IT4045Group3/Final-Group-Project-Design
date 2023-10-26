@@ -12,7 +12,6 @@ public class CuisineCategory {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
     private String name;
-
     @OneToMany(mappedBy = "cuisineCategory")
     private List<Photo> photos;
 
