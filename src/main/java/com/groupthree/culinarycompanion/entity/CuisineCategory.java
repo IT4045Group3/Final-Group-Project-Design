@@ -1,7 +1,8 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
 import jakarta.persistence.*;
 
+import javax.management.loading.PrivateClassLoader;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -12,9 +13,10 @@ public class CuisineCategory {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
     private String name;
-
-    @OneToMany(mappedBy = "cuisine")
+    @OneToMany(mappedBy = "cuisineCategory", cascade = CascadeType.ALL)
     private List<Photo> photos;
+    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL)
+    private List<Recipe> recipes;
 
     public int getId() {
         return id;
@@ -38,5 +40,13 @@ public class CuisineCategory {
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }

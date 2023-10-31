@@ -1,11 +1,10 @@
 package com.groupthree.culinarycompanion;
 
-import com.groupthree.culinarycompanion.dto.InstructionDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.CuisineCategory;
-import com.groupthree.culinarycompanion.model.Photo;
+
+import com.groupthree.culinarycompanion.entity.Instruction;
+import com.groupthree.culinarycompanion.entity.Photo;
+import com.groupthree.culinarycompanion.entity.Recipe;
+import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.groupthree.culinarycompanion.model.Recipe;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class RecipeController {
@@ -39,7 +36,7 @@ public class RecipeController {
 
     @GetMapping("/updateRecipe/{recipeId}")
     public String editRecipe(@PathVariable int recipeId, Model model) {
-        RecipeDTO recipe = recipeService.findRecipeById(recipeId);
+        Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         model.addAttribute("recipe", recipe);
@@ -47,56 +44,37 @@ public class RecipeController {
     }
 
     @PostMapping("/updateRecipe/{recipeId}")
-    public String updateRecipe(HttpSession session, @PathVariable int recipeId, @RequestParam("photo") MultipartFile photo, RecipeDTO updatedRecipe) {
+    public String updateRecipe(@PathVariable int recipeId, @RequestParam("photo") MultipartFile updatedPhoto, Recipe updatedRecipe) {
 
-        if (photo != null && !photo.isEmpty()) {
+        if (updatedPhoto != null && !updatedPhoto.isEmpty()) {
 
-            String imagePath = userService.saveImage(photo);
-            List<PhotoDTO> photos = new ArrayList<>();
-            PhotoDTO photoDTO = new PhotoDTO();
-            photoDTO.setPhotoName(updatedRecipe.getName());
-            photoDTO.setPhotoPath(imagePath);
-            photos.add(photoDTO);
-            updatedRecipe.setPhotos(photos);
+            String imagePath = userService.saveImage(updatedPhoto);
+            recipeService.updatePhotoInRecipe(recipeId,imagePath,updatedPhoto.getName());
 
         }
-        else {
-            RecipeDTO existingRecipe = recipeService.findRecipeById(recipeId);
-            updatedRecipe.setPhotos(existingRecipe.getPhotos());
-        }
-
-        int loggedInUserId = (int) session.getAttribute("loggedInUserId");
-        UserDTO currentUser = userService.findUserById(loggedInUserId);
-        currentUser.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
-        currentUser.getRecipes().add(recipeService.updateRecipe(recipeId, updatedRecipe));
-        userService.updateUser(currentUser.getUserId(), currentUser);
+        recipeService.updateRecipe(recipeId, updatedRecipe);
 
         return "redirect:/userProfile";
     }
 
     @GetMapping("/deleteRecipe/{recipeId}")
-    public String deleteRecipe(HttpSession session, @PathVariable int recipeId) {
+    public String deleteRecipe(@PathVariable int recipeId) {
 
-        int loggedInUserId = (int) session.getAttribute("loggedInUserId");
-        UserDTO currentUser = userService.findUserById(loggedInUserId);
-        currentUser.getRecipes().removeIf(recipe -> recipe.getRecipeId() == recipeId);
         recipeService.deleteRecipe(recipeId);
-        userService.updateUser(currentUser.getUserId(),currentUser);
-
         return "redirect:/userProfile";
     }
 
     @PostMapping("/addInstruction/{recipeId}")
-    public String addInstruction(@PathVariable int recipeId, InstructionDTO newInstruction, @RequestParam("instructionImage") MultipartFile instructionImage) {
-        String imagePath = userService.saveImage(instructionImage);
+    public String addInstruction(@PathVariable int recipeId, Instruction newInstruction, @RequestParam("instructionImage") MultipartFile instructionPhoto) {
 
-        InstructionDTO instructionDTO = instructionService.addInstructionToRecipe(recipeId, newInstruction);
-        instructionService.addPhotoInInstruction(recipeId, instructionDTO.getInstructionId(), imagePath);
+        String imagePath = userService.saveImage(instructionPhoto);
+        Instruction instruction = instructionService.addInstructionToRecipe(recipeId, newInstruction);
+        instructionService.addPhotoInInstruction(recipeId, instruction.getInstructionId(), imagePath, instructionPhoto.getName());
         return "redirect:/updateRecipe/" + recipeId;
     }
 
     @PostMapping("/updateInstruction/{recipeId}/{instructionId}")
-    public String updateInstruction(@PathVariable int recipeId, @PathVariable int instructionId, InstructionDTO updatedInstruction) {
+    public String updateInstruction(@PathVariable int recipeId, @PathVariable int instructionId, Instruction updatedInstruction) {
         instructionService.updateInstructionInRecipe(recipeId, instructionId, updatedInstruction);
         return "redirect:/updateRecipe/" + recipeId;
     }
@@ -109,29 +87,21 @@ public class RecipeController {
 
     @PostMapping("/addPhoto/{recipeId}/{instructionId}")
     public String getAddPhotoForm(@PathVariable int recipeId, @PathVariable int instructionId, @RequestParam("instructionImageEditAdd") MultipartFile instructionImageAdd, Model model) {
-
         String imagePath = userService.saveImage(instructionImageAdd);
-
-        instructionService.addPhotoInInstruction(recipeId, instructionId, imagePath);
-
+        instructionService.addPhotoInInstruction(recipeId, instructionId, imagePath, instructionImageAdd.getName());
         return "redirect:/updateRecipe/" + recipeId;
     }
 
     @GetMapping("/deletePhoto/{recipeId}/{instructionId}/{photoId}")
     public String deletePhoto(@PathVariable int recipeId, @PathVariable int instructionId, @PathVariable int photoId) {
-
         instructionService.deletePhotoToInstruction(recipeId, instructionId, photoId);
-
         return "redirect:/updateRecipe/" + recipeId;
     }
 
     @GetMapping("/recipe-details/{recipeId}")
     public String viewRecipeDetails(@PathVariable int recipeId, Model model) {
-
-        RecipeDTO recipe = recipeService.findRecipeById(recipeId);
-
+        Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("recipeDetail", recipe);
-
         return "recipe-details";
     }
 }

@@ -1,21 +1,15 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.dto.UserDTO;
-import com.groupthree.culinarycompanion.model.User;
+import com.groupthree.culinarycompanion.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 public interface IUserService {
-    void createUser(UserDTO userDTO);
-    void updateUser(int userId, UserDTO userDTO);
+    void createUser(User user);
+    void updateUser(int userId, User user);
     void deleteUser(int userId);
-    UserDTO findUserById(int userId);
-    UserDTO findUserByEmail(String email);
+    User findUserById(int userId);
+    User findUserByEmail(String email);
     boolean isValidLogin(String email, String password);
     String saveImage(MultipartFile file);
-    User mapDTOToModel(UserDTO dto);
-    UserDTO mapModelToDTO(User user);
 }
 

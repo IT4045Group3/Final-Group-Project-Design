@@ -1,14 +1,14 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dto.RecipeCollectionDTO;
+import com.groupthree.culinarycompanion.entity.RecipeCollection;
 
 import java.util.List;
 
 public interface IRecipeCollectionService {
-    void createCollection(RecipeCollectionDTO collectionDTO);
+    void createCollection(RecipeCollection collection);
     void addRecipeToCollection(int collectionId, int recipeId);
     void removeRecipeFromCollection(int collectionId, int recipeId);
-    RecipeCollectionDTO findCollectionById(int collectionId);
-    List<RecipeCollectionDTO> findCollectionsByUserId(int userId);
+    RecipeCollection findCollectionById(int collectionId);
+    List<RecipeCollection> findCollectionsByUserId(int userId);
 }
 

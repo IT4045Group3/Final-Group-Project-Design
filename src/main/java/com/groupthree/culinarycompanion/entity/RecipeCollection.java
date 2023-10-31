@@ -1,20 +1,21 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Entity
 public class RecipeCollection {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int collectionId;
     private int userId;
-    private List<Integer> recipeIds;
-    // Getters and setters
+    @OneToMany(mappedBy = "recipeCollection")
+    private List<Recipe> recipes;
 
     public int getCollectionId() {
         return collectionId;
@@ -32,12 +33,12 @@ public class RecipeCollection {
         this.userId = userId;
     }
 
-    public List<Integer> getRecipeIds() {
-        return recipeIds;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipeIds(List<Integer> recipeIds) {
-        this.recipeIds = recipeIds;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
 

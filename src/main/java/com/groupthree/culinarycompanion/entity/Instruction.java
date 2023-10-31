@@ -1,13 +1,13 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Entity
 public class Instruction {
 
     @Id
@@ -16,10 +16,10 @@ public class Instruction {
     private int stepNumber;
     private String description;
     private String videoURL;
-    @Getter
+    @OneToMany(mappedBy = "instruction", cascade = CascadeType.ALL)
     private List<Photo> photos;
-
-    // Getters and setters
+    @ManyToOne
+    private Recipe recipe;
 
     public int getInstructionId() {
         return instructionId;
@@ -53,8 +53,20 @@ public class Instruction {
         this.videoURL = videoURL;
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
 

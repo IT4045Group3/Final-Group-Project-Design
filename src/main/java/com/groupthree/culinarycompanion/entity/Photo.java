@@ -1,8 +1,9 @@
-package com.groupthree.culinarycompanion.model;
+package com.groupthree.culinarycompanion.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -14,6 +15,12 @@ public class Photo {
     private int photoId;
     private String photoName;
     private String photoPath;
+    @ManyToOne
+    private Recipe recipe;
+    @ManyToOne
+    private CuisineCategory cuisineCategory;
+    @ManyToOne
+    private Instruction instruction;
 
     public int getPhotoId() {
         return photoId;
@@ -37,5 +44,29 @@ public class Photo {
 
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public CuisineCategory getCuisineCategory() {
+        return cuisineCategory;
+    }
+
+    public void setCuisineCategory(CuisineCategory cuisineCategory) {
+        this.cuisineCategory = cuisineCategory;
+    }
+
+    public Instruction getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(Instruction instruction) {
+        this.instruction = instruction;
     }
 }
