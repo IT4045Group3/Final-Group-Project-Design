@@ -19,12 +19,12 @@ public class Recipe {
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
     private String type;
     private String difficulty;
-    @OneToMany(mappedBy = "recipe")
-    private List<Ingredient> ingredients = new ArrayList<>();
-    @OneToMany(mappedBy = "recipe")
-    private List<Instruction> instructions = new ArrayList<>();
-    @OneToMany(mappedBy = "recipe")
-    private List<Photo> photos = new ArrayList<>();
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Ingredient> ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Instruction> instructions;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Photo> photos;
     @ManyToOne
     private User user;
     @ManyToOne

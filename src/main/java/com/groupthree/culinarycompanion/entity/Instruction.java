@@ -16,7 +16,7 @@ public class Instruction {
     private int stepNumber;
     private String description;
     private String videoURL;
-    @OneToMany(mappedBy = "instruction")
+    @OneToMany(mappedBy = "instruction", cascade = CascadeType.ALL)
     private List<Photo> photos;
     @ManyToOne
     private Recipe recipe;

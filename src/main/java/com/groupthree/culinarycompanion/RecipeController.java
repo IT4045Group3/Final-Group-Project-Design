@@ -49,7 +49,7 @@ public class RecipeController {
         if (updatedPhoto != null && !updatedPhoto.isEmpty()) {
 
             String imagePath = userService.saveImage(updatedPhoto);
-            recipeService.addPhotoInRecipe(recipeId,imagePath,updatedPhoto.getName());
+            recipeService.updatePhotoInRecipe(recipeId,imagePath,updatedPhoto.getName());
 
         }
         else {

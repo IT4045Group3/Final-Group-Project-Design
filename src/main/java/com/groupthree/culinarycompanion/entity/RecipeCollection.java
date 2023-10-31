@@ -15,7 +15,7 @@ public class RecipeCollection {
     private int collectionId;
     private int userId;
     @OneToMany(mappedBy = "recipeCollection")
-    private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> recipes;
 
     public int getCollectionId() {
         return collectionId;

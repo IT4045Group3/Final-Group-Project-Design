@@ -34,11 +34,24 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void updateUser(int userId, User user) {
         User existingUser = userRepository.findById(userId).orElse(null);
+
         if (existingUser != null) {
-            user.setUserId(userId);
-            userRepository.save(user);
+            if (user.getUsername() != null && !existingUser.getUsername().equals(user.getUsername())) {
+                existingUser.setUsername(user.getUsername());
+            }
+            if (user.getEmail() != null && !existingUser.getEmail().equals(user.getEmail())) {
+                existingUser.setEmail(user.getEmail());
+            }
+            if (user.getPassword() != null && !existingUser.getPassword().equals(user.getPassword())) {
+                existingUser.setPassword(user.getPassword());
+            }
+            if (user.getRecipes() != null && !existingUser.getRecipes().equals(user.getRecipes())) {
+                existingUser.setRecipes(user.getRecipes());
+            }
+            userRepository.save(existingUser);
         }
     }
+
 
     @Override
     public void deleteUser(int userId) {

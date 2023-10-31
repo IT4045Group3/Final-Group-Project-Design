@@ -43,12 +43,29 @@ public class InstructionServiceImpl implements IInstructionService {
     public void updateInstructionInRecipe(int recipeId, int instructionId, Instruction updatedInstruction) {
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
         Instruction existingInstruction = instructionRepository.findById(instructionId).orElse(null);
+
         if (recipe != null && existingInstruction != null) {
-            updatedInstruction.setRecipe(recipe);
-            updatedInstruction.setInstructionId(instructionId);
-            instructionRepository.save(updatedInstruction);
+
+            if (updatedInstruction.getStepNumber() != existingInstruction.getStepNumber()) {
+                existingInstruction.setStepNumber(updatedInstruction.getStepNumber());
+            }
+            if (updatedInstruction.getDescription() != null && !updatedInstruction.getDescription().equals(existingInstruction.getDescription())) {
+                existingInstruction.setDescription(updatedInstruction.getDescription());
+            }
+            if (updatedInstruction.getVideoURL() != null && !updatedInstruction.getVideoURL().equals(existingInstruction.getVideoURL())) {
+                existingInstruction.setVideoURL(updatedInstruction.getVideoURL());
+            }
+            if(updatedInstruction.getRecipe() != null && !updatedInstruction.getRecipe().equals(existingInstruction.getRecipe())) {
+                existingInstruction.setRecipe((updatedInstruction.getRecipe()));
+            }
+            if(updatedInstruction.getPhotos() != null && !updatedInstruction.getPhotos().equals(existingInstruction.getPhotos())) {
+                existingInstruction.setPhotos((updatedInstruction.getPhotos()));
+            }
+
+            instructionRepository.save(existingInstruction);
         }
     }
+
 
 
     @Override

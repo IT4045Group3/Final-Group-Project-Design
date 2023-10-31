@@ -21,7 +21,7 @@ public class User {
     private String email;
     private String password;
     @OneToMany(mappedBy = "user")
-    private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> recipes;
 
     public int getUserId() {
         return userId;
