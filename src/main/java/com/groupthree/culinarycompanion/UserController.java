@@ -124,8 +124,10 @@ public class UserController {
         newRecipe.setUser(currentUser);
         Recipe addedRecipe = recipeService.createRecipe(newRecipe);
 
-        String imagePath = userService.saveImage(addedPhoto);
-        recipeService.addPhotoInRecipe(addedRecipe.getRecipeId(),imagePath,addedPhoto.getName());
+        if (addedPhoto != null && !addedPhoto.isEmpty()) {
+            String imagePath = userService.saveImage(addedPhoto);
+            recipeService.addPhotoInRecipe(addedRecipe.getRecipeId(), imagePath, addedPhoto.getName());
+        }
         return "redirect:/home";
     }
 
@@ -136,9 +138,10 @@ public class UserController {
 
         CuisineCategory addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
 
-        String imagePath = userService.saveImage(addedPhoto);
-        cuisineCategoryService.addPhotoInCategory(addedCategory.getId(),imagePath,addedPhoto.getName());
-
+        if (addedPhoto != null && !addedPhoto.isEmpty()) {
+            String imagePath = userService.saveImage(addedPhoto);
+            cuisineCategoryService.addPhotoInCategory(addedCategory.getId(), imagePath, addedPhoto.getName());
+        }
         return "redirect:/home";
     }
 

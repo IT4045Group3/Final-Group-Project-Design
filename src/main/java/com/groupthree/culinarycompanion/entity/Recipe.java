@@ -15,7 +15,7 @@ public class Recipe {
     @GeneratedValue(strategy = IDENTITY)
     private int recipeId;
     private String name;
-    @OneToOne
+    @ManyToOne
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
     private String type;
     private String difficulty;

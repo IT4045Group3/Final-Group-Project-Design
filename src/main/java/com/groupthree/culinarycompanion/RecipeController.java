@@ -52,12 +52,6 @@ public class RecipeController {
             recipeService.updatePhotoInRecipe(recipeId,imagePath,updatedPhoto.getName());
 
         }
-        else {
-
-            Recipe existingRecipe = recipeService.findRecipeById(recipeId);
-            updatedRecipe.setPhotos(existingRecipe.getPhotos());
-        }
-
         recipeService.updateRecipe(recipeId, updatedRecipe);
 
         return "redirect:/userProfile";

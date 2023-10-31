@@ -15,8 +15,8 @@ public class CuisineCategory {
     private String name;
     @OneToMany(mappedBy = "cuisineCategory", cascade = CascadeType.ALL)
     private List<Photo> photos;
-    @OneToOne(mappedBy = "cuisine", cascade = CascadeType.ALL)
-    private Recipe recipe;
+    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL)
+    private List<Recipe> recipes;
 
     public int getId() {
         return id;
@@ -42,11 +42,11 @@ public class CuisineCategory {
         this.photos = photos;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
