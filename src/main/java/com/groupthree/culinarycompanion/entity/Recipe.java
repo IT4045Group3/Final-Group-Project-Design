@@ -17,8 +17,10 @@ public class Recipe {
     private String name;
     @ManyToOne
     private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
-    private String type;
-    private String difficulty;
+    @Enumerated(EnumType.STRING)
+    private RecipeType type;
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Ingredient> ingredients;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
@@ -29,6 +31,20 @@ public class Recipe {
     private User user;
     @ManyToOne
     private RecipeCollection recipeCollection;
+
+    public enum Difficulty {
+        EASY,
+        MODERATE,
+        HARD
+    }
+    public enum RecipeType {
+        APPETIZER,
+        MAIN_COURSE,
+        DESSERT,
+        SIDE_DISH,
+        DRINK,
+        OTHER
+    }
 
     public int getRecipeId() {
         return recipeId;
@@ -54,19 +70,19 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public String getType() {
+    public RecipeType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RecipeType type) {
         this.type = type;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
