@@ -7,4 +7,5 @@ import java.util.List;
 public interface IIngredientService {
     Ingredient createIngredient(String name);
     void createIngredientsFromTextarea(String textareaContent);
+    List<Ingredient> getAllIngredients();
 }

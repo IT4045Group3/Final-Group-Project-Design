@@ -34,13 +34,14 @@ public class RecipeController {
     public String editRecipe(@PathVariable int recipeId, Model model) {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        model.addAttribute("allIngredients", ingredientService.getAllIngredients());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         model.addAttribute("recipe", recipe);
         return "editRecipe";
     }
 
     @PostMapping("/updateRecipe/{recipeId}")
-    public String updateRecipe(@PathVariable int recipeId, @RequestParam("photo") MultipartFile updatedPhoto, Recipe updatedRecipe) {
+    public String updateRecipe(@PathVariable int recipeId, @RequestParam("photo") MultipartFile updatedPhoto, @ModelAttribute Recipe updatedRecipe) {
 
         if (updatedPhoto != null && !updatedPhoto.isEmpty()) {
 

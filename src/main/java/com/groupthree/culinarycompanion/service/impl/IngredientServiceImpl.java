@@ -16,10 +16,16 @@ public class IngredientServiceImpl implements IIngredientService {
 
     @Override
     public Ingredient createIngredient(String name) {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setName(name);
-        return ingredientRepository.save(ingredient);
+        String upperCaseName = name.trim().toUpperCase();
+        Ingredient existingIngredient = ingredientRepository.findByName(upperCaseName);
+        if (existingIngredient != null) {
+            return existingIngredient;
+        }
+        Ingredient newIngredient = new Ingredient();
+        newIngredient.setName(upperCaseName);
+        return ingredientRepository.save(newIngredient);
     }
+
 
     @Override
     public void createIngredientsFromTextarea(String textareaContent) {
@@ -29,6 +35,8 @@ public class IngredientServiceImpl implements IIngredientService {
         }
     }
 
-
-
+    @Override
+    public List<Ingredient> getAllIngredients() {
+        return ingredientRepository.findAll();
+    }
 }

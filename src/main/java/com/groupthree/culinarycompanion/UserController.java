@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,12 +25,14 @@ public class UserController {
     private final IUserService userService;
     private final IRecipeService recipeService;
     private final ICuisineCategoryService cuisineCategoryService;
+    private final IIngredientService ingredientService;
 
     @Autowired
-    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService) {
+    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService) {
         this.userService = userService;
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/login")
@@ -45,6 +48,7 @@ public class UserController {
         if (session.getAttribute("loggedInUserName") != null) {
 
             model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+            model.addAttribute("allIngredients", ingredientService.getAllIngredients());
             int loggedInUserName = (int) session.getAttribute("loggedInUserId");
             List<Recipe> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
             model.addAttribute("myRecipes", myRecipes);
@@ -116,7 +120,7 @@ public class UserController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(Recipe newRecipe, @RequestParam("recipeFile") MultipartFile addedPhoto,
+    public String addRecipe(@ModelAttribute Recipe newRecipe, @RequestParam("recipeFile") MultipartFile addedPhoto,
                             HttpSession session) throws FileNotFoundException {
 
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");

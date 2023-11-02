@@ -25,6 +25,13 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="ingredients">Ingredients:</label>
+            <select id="ingredients" name="ingredients" class="form-control" multiple required>
+                <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}" th:text="${ingredient.name}" th:selected="${recipe.ingredients.contains(ingredient)}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="type">Type:</label>
             <select id="type" name="type" th:value="${recipe.type}" class="form-control">
                 <option value="APPETIZER">Appetizer</option>
