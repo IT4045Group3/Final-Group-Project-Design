@@ -109,26 +109,4 @@ public class RecipeController {
         ingredientService.createIngredientsFromTextarea(ingredientNames);
         return "userProfile";
     }
-    @RequestMapping("/filterRecipe")
-    public String getFilteredRecipes(
-            @RequestParam List<Integer> cuisineIds,
-            @RequestParam List<Recipe.RecipeType> types,
-            @RequestParam List<Recipe.Difficulty> difficulties,
-            @RequestParam List<Integer> ingredientIds,
-            @RequestParam(required = false, defaultValue = "true") boolean ascendingOrder,
-            Model model) {
-        List<Recipe.Difficulty> allDifficulties = Arrays.asList(Recipe.Difficulty.values());
-        List<Recipe.RecipeType> allTypes = Arrays.asList(Recipe.RecipeType.values());
-
-        model.addAttribute("difficulties", allDifficulties);
-        model.addAttribute("types", allTypes);
-        model.addAttribute("ingredients", ingredientService.getAllIngredients());
-        model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
-
-        List<Recipe> filteredRecipes = recipeService.filterAndSortRecipes(cuisineIds, types, difficulties, ingredientIds, ascendingOrder);
-        model.addAttribute("filteredRecipes", filteredRecipes);
-        return "filterRecipe";
-    }
-
-
 }
