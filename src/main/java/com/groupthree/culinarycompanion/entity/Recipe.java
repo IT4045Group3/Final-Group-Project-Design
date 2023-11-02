@@ -21,7 +21,12 @@ public class Recipe {
     private RecipeType type;
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_ingredient",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
     private List<Ingredient> ingredients;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Instruction> instructions;

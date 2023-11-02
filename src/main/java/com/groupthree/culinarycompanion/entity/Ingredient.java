@@ -1,9 +1,8 @@
 package com.groupthree.culinarycompanion.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -14,8 +13,8 @@ public class Ingredient {
     @GeneratedValue(strategy = IDENTITY)
     private int ingredientId;
     private String name;
-    @ManyToOne
-    private Recipe recipe;
+    @ManyToMany(mappedBy = "ingredients")
+    private List<Recipe> recipes;
 
     public int getIngredientId() {
         return ingredientId;
@@ -33,12 +32,12 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
 

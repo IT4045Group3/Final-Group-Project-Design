@@ -76,8 +76,14 @@
 
                 <button type="submit" class="btn btn-primary">Add Category</button>
             </form>
-        </div>
 
+            <form action="/addIngredients" method="post">
+                <label for="ingredientTextArea">Enter Ingredients (one per line):</label>
+                <textarea id="ingredientTextArea" name="ingredientNames" rows="5" cols="40" required></textarea><br>
+                <button type="submit" class="btn btn-primary">Add Ingredients</button>
+            </form>
+
+        </div>
     </div>
 
     <div class="row mt-3">

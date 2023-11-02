@@ -1,19 +1,13 @@
 package com.groupthree.culinarycompanion;
 
 
-import com.groupthree.culinarycompanion.entity.Instruction;
-import com.groupthree.culinarycompanion.entity.Photo;
-import com.groupthree.culinarycompanion.entity.Recipe;
-import com.groupthree.culinarycompanion.entity.User;
+import com.groupthree.culinarycompanion.entity.*;
 import com.groupthree.culinarycompanion.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -25,13 +19,15 @@ public class RecipeController {
     private final IRecipeService recipeService;
     private final ICuisineCategoryService cuisineCategoryService;
     private final IInstructionService instructionService;
+    private final IIngredientService ingredientService;
 
     @Autowired
-    public RecipeController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IInstructionService instructionService) {
+    public RecipeController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IInstructionService instructionService, IIngredientService ingredientService) {
         this.userService = userService;
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
         this.instructionService = instructionService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/updateRecipe/{recipeId}")
@@ -103,5 +99,11 @@ public class RecipeController {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("recipeDetail", recipe);
         return "recipe-details";
+    }
+
+    @PostMapping("/addIngredients")
+    public String addIngredients(@RequestParam("ingredientNames") String  ingredientNames) {
+        ingredientService.createIngredientsFromTextarea(ingredientNames);
+        return "userProfile";
     }
 }
