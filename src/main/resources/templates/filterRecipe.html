@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Include your CSS and JavaScript libraries here -->
+</head>
+<body>
+<h1>Recipe Filter and Sort</h1>
+
+<form th:action="@{/filterRecipe}" method="post">
+    <div>
+        <label for="cuisineIds">Select Cuisines:</label>
+        <select id="cuisineIds" name="cuisineIds" multiple>
+            <option th:each="cuisine : ${cuisineCategories}" th:value="${cuisine.getId()}" th:text="${cuisine.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="difficulties">Select Difficulties:</label>
+        <select id="difficulties" name="difficulties" multiple>
+            <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="types">Select Recipe Types:</label>
+        <select id="types" name="types" multiple>
+            <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="ingredientIds">Select Ingredients:</label>
+        <select id="ingredientIds" name="ingredientIds" multiple>
+            <option th:each="ingredient : ${ingredients}" th:value="${ingredient.ingredientId}" th:text="${ingredient.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="sortOrder">Sort Order:</label>
+        <select id="sortOrder" name="sortOrder">
+            <option value="true">Ascending</option>
+            <option value="false">Descending</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Filter and Sort</button>
+    </div>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Difficulty</th>
+        <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recipe : ${filteredRecipes}">
+        <td th:text="${recipe.name}"></td>
+        <td th:text="${recipe.difficulty}"></td>
+        <td th:text="${recipe.type}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    // Function to set all options as selected when nothing is chosen
+    function setDefaultSelection(selectElement) {
+        if (selectElement.selectedOptions.length === 0) {
+            for (let option of selectElement.options) {
+                option.selected = true;
+            }
+        }
+    }
+
+    // Add an event listener to the form submit event
+    document.addEventListener('DOMContentLoaded', function () {
+        let form = document.querySelector('form');
+        form.addEventListener('submit', function () {
+            let cuisineSelect = document.getElementById('cuisineIds');
+            let difficultySelect = document.getElementById('difficulties');
+            let typesSelect = document.getElementById('types');
+            let ingredientSelect = document.getElementById('ingredientIds');
+
+            setDefaultSelection(cuisineSelect);
+            setDefaultSelection(difficultySelect);
+            setDefaultSelection(typesSelect);
+            setDefaultSelection(ingredientSelect);
+        });
+    });
+</script>
+
+
+</body>
+</html>

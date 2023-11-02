@@ -2,11 +2,6 @@ package com.groupthree.culinarycompanion.service.impl;
 
 import com.groupthree.culinarycompanion.repository.PhotoRepository;
 import com.groupthree.culinarycompanion.repository.RecipeRepository;
-import com.groupthree.culinarycompanion.repository.UserRepository;
-import com.groupthree.culinarycompanion.dto.InstructionDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.entity.*;
 import com.groupthree.culinarycompanion.service.IRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,8 +94,6 @@ public class RecipeServiceImpl implements IRecipeService {
     }
 
 
-
-
     @Override
     public Recipe findRecipeById(int recipeId) {
         return recipeRepository.findById(recipeId).orElse(null);
@@ -129,5 +122,23 @@ public class RecipeServiceImpl implements IRecipeService {
     @Override
     public List<Recipe> getRecipesByCategory(int categoryId) {
         return recipeRepository.findByCuisineId(categoryId);
+    }
+
+    @Override
+    public List<Recipe> filterAndSortRecipes(
+            List<Integer> cuisineIds,
+            List<Recipe.RecipeType> type,
+            List<Recipe.Difficulty> difficulties,
+            List<Integer> ingredientIds,
+            boolean ascendingOrder) {
+        List<Recipe> filteredRecipes;
+
+        if (ascendingOrder) {
+            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyAscNameAsc(cuisineIds, type, difficulties, ingredientIds);
+        } else {
+            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyDescNameAsc(cuisineIds, type, difficulties, ingredientIds);
+        }
+
+        return filteredRecipes;
     }
 }

@@ -1,10 +1,13 @@
 package com.groupthree.culinarycompanion.repository;
 
+import com.groupthree.culinarycompanion.entity.CuisineCategory;
+import com.groupthree.culinarycompanion.entity.Ingredient;
 import com.groupthree.culinarycompanion.entity.Instruction;
 import com.groupthree.culinarycompanion.entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -13,6 +16,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     Recipe findByName(String name);
     List<Recipe> findByNameContaining(String keyword);
     List<Recipe> findByCuisineId(int cuisineId);
+    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyDescNameAsc(List<Integer> cuisineId, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId);
+    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyAscNameAsc(List<Integer> cuisineId, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId);
 
 }
 
