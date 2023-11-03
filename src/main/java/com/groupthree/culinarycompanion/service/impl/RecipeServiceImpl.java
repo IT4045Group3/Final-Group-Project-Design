@@ -130,13 +130,16 @@ public class RecipeServiceImpl implements IRecipeService {
             List<Recipe.RecipeType> type,
             List<Recipe.Difficulty> difficulties,
             List<Integer> ingredientIds,
+            String keyWord,
             boolean ascendingOrder) {
         List<Recipe> filteredRecipes;
 
         if (ascendingOrder) {
-            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyAscNameAsc(cuisineIds, type, difficulties, ingredientIds);
+            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyAscNameAsc
+                    (cuisineIds, type, difficulties, ingredientIds, keyWord);
         } else {
-            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyDescNameAsc(cuisineIds, type, difficulties, ingredientIds);
+            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyDescNameAsc
+                    (cuisineIds, type, difficulties, ingredientIds, keyWord);
         }
 
         return filteredRecipes;

@@ -107,6 +107,6 @@ public class RecipeController {
     public String addIngredients(@RequestParam("ingredientNames") String  ingredientNames) {
 
         ingredientService.createIngredientsFromTextarea(ingredientNames);
-        return "userProfile";
+        return "redirect:/userProfile";
     }
 }

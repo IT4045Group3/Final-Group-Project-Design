@@ -69,6 +69,7 @@ public class HomeController {
             @RequestParam(required = false) List<Recipe.RecipeType> types,
             @RequestParam(required = false) List<Recipe.Difficulty> difficulties,
             @RequestParam(required = false) List<Integer> ingredientIds,
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "true") boolean ascendingOrder,
             Model model) {
 
@@ -78,7 +79,7 @@ public class HomeController {
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
 
         if (cuisineIds != null) {
-            List<Recipe> filteredRecipes = recipeService.filterAndSortRecipes(cuisineIds, types, difficulties, ingredientIds, ascendingOrder);
+            List<Recipe> filteredRecipes = recipeService.filterAndSortRecipes(cuisineIds, types, difficulties, ingredientIds, keyword, ascendingOrder);
             model.addAttribute("filteredRecipes", filteredRecipes);
         }
 

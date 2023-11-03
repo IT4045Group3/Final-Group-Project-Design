@@ -20,11 +20,12 @@ public interface IRecipeService {
     List<Recipe> getAllRecipes();
     List<Recipe> findRecipesByNameContaining(String keyword);
     List<Recipe> getRecipesByCategory(int categoryId);
-    public List<Recipe> filterAndSortRecipes(
+    List<Recipe> filterAndSortRecipes(
             List<Integer> cuisineIds,
             List<Recipe.RecipeType> type,
             List<Recipe.Difficulty> difficulties,
             List<Integer> ingredientIds,
+            String keyWord,
             boolean ascendingOrder);
 }
 

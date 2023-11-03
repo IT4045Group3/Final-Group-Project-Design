@@ -16,8 +16,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     Recipe findByName(String name);
     List<Recipe> findByNameContaining(String keyword);
     List<Recipe> findByCuisineId(int cuisineId);
-    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyDescNameAsc(List<Integer> cuisineId, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId);
-    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInOrderByDifficultyAscNameAsc(List<Integer> cuisineId, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId);
+    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyDescNameAsc
+            (List<Integer> cuisine_id, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId, String name);
+    List<Recipe> findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyAscNameAsc
+            (List<Integer> cuisineId, List<Recipe.RecipeType> type, List<Recipe.Difficulty> difficulty, List<Integer> ingredientId, String name);
 
 }
 
