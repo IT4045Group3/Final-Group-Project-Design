@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -47,6 +48,8 @@ public class UserController {
 
             model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
             model.addAttribute("allIngredients", ingredientService.getAllIngredients());
+            model.addAttribute("difficulties", Arrays.asList(Recipe.Difficulty.values()));
+            model.addAttribute("types", Arrays.asList(Recipe.RecipeType.values()));
             int loggedInUserName = (int) session.getAttribute("loggedInUserId");
             List<Recipe> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
             model.addAttribute("myRecipes", myRecipes);
@@ -142,7 +145,7 @@ public class UserController {
 
         if (addedPhoto != null && !addedPhoto.isEmpty()) {
             String imagePath = userService.saveImage(addedPhoto);
-            cuisineCategoryService.addPhotoInCategory(addedCategory.getId(), imagePath, addedPhoto.getName());
+            cuisineCategoryService.addPhotoInCategory(addedCategory.getCuisineId(), imagePath, addedPhoto.getName());
         }
         return "redirect:/home";
     }

@@ -81,7 +81,7 @@
     <div class="category">
         <div class="wrap" style="display: flex; justify-content: center;">
             <div class="cat-box" th:each="category : ${cuisineCategories}" style="margin: 0 10px;">
-                <a href="#" style="text-align: center;" th:href="@{'/recipes-by-category/' + ${category.getId()}}">
+                <a href="#" style="text-align: center;" th:href="@{'/recipes-by-category/' + ${category.getCuisineId()}}">
                     <img th:src="${category.getPhotos().get(0).getPhotoPath()}" th:alt="${category.getName()}">
                     <p class="cat-name" th:text="${category.getName()}"></p>
                 </a>

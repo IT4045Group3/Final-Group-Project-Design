@@ -121,7 +121,7 @@ public class RecipeServiceImpl implements IRecipeService {
 
     @Override
     public List<Recipe> getRecipesByCategory(int categoryId) {
-        return recipeRepository.findByCuisineId(categoryId);
+        return recipeRepository.findByCuisineCuisineId(categoryId);
     }
 
     @Override

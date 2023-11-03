@@ -92,7 +92,7 @@ public class HomeController {
         }
     }
 
-    @PostMapping("/addRecipeToCuisineCategory")
+    @PostMapping("/addRecipeToCuisineCollection")
     public String addRecipeToCuisineCategory(@RequestParam("recipeId") int recipeId, @RequestParam("cuisineCategoryId") int cuisineCategoryId) {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         Collection collection = collectionService.getRecipeCollectionById(cuisineCategoryId);
@@ -100,7 +100,7 @@ public class HomeController {
         return "redirect:/filterRecipe";
     }
 
-    @PostMapping("/createCuisineCategory")
+    @PostMapping("/createCuisineCollection")
     public String createCuisineCategory(@RequestParam("name") String name, HttpSession session) {
         Collection collection = new Collection();
         collection.setName(name);

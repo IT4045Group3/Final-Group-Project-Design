@@ -17,10 +17,6 @@ public class Cuisine {
     @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL)
     private List<Recipe> recipes;
 
-    public int getId() {
-        return cuisineId;
-    }
-
     public int getCuisineId() {
         return cuisineId;
     }

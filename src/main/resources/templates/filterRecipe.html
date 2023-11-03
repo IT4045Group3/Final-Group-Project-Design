@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label for="cuisineIds">Select Cuisines:</label>
                     <select id="cuisineIds" name="cuisineIds" multiple class="form-control">
-                        <option th:each="cuisine : ${cuisineCategories}" th:value="${cuisine.getId()}" th:text="${cuisine.getName()}"></option>
+                        <option th:each="cuisine : ${cuisineCategories}" th:value="${cuisine.getCuisineId()}" th:text="${cuisine.getName()}"></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -68,7 +68,7 @@
                             <p class="card-text" th:text="'Difficulty: ' + ${recipe.getDifficulty()}"></p>
                             <a th:href="@{'/recipe-details/' + ${recipe.getRecipeId()}}" class="btn btn-primary">View Recipe</a>
                         </div>
-                        <form th:action="@{'/addRecipeToCuisineCategory?recipeId=' + ${recipe.getRecipeId()}}" method="post">
+                        <form th:action="@{'/addRecipeToCuisineCollection?recipeId=' + ${recipe.getRecipeId()}}" method="post">
                             <div class="form-group">
                                 <label for="cuisineCategoryId">Select CuisineCategory:</label>
                                 <select id="cuisineCategoryId" name="cuisineCategoryId" class="form-control">
@@ -82,23 +82,19 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
         <div class="col-md-6">
-            <form th:action="@{/createCuisineCategory}" method="post" class="mt-4">
+            <form th:action="@{/createCuisineCollection}" method="post" class="mt-4">
                 <div class="form-group">
                     <label for="name">CuisineCategory Name:</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Create CuisineCategory</button>
+                    <button type="submit" class="btn btn-primary">Create Cuisine Collection</button>
                 </div>
             </form>
         </div>
-    </div>
 
-    <div class="row">
         <div class="col-md-12">
             <!-- Loop through user's CuisineCategories -->
             <div th:each="cuisine : ${userCollections}">
@@ -124,7 +120,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="container mt-4">
         <a th:href="@{/home}" class="btn btn-primary btn-block">Home page</a>

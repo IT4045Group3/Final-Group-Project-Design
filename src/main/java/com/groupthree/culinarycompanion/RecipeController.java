@@ -38,6 +38,8 @@ public class RecipeController {
         model.addAttribute("allIngredients", ingredientService.getAllIngredients());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         model.addAttribute("recipe", recipe);
+        model.addAttribute("difficulties", Arrays.asList(Recipe.Difficulty.values()));
+        model.addAttribute("types", Arrays.asList(Recipe.RecipeType.values()));
         return "editRecipe";
     }
 
