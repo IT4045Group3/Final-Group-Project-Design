@@ -18,7 +18,7 @@ public class Photo {
     @ManyToOne
     private Recipe recipe;
     @ManyToOne
-    private CuisineCategory cuisineCategory;
+    private Cuisine cuisine;
     @ManyToOne
     private Instruction instruction;
 
@@ -54,12 +54,12 @@ public class Photo {
         this.recipe = recipe;
     }
 
-    public CuisineCategory getCuisineCategory() {
-        return cuisineCategory;
+    public Cuisine getCuisine() {
+        return cuisine;
     }
 
-    public void setCuisineCategory(CuisineCategory cuisineCategory) {
-        this.cuisineCategory = cuisineCategory;
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
     }
 
     public Instruction getInstruction() {

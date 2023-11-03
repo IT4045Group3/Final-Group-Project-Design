@@ -1,10 +1,8 @@
 package com.groupthree.culinarycompanion.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -16,7 +14,7 @@ public class Recipe {
     private int recipeId;
     private String name;
     @ManyToOne
-    private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
+    private Cuisine cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
     @Enumerated(EnumType.STRING)
     private RecipeType type;
     @Enumerated(EnumType.STRING)
@@ -24,8 +22,8 @@ public class Recipe {
     @ManyToMany
     @JoinTable(
             name = "recipe_ingredient",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+            joinColumns = @JoinColumn(name = "recipeId"),
+            inverseJoinColumns = @JoinColumn(name = "ingredientId")
     )
     private List<Ingredient> ingredients;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
@@ -34,8 +32,13 @@ public class Recipe {
     private List<Photo> photos;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private RecipeCollection recipeCollection;
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_collection",
+            joinColumns = @JoinColumn(name = "recipeId"),
+            inverseJoinColumns = @JoinColumn(name = "collectionId")
+    )
+    private List<Collection> collections;
 
     public enum Difficulty {
         EASY,
@@ -67,11 +70,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public CuisineCategory getCuisine() {
+    public Cuisine getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(CuisineCategory cuisine) {
+    public void setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
     }
 
@@ -123,11 +126,11 @@ public class Recipe {
         this.user = user;
     }
 
-    public RecipeCollection getRecipeCollection() {
-        return recipeCollection;
+    public List<Collection> getCollections() {
+        return collections;
     }
 
-    public void setRecipeCollection(RecipeCollection recipeCollection) {
-        this.recipeCollection = recipeCollection;
+    public void setCollections(List<Collection> collections) {
+        this.collections = collections;
     }
 }

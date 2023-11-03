@@ -47,8 +47,8 @@ public class RecipeServiceImpl implements IRecipeService {
             if (updatedRecipe.getPhotos() != null && !existingRecipe.getPhotos().equals(updatedRecipe.getPhotos())) {
                 existingRecipe.setPhotos(updatedRecipe.getPhotos());
             }
-            if (updatedRecipe.getRecipeCollection() != null && !existingRecipe.getRecipeCollection().equals(updatedRecipe.getRecipeCollection())) {
-                existingRecipe.setRecipeCollection(updatedRecipe.getRecipeCollection());
+            if (updatedRecipe.getCollections() != null && !existingRecipe.getCollections().equals(updatedRecipe.getCollections())) {
+                existingRecipe.setCollections(updatedRecipe.getCollections());
             }
             if (updatedRecipe.getUser() != null && !existingRecipe.getUser().equals(updatedRecipe.getUser())) {
                 existingRecipe.setUser(updatedRecipe.getUser());
@@ -135,10 +135,10 @@ public class RecipeServiceImpl implements IRecipeService {
         List<Recipe> filteredRecipes;
 
         if (ascendingOrder) {
-            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyAscNameAsc
+            filteredRecipes = recipeRepository.findByCuisineCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyAscNameAsc
                     (cuisineIds, type, difficulties, ingredientIds, keyWord);
         } else {
-            filteredRecipes = recipeRepository.findByCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyDescNameAsc
+            filteredRecipes = recipeRepository.findByCuisineCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyDescNameAsc
                     (cuisineIds, type, difficulties, ingredientIds, keyWord);
         }
 

@@ -68,11 +68,64 @@
                             <p class="card-text" th:text="'Difficulty: ' + ${recipe.getDifficulty()}"></p>
                             <a th:href="@{'/recipe-details/' + ${recipe.getRecipeId()}}" class="btn btn-primary">View Recipe</a>
                         </div>
+                        <form th:action="@{'/addRecipeToCuisineCategory?recipeId=' + ${recipe.getRecipeId()}}" method="post">
+                            <div class="form-group">
+                                <label for="cuisineCategoryId">Select CuisineCategory:</label>
+                                <select id="cuisineCategoryId" name="cuisineCategoryId" class="form-control">
+                                    <option th:each="collection : ${userCollections}" th:value="${collection.getCollectionId()}" th:text="${collection.getName()}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Add to CuisineCategory</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/createCuisineCategory}" method="post" class="mt-4">
+                <div class="form-group">
+                    <label for="name">CuisineCategory Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create CuisineCategory</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Loop through user's CuisineCategories -->
+            <div th:each="cuisine : ${userCollections}">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 th:text="${cuisine.getName()}"></h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Loop through Recipes in this Cuisine -->
+                        <div th:each="recipe : ${cuisine.getRecipes()}">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 th:text="${recipe.name}"></h5>
+                                    <p th:text="'Cuisine: ' + ${recipe.cuisine.name}"></p>
+                                    <p th:text="'Type: ' + ${recipe.type}"></p>
+                                    <p th:text="'Difficulty: ' + ${recipe.difficulty}"></p>
+                                    <a th:href="@{'/recipe-details/' + ${recipe.recipeId}}" class="btn btn-primary">View Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container mt-4">
         <a th:href="@{/home}" class="btn btn-primary btn-block">Home page</a>
     </div>

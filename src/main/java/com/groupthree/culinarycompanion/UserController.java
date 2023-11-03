@@ -1,7 +1,6 @@
 package com.groupthree.culinarycompanion;
 
-import com.groupthree.culinarycompanion.entity.CuisineCategory;
-import com.groupthree.culinarycompanion.entity.Photo;
+import com.groupthree.culinarycompanion.entity.Cuisine;
 import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -138,9 +136,9 @@ public class UserController {
 
     @PostMapping("/addCuisineCategory")
     public String addCuisineCategory(@RequestParam("cuisineFile") MultipartFile addedPhoto,
-                                     CuisineCategory newCategory) {
+                                     Cuisine newCategory) {
 
-        CuisineCategory addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
+        Cuisine addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
 
         if (addedPhoto != null && !addedPhoto.isEmpty()) {
             String imagePath = userService.saveImage(addedPhoto);

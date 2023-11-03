@@ -2,19 +2,19 @@ package com.groupthree.culinarycompanion.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class RecipeCollection {
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int collectionId;
     private int userId;
-    @OneToMany(mappedBy = "recipeCollection")
+    private String name;
+    @ManyToMany(mappedBy = "collections")
     private List<Recipe> recipes;
 
     public int getCollectionId() {
@@ -31,6 +31,14 @@ public class RecipeCollection {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Recipe> getRecipes() {
