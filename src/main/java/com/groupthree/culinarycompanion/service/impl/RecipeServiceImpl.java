@@ -2,11 +2,6 @@ package com.groupthree.culinarycompanion.service.impl;
 
 import com.groupthree.culinarycompanion.repository.PhotoRepository;
 import com.groupthree.culinarycompanion.repository.RecipeRepository;
-import com.groupthree.culinarycompanion.repository.UserRepository;
-import com.groupthree.culinarycompanion.dto.InstructionDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
-import com.groupthree.culinarycompanion.dto.UserDTO;
 import com.groupthree.culinarycompanion.entity.*;
 import com.groupthree.culinarycompanion.service.IRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +47,8 @@ public class RecipeServiceImpl implements IRecipeService {
             if (updatedRecipe.getPhotos() != null && !existingRecipe.getPhotos().equals(updatedRecipe.getPhotos())) {
                 existingRecipe.setPhotos(updatedRecipe.getPhotos());
             }
-            if (updatedRecipe.getRecipeCollection() != null && !existingRecipe.getRecipeCollection().equals(updatedRecipe.getRecipeCollection())) {
-                existingRecipe.setRecipeCollection(updatedRecipe.getRecipeCollection());
+            if (updatedRecipe.getCollections() != null && !existingRecipe.getCollections().equals(updatedRecipe.getCollections())) {
+                existingRecipe.setCollections(updatedRecipe.getCollections());
             }
             if (updatedRecipe.getUser() != null && !existingRecipe.getUser().equals(updatedRecipe.getUser())) {
                 existingRecipe.setUser(updatedRecipe.getUser());
@@ -99,8 +94,6 @@ public class RecipeServiceImpl implements IRecipeService {
     }
 
 
-
-
     @Override
     public Recipe findRecipeById(int recipeId) {
         return recipeRepository.findById(recipeId).orElse(null);
@@ -128,6 +121,27 @@ public class RecipeServiceImpl implements IRecipeService {
 
     @Override
     public List<Recipe> getRecipesByCategory(int categoryId) {
-        return recipeRepository.findByCuisineId(categoryId);
+        return recipeRepository.findByCuisineCuisineId(categoryId);
+    }
+
+    @Override
+    public List<Recipe> filterAndSortRecipes(
+            List<Integer> cuisineIds,
+            List<Recipe.RecipeType> type,
+            List<Recipe.Difficulty> difficulties,
+            List<Integer> ingredientIds,
+            String keyWord,
+            boolean ascendingOrder) {
+        List<Recipe> filteredRecipes;
+
+        if (ascendingOrder) {
+            filteredRecipes = recipeRepository.findByCuisineCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyAscNameAsc
+                    (cuisineIds, type, difficulties, ingredientIds, keyWord);
+        } else {
+            filteredRecipes = recipeRepository.findByCuisineCuisineIdInAndTypeInAndDifficultyInAndIngredientsIngredientIdInAndNameContainingOrderByDifficultyDescNameAsc
+                    (cuisineIds, type, difficulties, ingredientIds, keyWord);
+        }
+
+        return filteredRecipes;
     }
 }

@@ -1,22 +1,17 @@
 package com.groupthree.culinarycompanion;
 
 
-import com.groupthree.culinarycompanion.entity.Instruction;
-import com.groupthree.culinarycompanion.entity.Photo;
-import com.groupthree.culinarycompanion.entity.Recipe;
-import com.groupthree.culinarycompanion.entity.User;
+import com.groupthree.culinarycompanion.entity.*;
 import com.groupthree.culinarycompanion.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -25,26 +20,31 @@ public class RecipeController {
     private final IRecipeService recipeService;
     private final ICuisineCategoryService cuisineCategoryService;
     private final IInstructionService instructionService;
+    private final IIngredientService ingredientService;
 
     @Autowired
-    public RecipeController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IInstructionService instructionService) {
+    public RecipeController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IInstructionService instructionService, IIngredientService ingredientService) {
         this.userService = userService;
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
         this.instructionService = instructionService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/updateRecipe/{recipeId}")
     public String editRecipe(@PathVariable int recipeId, Model model) {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+        model.addAttribute("allIngredients", ingredientService.getAllIngredients());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         model.addAttribute("recipe", recipe);
+        model.addAttribute("difficulties", Arrays.asList(Recipe.Difficulty.values()));
+        model.addAttribute("types", Arrays.asList(Recipe.RecipeType.values()));
         return "editRecipe";
     }
 
     @PostMapping("/updateRecipe/{recipeId}")
-    public String updateRecipe(@PathVariable int recipeId, @RequestParam("photo") MultipartFile updatedPhoto, Recipe updatedRecipe) {
+    public String updateRecipe(@PathVariable int recipeId, @RequestParam("photo") MultipartFile updatedPhoto, @ModelAttribute Recipe updatedRecipe) {
 
         if (updatedPhoto != null && !updatedPhoto.isEmpty()) {
 
@@ -103,5 +103,12 @@ public class RecipeController {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         model.addAttribute("recipeDetail", recipe);
         return "recipe-details";
+    }
+
+    @PostMapping("/addIngredients")
+    public String addIngredients(@RequestParam("ingredientNames") String  ingredientNames) {
+
+        ingredientService.createIngredientsFromTextarea(ingredientNames);
+        return "redirect:/userProfile";
     }
 }

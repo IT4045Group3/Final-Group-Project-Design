@@ -1,7 +1,6 @@
 package com.groupthree.culinarycompanion;
 
-import com.groupthree.culinarycompanion.entity.CuisineCategory;
-import com.groupthree.culinarycompanion.entity.Photo;
+import com.groupthree.culinarycompanion.entity.Cuisine;
 import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
@@ -10,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -24,12 +24,14 @@ public class UserController {
     private final IUserService userService;
     private final IRecipeService recipeService;
     private final ICuisineCategoryService cuisineCategoryService;
+    private final IIngredientService ingredientService;
 
     @Autowired
-    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService) {
+    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService) {
         this.userService = userService;
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/login")
@@ -45,6 +47,9 @@ public class UserController {
         if (session.getAttribute("loggedInUserName") != null) {
 
             model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
+            model.addAttribute("allIngredients", ingredientService.getAllIngredients());
+            model.addAttribute("difficulties", Arrays.asList(Recipe.Difficulty.values()));
+            model.addAttribute("types", Arrays.asList(Recipe.RecipeType.values()));
             int loggedInUserName = (int) session.getAttribute("loggedInUserId");
             List<Recipe> myRecipes = recipeService.getRecipesByUserId(loggedInUserName);
             model.addAttribute("myRecipes", myRecipes);
@@ -116,7 +121,7 @@ public class UserController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(Recipe newRecipe, @RequestParam("recipeFile") MultipartFile addedPhoto,
+    public String addRecipe(@ModelAttribute Recipe newRecipe, @RequestParam("recipeFile") MultipartFile addedPhoto,
                             HttpSession session) throws FileNotFoundException {
 
         int loggedInUserId = (int) session.getAttribute("loggedInUserId");
@@ -134,13 +139,13 @@ public class UserController {
 
     @PostMapping("/addCuisineCategory")
     public String addCuisineCategory(@RequestParam("cuisineFile") MultipartFile addedPhoto,
-                                     CuisineCategory newCategory) {
+                                     Cuisine newCategory) {
 
-        CuisineCategory addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
+        Cuisine addedCategory = cuisineCategoryService.addCuisineCategory(newCategory);
 
         if (addedPhoto != null && !addedPhoto.isEmpty()) {
             String imagePath = userService.saveImage(addedPhoto);
-            cuisineCategoryService.addPhotoInCategory(addedCategory.getId(), imagePath, addedPhoto.getName());
+            cuisineCategoryService.addPhotoInCategory(addedCategory.getCuisineId(), imagePath, addedPhoto.getName());
         }
         return "redirect:/home";
     }

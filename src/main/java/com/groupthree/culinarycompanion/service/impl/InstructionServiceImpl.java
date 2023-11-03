@@ -4,18 +4,11 @@ import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.repository.InstructionRepository;
 import com.groupthree.culinarycompanion.repository.PhotoRepository;
 import com.groupthree.culinarycompanion.repository.RecipeRepository;
-import com.groupthree.culinarycompanion.dto.InstructionDTO;
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.dto.RecipeDTO;
 import com.groupthree.culinarycompanion.entity.Instruction;
 import com.groupthree.culinarycompanion.entity.Photo;
 import com.groupthree.culinarycompanion.service.IInstructionService;
-import com.groupthree.culinarycompanion.service.IRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class InstructionServiceImpl implements IInstructionService {

@@ -1,10 +1,8 @@
 package com.groupthree.culinarycompanion.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -16,10 +14,17 @@ public class Recipe {
     private int recipeId;
     private String name;
     @ManyToOne
-    private CuisineCategory cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
-    private String type;
-    private String difficulty;
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private Cuisine cuisine; //ex: Mexican cuisine, Italian Cuisine, Chinese cuisine, etc
+    @Enumerated(EnumType.STRING)
+    private RecipeType type;
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_ingredient",
+            joinColumns = @JoinColumn(name = "recipeId"),
+            inverseJoinColumns = @JoinColumn(name = "ingredientId")
+    )
     private List<Ingredient> ingredients;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Instruction> instructions;
@@ -27,8 +32,27 @@ public class Recipe {
     private List<Photo> photos;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private RecipeCollection recipeCollection;
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_collection",
+            joinColumns = @JoinColumn(name = "recipeId"),
+            inverseJoinColumns = @JoinColumn(name = "collectionId")
+    )
+    private List<Collection> collections;
+
+    public enum Difficulty {
+        EASY,
+        MODERATE,
+        HARD
+    }
+    public enum RecipeType {
+        APPETIZER,
+        MAIN_COURSE,
+        DESSERT,
+        SIDE_DISH,
+        DRINK,
+        OTHER
+    }
 
     public int getRecipeId() {
         return recipeId;
@@ -46,27 +70,27 @@ public class Recipe {
         this.name = name;
     }
 
-    public CuisineCategory getCuisine() {
+    public Cuisine getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(CuisineCategory cuisine) {
+    public void setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
     }
 
-    public String getType() {
+    public RecipeType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RecipeType type) {
         this.type = type;
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -102,11 +126,11 @@ public class Recipe {
         this.user = user;
     }
 
-    public RecipeCollection getRecipeCollection() {
-        return recipeCollection;
+    public List<Collection> getCollections() {
+        return collections;
     }
 
-    public void setRecipeCollection(RecipeCollection recipeCollection) {
-        this.recipeCollection = recipeCollection;
+    public void setCollections(List<Collection> collections) {
+        this.collections = collections;
     }
 }

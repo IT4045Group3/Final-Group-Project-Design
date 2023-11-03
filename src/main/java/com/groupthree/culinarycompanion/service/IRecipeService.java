@@ -1,7 +1,5 @@
 package com.groupthree.culinarycompanion.service;
 
-import com.groupthree.culinarycompanion.dto.PhotoDTO;
-import com.groupthree.culinarycompanion.entity.Photo;
 import com.groupthree.culinarycompanion.entity.Recipe;
 
 import java.util.List;
@@ -18,5 +16,12 @@ public interface IRecipeService {
     List<Recipe> getAllRecipes();
     List<Recipe> findRecipesByNameContaining(String keyword);
     List<Recipe> getRecipesByCategory(int categoryId);
+    List<Recipe> filterAndSortRecipes(
+            List<Integer> cuisineIds,
+            List<Recipe.RecipeType> type,
+            List<Recipe.Difficulty> difficulties,
+            List<Integer> ingredientIds,
+            String keyWord,
+            boolean ascendingOrder);
 }
 

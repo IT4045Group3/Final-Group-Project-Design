@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Include your CSS and JavaScript libraries here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Recipe Filter and Sort</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form th:action="@{/filterRecipe}" method="post" class="mt-4">
+                <div class="form-group">
+                    <label for="cuisineIds">Select Cuisines:</label>
+                    <select id="cuisineIds" name="cuisineIds" multiple class="form-control">
+                        <option th:each="cuisine : ${cuisineCategories}" th:value="${cuisine.getCuisineId()}" th:text="${cuisine.getName()}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="difficulties">Select Difficulties:</label>
+                    <select id="difficulties" name="difficulties" multiple class="form-control">
+                        <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="types">Select Recipe Types:</label>
+                    <select id="types" name="types" multiple class="form-control">
+                        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ingredientIds">Select Ingredients:</label>
+                    <select id="ingredientIds" name="ingredientIds" multiple class="form-control">
+                        <option th:each="ingredient : ${ingredients}" th:value="${ingredient.ingredientId}" th:text="${ingredient.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Keyword:</label>
+                    <input type="text" id="keyword" name="keyword" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="ascendingOrder">Sort Order:</label>
+                    <select id="ascendingOrder" name="ascendingOrder" class="form-control">
+                        <option th:value="true">Difficulty Ascending</option>
+                        <option th:value="false">Difficulty Descending</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Filter and Sort</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row recipe-box mt-4">
+                <div class="col-md-4" th:each="recipe : ${filteredRecipes}">
+                    <div class="card mb-4">
+                        <img class="card-img-top" th:src="${recipe.getPhotos().get(0).getPhotoPath()}" alt="Recipe Image">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${recipe.getName()}"></h5>
+                            <p class="card-text" th:text="'Cuisine: ' + ${recipe.getCuisine().getName()}"></p>
+                            <p class="card-text" th:text="'Type: ' + ${recipe.getType()}"></p>
+                            <p class="card-text" th:text="'Difficulty: ' + ${recipe.getDifficulty()}"></p>
+                            <a th:href="@{'/recipe-details/' + ${recipe.getRecipeId()}}" class="btn btn-primary">View Recipe</a>
+                        </div>
+                        <form th:action="@{'/addRecipeToCuisineCollection?recipeId=' + ${recipe.getRecipeId()}}" method="post">
+                            <div class="form-group">
+                                <label for="cuisineCategoryId">Select CuisineCategory:</label>
+                                <select id="cuisineCategoryId" name="cuisineCategoryId" class="form-control">
+                                    <option th:each="collection : ${userCollections}" th:value="${collection.getCollectionId()}" th:text="${collection.getName()}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Add to CuisineCategory</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <form th:action="@{/createCuisineCollection}" method="post" class="mt-4">
+                <div class="form-group">
+                    <label for="name">CuisineCategory Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create Cuisine Collection</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12">
+            <!-- Loop through user's CuisineCategories -->
+            <div th:each="cuisine : ${userCollections}">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 th:text="${cuisine.getName()}"></h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Loop through Recipes in this Cuisine -->
+                        <div th:each="recipe : ${cuisine.getRecipes()}">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 th:text="${recipe.name}"></h5>
+                                    <p th:text="'Cuisine: ' + ${recipe.cuisine.name}"></p>
+                                    <p th:text="'Type: ' + ${recipe.type}"></p>
+                                    <p th:text="'Difficulty: ' + ${recipe.difficulty}"></p>
+                                    <a th:href="@{'/recipe-details/' + ${recipe.recipeId}}" class="btn btn-primary">View Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <a th:href="@{/home}" class="btn btn-primary btn-block">Home page</a>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    // Function to set all options as selected when nothing is chosen
+    function setDefaultSelection(selectElement) {
+        if (selectElement.selectedOptions.length === 0) {
+            for (let option of selectElement.options) {
+                option.selected = true;
+            }
+        }
+    }
+
+    // Add an event listener to the form submit event
+    document.addEventListener('DOMContentLoaded', function () {
+        let form = document.querySelector('form');
+        form.addEventListener('submit', function () {
+            let cuisineSelect = document.getElementById('cuisineIds');
+            let difficultySelect = document.getElementById('difficulties');
+            let typesSelect = document.getElementById('types');
+            let ingredientSelect = document.getElementById('ingredientIds');
+
+            setDefaultSelection(cuisineSelect);
+            setDefaultSelection(difficultySelect);
+            setDefaultSelection(typesSelect);
+            setDefaultSelection(ingredientSelect);
+        });
+    });
+</script>
+
+</html>

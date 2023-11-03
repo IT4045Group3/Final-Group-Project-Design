@@ -16,21 +16,35 @@
     <form th:action="@{'/updateRecipe/' + ${recipe.recipeId}}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nameRecipe">Recipe Name:</label>
-            <input type="text" id="nameRecipe" name="name" th:value="${recipe.name}" class="form-control">
+            <input type="text" id="nameRecipe" name="name" th:value="${recipe.getName()}" class="form-control">
         </div>
         <div class="form-group">
             <label for="cuisine">Cuisine Category:</label>
-            <select id="cuisine" name="cuisine.id" class="form-control">
-                <option th:each="category : ${cuisineCategories}" th:value="${category.id}" th:text="${category.name}"></option>
+            <select id="cuisine" name="cuisine" class="form-control">
+                <option th:each="cuisine : ${cuisineCategories}" th:value="${cuisine.getCuisineId()}" th:text="${cuisine.getName()}"
+                        th:selected="${cuisine.getCuisineId() == recipe.getCuisine().getCuisineId()}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Ingredients:</label>
+            <select id="ingredients" name="ingredients" class="form-control" multiple required>
+                <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.getIngredientId()}" th:text="${ingredient.getName()}"
+                        th:selected="${recipe.getIngredients().contains(ingredient)}"></option>
             </select>
         </div>
         <div class="form-group">
             <label for="type">Type:</label>
-            <input type="text" id="type" name="type" th:value="${recipe.type}" class="form-control">
+            <select id="type" name="type" th:value="${recipe.getType()}" class="form-control">
+                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"
+                        th:selected="${type == recipe.type}"></option>
+            </select>
         </div>
         <div class="form-group">
             <label for="difficulty">Difficulty:</label>
-            <input type="text" id="difficulty" name="difficulty" th:value="${recipe.difficulty}" class="form-control">
+            <select id="difficulty" name="difficulty" class="form-control" required>
+                <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}"
+                        th:selected="${difficulty == recipe.difficulty}"></option>
+            </select>
         </div>
         <div class="form-group">
             <label for="imageRecipe">Update Image:</label>
@@ -38,7 +52,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
-
     <div class="form-group">
         <h2 class="mt-4">Add Instruction</h2>
         <form th:action="@{'/addInstruction/' + ${recipe.recipeId}}" method="post" enctype="multipart/form-data">
@@ -61,42 +74,41 @@
             <button type="submit" class="btn btn-primary">Add Instruction</button>
         </form>
     </div>
-
     <div class="form-group">
         <h2 class="mt-4">Instructions</h2>
         <ul>
             <li th:each="instruction : ${recipe.getInstructions()}">
-                <form th:action="@{'/updateInstruction/' + ${recipe.recipeId} + '/' + ${instruction.getInstructionId()}}" method="post" enctype="multipart/form-data">
+                <form th:action="@{'/updateInstruction/' + ${recipe.getRecipeId()} + '/' + ${instruction.getInstructionId()}}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="instructionStepNumberUpdate">Step Number:</label>
-                        <input type="number" id="instructionStepNumberUpdate" name="stepNumber" th:value="${instruction.stepNumber}" class="form-control">
+                        <input type="number" id="instructionStepNumberUpdate" name="stepNumber" th:value="${instruction.getStepNumber()}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="instructionDescriptionUpdate">Description:</label>
-                        <input type="text" id="instructionDescriptionUpdate" name="description" th:value="${instruction.description}" class="form-control">
+                        <input type="text" id="instructionDescriptionUpdate" name="description" th:value="${instruction.getDescription()}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="instructionVideoURLUpdate">Video URL:</label>
-                        <input type="text" id="instructionVideoURLUpdate" name="videoURL" th:value="${instruction.videoURL}" class="form-control">
+                        <input type="text" id="instructionVideoURLUpdate" name="videoURL" th:value="${instruction.getVideoURL()}" class="form-control">
                     </div>
                     <div th:each="photo : ${instruction.getPhotos()}">
                         <div class="form-group">
                             <img th:src="@{${photo.getPhotoPath()}}" alt="Instruction Image" style="max-width: 200px;">
                         </div>
                         <div class="form-group">
-                            <a th:href="@{'/deletePhoto/' + ${recipe.recipeId} + '/' + ${instruction.instructionId} + '/' + ${photo.photoId}}" class="btn btn-danger">Delete Photo</a>
+                            <a th:href="@{'/deletePhoto/' + ${recipe.getRecipeId()} + '/' + ${instruction.getInstructionId()} + '/' + ${photo.getPhotoId()}}" class="btn btn-danger">Delete Photo</a>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update Instruction</button>
                 </form><br/>
-                <form th:action="@{'/addPhoto/' + ${recipe.recipeId} + '/' + ${instruction.instructionId}}" method="post" enctype="multipart/form-data">
+                <form th:action="@{'/addPhoto/' + ${recipe.getRecipeId()} + '/' + ${instruction.getInstructionId()}}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="instructionPhotoAdd">Add Image:</label>
                         <input type="file" id="instructionPhotoAdd" name="instructionImageEditAdd" class="form-control">
                         <button type="submit" class="btn btn-primary">Add Photo</button>
                     </div>
                 </form>
-                <a th:href="@{'/deleteInstruction/' + ${recipe.recipeId} + '/' + ${instruction.instructionId}}" class="btn btn-danger">Delete Instruction</a>
+                <a th:href="@{'/deleteInstruction/' + ${recipe.getRecipeId()} + '/' + ${instruction.getInstructionId()}}" class="btn btn-danger">Delete Instruction</a>
                 <hr><br/>
             </li>
         </ul>
