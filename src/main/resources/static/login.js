@@ -13,4 +13,5 @@ $('register-form').submit(function (e) {
         alert('You have to agree statement.');
         e.preventDefault();
     }
-})
+});
+
