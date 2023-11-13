@@ -13,4 +13,3 @@ public interface ICuisineCategoryService {
     void addPhotoInCategory(int cuisineCategoryId, String imagePath, String imageName);
 
 }
-user
