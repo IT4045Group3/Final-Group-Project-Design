@@ -95,7 +95,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(Model model, HttpSession session, @RequestParam("email") String email, User user) {
+    public String processRegistration(Model model,
+                                      HttpSession session,
+                                      @RequestParam("email") String email,
+                                      User user,
+                                      @RequestParam(value = "agree", defaultValue = "false") boolean agree) {
 
         if (userService.findUserByEmail(email) != null) {
             model.addAttribute("registrationFailure", true);
@@ -116,6 +120,12 @@ public class UserController {
                 },
                 1000
         );
+
+        if (!agree) {
+            model.addAttribute("registrationFailure", true);
+            model.addAttribute("registerError", "You must agree to the statement.");
+            return "login";
+        }
 
         return "redirect:/login";
     }
