@@ -106,6 +106,11 @@ public class UserController {
             model.addAttribute("registerError", "Email already in use");
             return "login";
         }
+        if (!agree) {
+            model.addAttribute("registrationFailure", true);
+            model.addAttribute("registerError", "You must agree to the statement.");
+            return "login";
+        }
 
         session.setAttribute("registerSuccessful", "Register successful");
         model.addAttribute("registrationFailure", false);
@@ -120,12 +125,6 @@ public class UserController {
                 },
                 1000
         );
-
-        if (!agree) {
-            model.addAttribute("registrationFailure", true);
-            model.addAttribute("registerError", "You must agree to the statement.");
-            return "login";
-        }
 
         return "redirect:/login";
     }
