@@ -3,8 +3,11 @@ package com.groupthree.culinarycompanion.service.impl;
 import com.groupthree.culinarycompanion.repository.UserRepository;
 import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.IUserService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -85,5 +88,54 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void loginUser(HttpSession session, HttpServletResponse response, String email) {
+        session.setAttribute("loginSuccessful", "Successful login as " + findUserByEmail(email).getUsername().trim());
+        session.setAttribute("loggedInUserName", findUserByEmail(email).getUsername());
+        session.setAttribute("loggedInUserId", findUserByEmail(email).getUserId());
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        session.removeAttribute("loginSuccessful");
+                    }
+                },
+                1000
+        );
+    }
+    @Override
+    public boolean validateRegistration(Model model, String email, boolean agree) {
+        if (userRepository.findByEmail(email) != null) {
+            model.addAttribute("registrationFailure", true);
+            model.addAttribute("registerError", "Email already in use");
+            return true;
+        }
+        if (!agree) {
+            model.addAttribute("registrationFailure", true);
+            model.addAttribute("registerError", "You must agree to the statement.");
+            return true;
+        }
+
+        model.addAttribute("registrationFailure", false);
+        return false;
+    }
+
+    @Override
+    public void handleSuccessfulRegistration(HttpSession session, User user) {
+        session.setAttribute("registerSuccessful", "Register successful");
+        userRepository.save(user);
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        session.removeAttribute("registerSuccessful");
+                    }
+                },
+                1000
+        );
     }
 }
