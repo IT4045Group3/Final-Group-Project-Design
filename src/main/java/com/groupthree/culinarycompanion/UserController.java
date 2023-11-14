@@ -4,6 +4,9 @@ import com.groupthree.culinarycompanion.entity.Cuisine;
 import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +28,15 @@ public class UserController {
     private final IRecipeService recipeService;
     private final ICuisineCategoryService cuisineCategoryService;
     private final IIngredientService ingredientService;
+    private final IRememberMeTokenService rememberMeTokenService;
 
     @Autowired
-    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService) {
+    public UserController(IUserService userService, IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService, IRememberMeTokenService rememberMeTokenService) {
         this.userService = userService;
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
         this.ingredientService = ingredientService;
+        this.rememberMeTokenService = rememberMeTokenService;
     }
 
     @GetMapping("/login")
@@ -60,33 +65,25 @@ public class UserController {
     }
 
     @GetMapping("/logOut")
-    public String logout(HttpSession session) {
-
-        session.removeAttribute("loggedInUserName");
-        session.removeAttribute("loginSuccessful");
-        session.removeAttribute("loggedInUserId");
-
+    public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        rememberMeTokenService.clearSessionAttributes(session);
+        rememberMeTokenService.clearRememberMeToken(request, response);
         return ("redirect:/login");
     }
 
     @PostMapping("/login")
-    public String processLogin(Model model, HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public String processLogin(Model model,
+                               HttpSession session,
+                               HttpServletResponse response,
+                               @RequestParam("email") String email,
+                               @RequestParam("password") String password,
+                               @RequestParam(name = "remember-me", required = false) boolean rememberMe) {
 
         if (userService.isValidLogin(email, password)) {
-            session.setAttribute("loginSuccessful", "Successful login as " + userService.findUserByEmail(email).getUsername().trim());
-            session.setAttribute("loggedInUserName", userService.findUserByEmail(email).getUsername());
-            session.setAttribute("loggedInUserId", userService.findUserByEmail(email).getUserId());
-
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            session.removeAttribute("loginSuccessful");
-                        }
-                    },
-                    1000
-            );
-
+            userService.loginUser(session, response, email);
+            if (rememberMe) {
+                rememberMeTokenService.rememberUser(response, email);
+            }
             return "redirect:/home";
         } else {
             model.addAttribute("loginError", "Invalid email or password");
@@ -101,31 +98,10 @@ public class UserController {
                                       User user,
                                       @RequestParam(value = "agree", defaultValue = "false") boolean agree) {
 
-        if (userService.findUserByEmail(email) != null) {
-            model.addAttribute("registrationFailure", true);
-            model.addAttribute("registerError", "Email already in use");
+        if (userService.validateRegistration(model, email, agree)) {
             return "login";
         }
-        if (!agree) {
-            model.addAttribute("registrationFailure", true);
-            model.addAttribute("registerError", "You must agree to the statement.");
-            return "login";
-        }
-
-        session.setAttribute("registerSuccessful", "Register successful");
-        model.addAttribute("registrationFailure", false);
-        userService.createUser(user);
-
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        session.removeAttribute("registerSuccessful");
-                    }
-                },
-                1000
-        );
-
+        userService.handleSuccessfulRegistration(session, user);
         return "redirect:/login";
     }
 

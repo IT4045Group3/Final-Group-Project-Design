@@ -4,7 +4,10 @@ package com.groupthree.culinarycompanion;
 import com.groupthree.culinarycompanion.entity.Cuisine;
 import com.groupthree.culinarycompanion.entity.Recipe;
 import com.groupthree.culinarycompanion.entity.Collection;
+import com.groupthree.culinarycompanion.entity.User;
 import com.groupthree.culinarycompanion.service.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,24 +24,30 @@ public class HomeController {
     private final ICuisineCategoryService cuisineCategoryService;
     private final IIngredientService ingredientService;
     private final IRecipeCollectionService collectionService;
+    private final IRememberMeTokenService rememberMeTokenService;
+    private final IUserService userService;
 
     @Autowired
-    public HomeController(IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService, IRecipeCollectionService collectionService) {
+    public HomeController(IRecipeService recipeService, ICuisineCategoryService cuisineCategoryService, IIngredientService ingredientService, IRecipeCollectionService collectionService, IRememberMeTokenService rememberMeTokenService, IUserService userService) {
         this.recipeService = recipeService;
         this.cuisineCategoryService = cuisineCategoryService;
         this.ingredientService = ingredientService;
         this.collectionService = collectionService;
+        this.rememberMeTokenService = rememberMeTokenService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpSession session, HttpServletRequest request) {
+        rememberMeTokenService.checkRememberMeToken(request,session);
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         return "home";
     }
 
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session, HttpServletRequest request) {
+        rememberMeTokenService.checkRememberMeToken(request,session);
         model.addAttribute("cuisineCategories", cuisineCategoryService.getAllCuisineCategories());
         model.addAttribute("recipes", recipeService.getAllRecipes());
         return "home";
