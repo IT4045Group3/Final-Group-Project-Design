@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -109,6 +110,11 @@ public class RecipeController {
     public String addIngredients(@RequestParam("ingredientNames") String  ingredientNames) {
 
         ingredientService.createIngredientsFromTextarea(ingredientNames);
+        return "redirect:/userProfile";
+    }
+    @GetMapping("/addCommonIngredients")
+    public String addCommonIngredients() throws IOException {
+        ingredientService.addCommonIngredientsFromJson();
         return "redirect:/userProfile";
     }
 }
